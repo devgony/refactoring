@@ -25,7 +25,8 @@ class AppTest {
         Map<String, Play> plays = objectMapper.readValue(playsStream,
                 objectMapper.getTypeFactory().constructMapType(Map.class, String.class, Play.class));
 
-        String actual = App.statement(invoices.get(0), plays);
+        App app = new App(invoices.get(0), plays);
+        String actual = app.statement();
         assertThat(actual).isEqualTo(expected);
     }
 }
