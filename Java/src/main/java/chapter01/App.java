@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 public class App {
+    Invoice invoice;
+    Map<String, Play> plays;
+
     @Data
     static class Invoice {
         String customer;
@@ -26,14 +31,14 @@ public class App {
         String type;
     }
 
-    static String format(int number) {
+    String format(int number) {
         NumberFormat formatter = NumberFormat.getInstance(Locale.US);
         formatter.setMinimumFractionDigits(2);
 
         return "$" + formatter.format(number);
     }
 
-    static String statement(Invoice invoice, Map<String, Play> plays) {
+    String statement() {
         int totalAmount = 0;
         int volumeCredits = 0;
 
@@ -59,7 +64,7 @@ public class App {
         return result;
     }
 
-    private static int amountFor(Performance aPerformance, Play play) throws Error {
+    private int amountFor(Performance aPerformance, Play play) throws Error {
         int result = 0;
         switch (play.type) {
             case "tragedy":
