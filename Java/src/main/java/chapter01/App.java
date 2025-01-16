@@ -55,11 +55,11 @@ public class App {
     }
 
     private int totalVolumeCredits() {
-        int volumeCredits = 0;
+        int result = 0;
         for (Performance perf : invoice.performances) {
-            volumeCredits += volumeCreditsFor(perf);
+            result += volumeCreditsFor(perf);
         }
-        return volumeCredits;
+        return result;
     }
 
     private int volumeCreditsFor(Performance aPerformance) {
