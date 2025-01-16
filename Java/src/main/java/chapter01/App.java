@@ -48,14 +48,18 @@ public class App {
             totalAmount += amountFor(perf);
         }
 
+        result += "Amount owed is " + usd(totalAmount / 100) + "\n";
+        result += "You earned " + totalVolumeCredits() + " credits\n";
+
+        return result;
+    }
+
+    private int totalVolumeCredits() {
         int volumeCredits = 0;
         for (Performance perf : invoice.performances) {
             volumeCredits += volumeCreditsFor(perf);
         }
-        result += "Amount owed is " + usd(totalAmount / 100) + "\n";
-        result += "You earned " + volumeCredits + " credits\n";
-
-        return result;
+        return volumeCredits;
     }
 
     private int volumeCreditsFor(Performance aPerformance) {
