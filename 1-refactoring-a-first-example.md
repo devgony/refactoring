@@ -484,6 +484,8 @@ function renderPlainText(invoice, plays) {
 }
 ```
 
+- 중간 데이터 구조인 statementData 를 생성하여 Calculation 로직을 하나씩 renderPlainText 밖으로 빼낼 예정
+
 ```js
 function statement(invoice, plays) {
   const statementData = {}; // 중간 데이터 구조 생성
@@ -508,6 +510,24 @@ function statement(invoice, plays) {
 
 ```js
 function renderPlainText(data, plays) {
+  //..
+  for (let perf of data.performances) {
+    //..
+  }
+  //..
+}
+```
+
+```js
+// function renderPlainText…
+function totalAmount() {
+  //..
+  for (let perf of data.performances) {
+    //..
+  }
+  //..
+}
+function totalVolumeCredits() {
   //..
   for (let perf of data.performances) {
     //..

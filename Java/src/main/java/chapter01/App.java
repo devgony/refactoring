@@ -12,6 +12,7 @@ import lombok.Data;
 public class App {
     Invoice invoice;
     Map<String, Play> plays;
+    StatementData data = new StatementData();
 
     @Data
     static class Invoice {
@@ -31,21 +32,23 @@ public class App {
         String type;
     }
 
-    String usd(int number) {
-        NumberFormat formatter = NumberFormat.getInstance(Locale.US);
-        formatter.setMinimumFractionDigits(2);
-
-        return "$" + formatter.format(number);
+    @Data
+    static class StatementData {
+        String customer;
+        List<Performance> performances;
     }
 
     String statement() {
-        return renderPlainText();
+        data.customer = invoice.customer;
+        data.performances = invoice.performances;
+
+        return renderPlainText(data);
     }
 
-    private String renderPlainText() throws Error {
+    private String renderPlainText(StatementData data) throws Error {
         String result = "Statement for " + invoice.customer + "\n";
 
-        for (Performance perf : invoice.performances) {
+        for (Performance perf : data.performances) {
             result += playFor(perf).name + ": " + usd(amountFor(perf) / 100) + " (" + perf.audience + " seats)\n";
         }
         result += "Amount owed is " + usd(totalAmount() / 100) + "\n";
@@ -54,9 +57,16 @@ public class App {
         return result;
     }
 
+    String usd(int number) {
+        NumberFormat formatter = NumberFormat.getInstance(Locale.US);
+        formatter.setMinimumFractionDigits(2);
+
+        return "$" + formatter.format(number);
+    }
+
     private int totalAmount() throws Error {
         int result = 0;
-        for (Performance perf : invoice.performances) {
+        for (Performance perf : data.performances) {
             result += amountFor(perf);
         }
         return result;
@@ -64,7 +74,7 @@ public class App {
 
     private int totalVolumeCredits() {
         int result = 0;
-        for (Performance perf : invoice.performances) {
+        for (Performance perf : data.performances) {
             result += volumeCreditsFor(perf);
         }
         return result;
