@@ -40,7 +40,6 @@ public class App {
 
     String statement() {
         int totalAmount = 0;
-        int volumeCredits = 0;
 
         String result = "Statement for " + invoice.customer + "\n";
 
@@ -49,6 +48,7 @@ public class App {
             totalAmount += amountFor(perf);
         }
 
+        int volumeCredits = 0;
         for (Performance perf : invoice.performances) {
             volumeCredits += volumeCreditsFor(perf);
         }
