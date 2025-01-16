@@ -45,7 +45,7 @@ public class App {
         String result = "Statement for " + invoice.customer + "\n";
 
         for (Performance perf : invoice.performances) {
-            Play play = plays.get(perf.playID);
+            Play play = playFor(perf);
             int thisAmount = amountFor(perf, play);
 
             // add volume credits
@@ -62,6 +62,10 @@ public class App {
         result += "You earned " + volumeCredits + " credits\n";
 
         return result;
+    }
+
+    private Play playFor(Performance aPerformance) {
+        return plays.get(aPerformance.playID);
     }
 
     private int amountFor(Performance aPerformance, Play play) throws Error {
