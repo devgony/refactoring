@@ -458,7 +458,7 @@ function statement(invoice, plays) {
 ## Splitting the Phases of Calculation and Formatting
 
 - 이제 structure 가 구성 되었으니 HTML render 기능을 추가한다.
-- 하지만 좋은 structure 는 copy 하지 않고도 재활용하고 싶다 => `Split Phase` 를 통해 Calculation과 Rendering을 분리한다.
+- `Split Phase`: 현재는 textual statement method 내에 calculation 이 섞여 있으므로 각 로직들을 재활용 하기 쉽도록 Calculation과 Rendering을 분리한다.
   1. `Extract Function` 으로 rendering 부분을 분리한다 => statement 함수 전체에 해당
 
 ```js
