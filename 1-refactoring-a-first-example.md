@@ -188,7 +188,7 @@ function amountFor(perf, play) {
 }
 ```
 
-마틴 파울러는 return 할 변수명은 항상 result 로 정의한다고 한다.
+- 마틴 파울러는 return 할 변수명은 항상 result 로 정의한다고 한다.
 
 ```javascript
 function amountFor(aPerformance, play) {
@@ -196,13 +196,13 @@ function amountFor(aPerformance, play) {
 }
 ```
 
-perf => aPerformance 변경: parameter의 이름은 type 과 복수형 구분을 포함하는것이 좋다
+- perf => aPerformance 변경: parameter의 이름은 type 과 복수형 구분을 포함하는것이 좋다
 
 > Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
 
 ## Removing the play Variable
 
-- play 변수는 amountFor 함수만을 위해 compute 되고 있었으므로 amountFor 안에서 compute 하도록 변경한다.
+- amountFor 의 param 중 play 는 aPerformance 를 기반으로 계산 될 수 있으므로, param이 아니라 내부에서 playFor 수행하여 얻는다
 - `Replace Temp with Query`: `Extract Function` + `Inlinie Variable`
   - `Extract Function`: playFor computation
   - `Inline Variable`: local var 제거
