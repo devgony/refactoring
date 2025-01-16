@@ -58,13 +58,12 @@ public class App {
         return result;
     }
 
-    private int volumeCreditsFor(Performance perf) {
-        int volumeCredits = 0;
-        volumeCredits += Math.max(perf.audience - 30, 0);
-        // add extra credit for every ten comedy attendees
-        if ("comedy".equals(playFor(perf).type))
-            volumeCredits += Math.floor(perf.audience / 5);
-        return volumeCredits;
+    private int volumeCreditsFor(Performance aPerformance) {
+        int result = 0;
+        result += Math.max(aPerformance.audience - 30, 0);
+        if ("comedy".equals(playFor(aPerformance).type))
+            result += Math.floor(aPerformance.audience / 5);
+        return result;
     }
 
     private Play playFor(Performance aPerformance) {
