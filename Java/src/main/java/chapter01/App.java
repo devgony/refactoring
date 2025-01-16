@@ -39,6 +39,10 @@ public class App {
     }
 
     String statement() {
+        return renderPlainText();
+    }
+
+    private String renderPlainText() throws Error {
         String result = "Statement for " + invoice.customer + "\n";
 
         for (Performance perf : invoice.performances) {
