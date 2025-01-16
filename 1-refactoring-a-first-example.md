@@ -316,7 +316,7 @@ function statement(invoice, plays) {
 }
 ```
 
-- `Slide Statements`: volumeCredits 계산 부분을 두 loop 사이로 이동
+- `Slide Statements`: volumeCredits 초기화 부분을 두 loop 사이로 이동
 
 ```javascript
 function statement(invoice, plays) {
@@ -335,7 +335,7 @@ function statement(invoice, plays) {
 ```
 
 - `Replace Temp with Query`: `Extract Function` + `Inlinie Variable`
-- `Extract Function`: volumeCredits 선언부와 volumeCreditsFor 를 totalVolumeCredits 추출
+- `Extract Function`: volumeCredits 선언부와 volumeCreditsFor 를 totalVolumeCredits 로 추출
 
 ```javascript
 function totalVolumeCredits() {
