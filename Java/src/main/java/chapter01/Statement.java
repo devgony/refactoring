@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-public class App {
+public class Statement {
     Map<String, Play> plays;
 
     @Data
