@@ -765,7 +765,7 @@ function enrichPerformance(aPerformance) {
 
 ## Moving Functions into the Calculator
 
--`Move Function`: amountFor, volumeCredits 를 PerformanceCalculator 로 이동
+- `Move Function`: amountFor, volumeCredits 를 PerformanceCalculator 로 이동
 
 ```js
 class PerformanceCalculator {
