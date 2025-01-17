@@ -4,15 +4,18 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class App {
     Invoice invoice;
     Map<String, Play> plays;
-    StatementData data = new StatementData();
+    StatementData data;
 
     @Data
     static class Invoice {
@@ -21,9 +24,12 @@ public class App {
     }
 
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     static class Performance {
         String playID;
         int audience;
+        Play play;
     }
 
     @Data
@@ -40,16 +46,23 @@ public class App {
 
     String statement() {
         data.customer = invoice.customer;
-        data.performances = invoice.performances;
+        data.performances = invoice.performances.stream().map(this::enrichPerformance).collect(Collectors.toList());
 
         return renderPlainText(data);
     }
+
+    private Performance enrichPerformance(Performance aPerformance) {
+        Performance result = new Performance(aPerformance.playID, aPerformance.audience, null);
+        result.play = playFor(result);
+
+        return result;
+    };
 
     private String renderPlainText(StatementData data) throws Error {
         String result = "Statement for " + invoice.customer + "\n";
 
         for (Performance perf : data.performances) {
-            result += playFor(perf).name + ": " + usd(amountFor(perf) / 100) + " (" + perf.audience + " seats)\n";
+            result += perf.play.name + ": " + usd(amountFor(perf) / 100) + " (" + perf.audience + " seats)\n";
         }
         result += "Amount owed is " + usd(totalAmount() / 100) + "\n";
         result += "You earned " + totalVolumeCredits() + " credits\n";
@@ -83,7 +96,7 @@ public class App {
     private int volumeCreditsFor(Performance aPerformance) {
         int result = 0;
         result += Math.max(aPerformance.audience - 30, 0);
-        if ("comedy".equals(playFor(aPerformance).type))
+        if ("comedy".equals(aPerformance.play.type))
             result += Math.floor(aPerformance.audience / 5);
         return result;
     }
@@ -94,7 +107,7 @@ public class App {
 
     private int amountFor(Performance aPerformance) throws Error {
         int result = 0;
-        switch (playFor(aPerformance).type) {
+        switch (aPerformance.play.type) {
             case "tragedy":
                 result = 40000;
                 if (aPerformance.audience > 30) {
@@ -109,7 +122,7 @@ public class App {
                 result += 300 * aPerformance.audience;
                 break;
             default:
-                throw new Error("unknown type: " + playFor(aPerformance).type);
+                throw new Error("unknown type: " + aPerformance.play.type);
         }
         return result;
     }
