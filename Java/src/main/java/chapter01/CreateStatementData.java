@@ -48,8 +48,40 @@ class CreateStatementData {
 
     @AllArgsConstructor
     static class PerformanceCalculator {
-        Performance aPerformance;
-        Play aPlay;
+        Performance performance;
+        Play play;
+
+        int amount() throws Error {
+            int result = 0;
+            switch (play.type) {
+                case "tragedy":
+                    result = 40000;
+                    if (performance.audience > 30) {
+                        result += 1000 * (performance.audience - 30);
+                    }
+                    break;
+                case "comedy":
+                    result = 30000;
+                    if (performance.audience > 20) {
+                        result += 10000 + 500 * (performance.audience - 20);
+                    }
+                    result += 300 * performance.audience;
+                    break;
+                default:
+                    throw new Error("unknown type: " + performance.play.type);
+            }
+
+            return result;
+        }
+
+        int volumeCredits() {
+            int result = 0;
+            result += Math.max(performance.audience - 30, 0);
+            if ("comedy".equals(play.type))
+                result += Math.floor(performance.audience / 5);
+
+            return result;
+        }
     }
 
     public StatementData createStatementData(Invoice invoice, Map<String, Play> plays) throws Error {
@@ -65,9 +97,9 @@ class CreateStatementData {
     private Performance enrichPerformance(Performance aPerformance) {
         PerformanceCalculator calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance));
         Performance result = new Performance(aPerformance.playID, aPerformance.audience);
-        result.play = playFor(result);
-        result.amount = amountFor(result);
-        result.volumeCredits = volumeCreditsFor(result);
+        result.play = calculator.play;
+        result.amount = calculator.amount();
+        result.volumeCredits = calculator.volumeCredits();
 
         return result;
     };
@@ -81,11 +113,8 @@ class CreateStatementData {
     }
 
     private int volumeCreditsFor(Performance aPerformance) {
-        int result = 0;
-        result += Math.max(aPerformance.audience - 30, 0);
-        if ("comedy".equals(aPerformance.play.type))
-            result += Math.floor(aPerformance.audience / 5);
-        return result;
+        return new PerformanceCalculator(aPerformance, playFor(aPerformance)).volumeCredits();
+
     }
 
     private Play playFor(Performance aPerformance) {
@@ -93,24 +122,6 @@ class CreateStatementData {
     }
 
     private int amountFor(Performance aPerformance) throws Error {
-        int result = 0;
-        switch (aPerformance.play.type) {
-            case "tragedy":
-                result = 40000;
-                if (aPerformance.audience > 30) {
-                    result += 1000 * (aPerformance.audience - 30);
-                }
-                break;
-            case "comedy":
-                result = 30000;
-                if (aPerformance.audience > 20) {
-                    result += 10000 + 500 * (aPerformance.audience - 20);
-                }
-                result += 300 * aPerformance.audience;
-                break;
-            default:
-                throw new Error("unknown type: " + aPerformance.play.type);
-        }
-        return result;
+        return new PerformanceCalculator(aPerformance, playFor(aPerformance)).amount();
     }
 }
