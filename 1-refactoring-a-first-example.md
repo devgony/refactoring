@@ -766,6 +766,7 @@ function enrichPerformance(aPerformance) {
 ## Moving Functions into the Calculator
 
 - `Move Function`: amountFor, volumeCredits 를 PerformanceCalculator 로 이동
+  - js 의 get keyword 활용하여 getter 정의
 
 ```js
 class PerformanceCalculator {
@@ -802,7 +803,7 @@ class PerformanceCalculator {
 }
 ```
 
-- What is this?
+- PerformanceCalculator 의 getter 를 사용하도록 변경
 
 ```js
 // function createStatementData…
@@ -815,6 +816,7 @@ function amountFor(aPerformance) {
 // function createStatementData…
 function enrichPerformance(aPerformance) {
   //..
+  result.play = calculator.aPlay;
   result.amount = calculator.amount;
   result.volumeCredits = calculator.volumeCredits;
 }
