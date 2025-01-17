@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import chapter01.App.Invoice;
 import chapter01.App.Play;
+import chapter01.App.StatementData;
+
 import java.io.InputStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +27,7 @@ class AppTest {
         Map<String, Play> plays = objectMapper.readValue(playsStream,
                 objectMapper.getTypeFactory().constructMapType(Map.class, String.class, Play.class));
 
-        App app = new App(invoices.get(0), plays);
+        App app = new App(invoices.get(0), plays, new StatementData());
         String actual = app.statement();
         assertThat(actual).isEqualTo(expected);
     }
