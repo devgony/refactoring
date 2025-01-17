@@ -600,7 +600,7 @@ function totalVolumeCredits(data) {
 }
 ```
 
-- extract all the first-phase code into `createStatementData`
+- `Replace Temp with Query`: extract all the first-phase code into `createStatementData`
 
 ```js
 // top level…
