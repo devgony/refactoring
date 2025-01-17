@@ -90,19 +90,11 @@ public class App {
     }
 
     private int totalAmount(StatementData data) throws Error {
-        int result = 0;
-        for (Performance perf : data.performances) {
-            result += perf.amount;
-        }
-        return result;
+        return data.performances.stream().mapToInt(Performance::getAmount).sum();
     }
 
     private int totalVolumeCredits(StatementData data) {
-        int result = 0;
-        for (Performance perf : data.performances) {
-            result += perf.volumeCredits;
-        }
-        return result;
+        return data.performances.stream().mapToInt(Performance::getVolumeCredits).sum();
     }
 
     private int volumeCreditsFor(Performance aPerformance) {
