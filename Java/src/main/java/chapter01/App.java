@@ -24,12 +24,18 @@ public class App {
     }
 
     @Data
-    @AllArgsConstructor
     @NoArgsConstructor
     static class Performance {
+        public Performance(String playID, int audience) {
+            this.playID = playID;
+            this.audience = audience;
+        }
+
         String playID;
         int audience;
         Play play;
+        int amount;
+        int volumeCredits;
     }
 
     @Data
@@ -42,18 +48,24 @@ public class App {
     static class StatementData {
         String customer;
         List<Performance> performances;
+        int totalAmount;
+        int totalVolumeCredits;
     }
 
     String statement() {
         data.customer = invoice.customer;
         data.performances = invoice.performances.stream().map(this::enrichPerformance).collect(Collectors.toList());
+        data.totalAmount = totalAmount(data);
+        data.totalVolumeCredits = totalVolumeCredits(data);
 
         return renderPlainText(data);
     }
 
     private Performance enrichPerformance(Performance aPerformance) {
-        Performance result = new Performance(aPerformance.playID, aPerformance.audience, null);
+        Performance result = new Performance(aPerformance.playID, aPerformance.audience);
         result.play = playFor(result);
+        result.amount = amountFor(result);
+        result.volumeCredits = volumeCreditsFor(result);
 
         return result;
     };
@@ -64,8 +76,8 @@ public class App {
         for (Performance perf : data.performances) {
             result += perf.play.name + ": " + usd(amountFor(perf) / 100) + " (" + perf.audience + " seats)\n";
         }
-        result += "Amount owed is " + usd(totalAmount() / 100) + "\n";
-        result += "You earned " + totalVolumeCredits() + " credits\n";
+        result += "Amount owed is " + usd(data.totalAmount / 100) + "\n";
+        result += "You earned " + data.totalVolumeCredits + " credits\n";
 
         return result;
     }
@@ -77,18 +89,18 @@ public class App {
         return "$" + formatter.format(number);
     }
 
-    private int totalAmount() throws Error {
+    private int totalAmount(StatementData data) throws Error {
         int result = 0;
         for (Performance perf : data.performances) {
-            result += amountFor(perf);
+            result += perf.amount;
         }
         return result;
     }
 
-    private int totalVolumeCredits() {
+    private int totalVolumeCredits(StatementData data) {
         int result = 0;
         for (Performance perf : data.performances) {
-            result += volumeCreditsFor(perf);
+            result += perf.volumeCredits;
         }
         return result;
     }
