@@ -46,6 +46,12 @@ class CreateStatementData {
         int totalVolumeCredits;
     }
 
+    @AllArgsConstructor
+    static class PerformanceCalculator {
+        Performance aPerformance;
+        Play aPlay;
+    }
+
     public StatementData createStatementData(Invoice invoice, Map<String, Play> plays) throws Error {
         StatementData data = new StatementData();
         data.customer = invoice.customer;
@@ -57,6 +63,7 @@ class CreateStatementData {
     }
 
     private Performance enrichPerformance(Performance aPerformance) {
+        PerformanceCalculator calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance));
         Performance result = new Performance(aPerformance.playID, aPerformance.audience);
         result.play = playFor(result);
         result.amount = amountFor(result);
