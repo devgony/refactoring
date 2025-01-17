@@ -4,7 +4,6 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -13,9 +12,7 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class App {
-    Invoice invoice;
     Map<String, Play> plays;
-    StatementData data;
 
     @Data
     static class Invoice {
@@ -52,13 +49,18 @@ public class App {
         int totalVolumeCredits;
     }
 
-    String statement() {
+    String statement(Invoice invoice) {
+        return renderPlainText(createStatementData(invoice, this.plays));
+    }
+
+    private StatementData createStatementData(Invoice invoice, Map<String, Play> plays) throws Error {
+        StatementData data = new StatementData();
         data.customer = invoice.customer;
         data.performances = invoice.performances.stream().map(this::enrichPerformance).collect(Collectors.toList());
         data.totalAmount = totalAmount(data);
         data.totalVolumeCredits = totalVolumeCredits(data);
 
-        return renderPlainText(data);
+        return data;
     }
 
     private Performance enrichPerformance(Performance aPerformance) {
@@ -71,7 +73,7 @@ public class App {
     };
 
     private String renderPlainText(StatementData data) throws Error {
-        String result = "Statement for " + invoice.customer + "\n";
+        String result = "Statement for " + data.customer + "\n";
 
         for (Performance perf : data.performances) {
             result += perf.play.name + ": " + usd(amountFor(perf) / 100) + " (" + perf.audience + " seats)\n";
