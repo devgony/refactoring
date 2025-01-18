@@ -29,7 +29,7 @@ class CreateStatementData {
         int audience;
         Play play;
         int amount;
-        int volumeCredits;
+        double volumeCredits;
     }
 
     @Data
@@ -77,6 +77,11 @@ class CreateStatementData {
 
             return result;
         }
+
+        @Override
+        double volumeCredits() {
+            return super.volumeCredits() + Math.floor(this.performance.audience / 5);
+        }
     }
 
     static abstract class PerformanceCalculator {
@@ -103,13 +108,8 @@ class CreateStatementData {
             throw new Error("subclass responsibility");
         }
 
-        int volumeCredits() {
-            int result = 0;
-            result += Math.max(performance.audience - 30, 0);
-            if ("comedy".equals(play.type))
-                result += Math.floor(performance.audience / 5);
-
-            return result;
+        double volumeCredits() {
+            return Math.max(performance.audience - 30, 0);
         }
     }
 
@@ -139,7 +139,11 @@ class CreateStatementData {
     }
 
     private int totalVolumeCredits(StatementData data) {
-        return data.performances.stream().mapToInt(Performance::getVolumeCredits).sum();
+        double doubleTotal = data.performances.stream().mapToDouble(Performance::getVolumeCredits).sum();
+        int intTotal = (int) doubleTotal;
+
+        return intTotal;
+
     }
 
     private Play playFor(Performance aPerformance) {
