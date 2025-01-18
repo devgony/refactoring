@@ -46,32 +46,61 @@ class CreateStatementData {
         int totalVolumeCredits;
     }
 
-    @AllArgsConstructor
-    static class PerformanceCalculator {
-        Performance performance;
-        Play play;
+    static class TragedyCalculator extends PerformanceCalculator {
+        public TragedyCalculator(Performance aPerformance, Play aPlay) {
+            super(aPerformance, aPlay);
+        }
 
+        @Override
         int amount() throws Error {
-            int result = 0;
-            switch (play.type) {
-                case "tragedy":
-                    result = 40000;
-                    if (performance.audience > 30) {
-                        result += 1000 * (performance.audience - 30);
-                    }
-                    break;
-                case "comedy":
-                    result = 30000;
-                    if (performance.audience > 20) {
-                        result += 10000 + 500 * (performance.audience - 20);
-                    }
-                    result += 300 * performance.audience;
-                    break;
-                default:
-                    throw new Error("unknown type: " + performance.play.type);
+            int result = 40000;
+            if (performance.audience > 30) {
+                result += 1000 * (performance.audience - 30);
             }
 
             return result;
+        }
+    }
+
+    static class ComedyCalculator extends PerformanceCalculator {
+        public ComedyCalculator(Performance aPerformance, Play aPlay) {
+            super(aPerformance, aPlay);
+        }
+
+        @Override
+        int amount() throws Error {
+            int result = 30000;
+            if (performance.audience > 20) {
+                result += 10000 + 500 * (performance.audience - 20);
+            }
+            result += 300 * performance.audience;
+
+            return result;
+        }
+    }
+
+    static abstract class PerformanceCalculator {
+        Performance performance;
+        Play play;
+
+        public PerformanceCalculator(Performance aPerformance, Play aPlay) {
+            this.performance = aPerformance;
+            this.play = aPlay;
+        }
+
+        static PerformanceCalculator createPerformanceCalculator(Performance aPerformance, Play aPlay) {
+            switch (aPlay.type) {
+                case "tragedy":
+                    return new TragedyCalculator(aPerformance, aPlay);
+                case "comedy":
+                    return new ComedyCalculator(aPerformance, aPlay);
+                default:
+                    throw new Error("unknown type: " + aPlay.type);
+            }
+        }
+
+        int amount() throws Error {
+            throw new Error("subclass responsibility");
         }
 
         int volumeCredits() {
@@ -95,7 +124,8 @@ class CreateStatementData {
     }
 
     private Performance enrichPerformance(Performance aPerformance) {
-        PerformanceCalculator calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance));
+        PerformanceCalculator calculator = PerformanceCalculator.createPerformanceCalculator(aPerformance,
+                playFor(aPerformance));
         Performance result = new Performance(aPerformance.playID, aPerformance.audience);
         result.play = calculator.play;
         result.amount = calculator.amount();
@@ -112,16 +142,7 @@ class CreateStatementData {
         return data.performances.stream().mapToInt(Performance::getVolumeCredits).sum();
     }
 
-    private int volumeCreditsFor(Performance aPerformance) {
-        return new PerformanceCalculator(aPerformance, playFor(aPerformance)).volumeCredits();
-
-    }
-
     private Play playFor(Performance aPerformance) {
         return plays.get(aPerformance.playID);
-    }
-
-    private int amountFor(Performance aPerformance) throws Error {
-        return new PerformanceCalculator(aPerformance, playFor(aPerformance)).amount();
     }
 }
