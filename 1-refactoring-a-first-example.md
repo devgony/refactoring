@@ -148,13 +148,15 @@ function amountFor(perf, play) {
 ```
 
 ```javascript
-function statement (invoice, plays) {
+function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
-  const format = new Intl.NumberFormat("en-US",
-                        { style: "currency", currency: "USD",
-                          minimumFractionDigits: 2 }).format;
+  const format = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format;
   for (let perf of invoice.performances) {
     const play = plays[perf.playID];
     let thisAmount = amountFor(perf, play);
@@ -163,13 +165,14 @@ function statement (invoice, plays) {
     volumeCredits += Math.max(perf.audience - 30, 0);
     // add extra credit for every ten comedy attendees
     if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
-        // print line for this order
-    result += `  ${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
+    // print line for this order
+    result += `  ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
     totalAmount += thisAmount;
   }
-  result += `Amount owed is ${format(totalAmount/100)}\n`;
+  result += `Amount owed is ${format(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   return result;
+}
 ```
 
 - 조금 변경했어도 테스트를 통과하는지 확인한다.
@@ -185,7 +188,7 @@ function amountFor(perf, play) {
 }
 ```
 
-마틴 파울러는 return 할 변수명은 항상 result 로 정의한다고 한다.
+- 마틴 파울러는 return 할 변수명은 항상 result 로 정의한다고 한다.
 
 ```javascript
 function amountFor(aPerformance, play) {
@@ -193,13 +196,13 @@ function amountFor(aPerformance, play) {
 }
 ```
 
-perf => aPerformance 변경: parameter의 이름은 type 과 복수형 구분을 포함하는것이 좋다
+- perf => aPerformance 변경: parameter의 이름은 type 과 복수형 구분을 포함하는것이 좋다
 
 > Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
 
 ## Removing the play Variable
 
-- play 변수는 amountFor 함수만을 위해 compute 되고 있었으므로 amountFor 안에서 compute 하도록 변경한다.
+- amountFor 의 param 중 play 는 aPerformance 를 기반으로 계산 될 수 있으므로, param이 아니라 내부에서 playFor 수행하여 얻는다
 - `Replace Temp with Query`: `Extract Function` + `Inlinie Variable`
   - `Extract Function`: playFor computation
   - `Inline Variable`: local var 제거
@@ -313,7 +316,7 @@ function statement(invoice, plays) {
 }
 ```
 
-- `Slide Statements`: volumeCredits 계산 부분을 두 loop 사이로 이동
+- `Slide Statements`: volumeCredits 초기화 부분을 두 loop 사이로 이동
 
 ```javascript
 function statement(invoice, plays) {
@@ -332,7 +335,7 @@ function statement(invoice, plays) {
 ```
 
 - `Replace Temp with Query`: `Extract Function` + `Inlinie Variable`
-- `Extract Function`: volumeCredits 선언부와 volumeCreditsFor 를 totalVolumeCredits 추출
+- `Extract Function`: volumeCredits 선언부와 volumeCreditsFor 를 totalVolumeCredits 로 추출
 
 ```javascript
 function totalVolumeCredits() {
@@ -455,7 +458,7 @@ function statement(invoice, plays) {
 ## Splitting the Phases of Calculation and Formatting
 
 - 이제 structure 가 구성 되었으니 HTML render 기능을 추가한다.
-- 하지만 좋은 structure 는 copy 하지 않고도 재활용하고 싶다 => `Split Phase` 를 통해 Calculation과 Rendering을 분리한다.
+- `Split Phase`: 현재는 textual statement method 내에 calculation 이 섞여 있으므로 각 로직들을 재활용 하기 쉽도록 Calculation과 Rendering을 분리한다.
   1. `Extract Function` 으로 rendering 부분을 분리한다 => statement 함수 전체에 해당
 
 ```js
@@ -481,6 +484,8 @@ function renderPlainText(invoice, plays) {
 }
 ```
 
+- 중간 데이터 구조인 statementData 를 생성하여 Calculation 로직을 하나씩 renderPlainText 밖으로 빼낼 예정
+
 ```js
 function statement(invoice, plays) {
   const statementData = {}; // 중간 데이터 구조 생성
@@ -505,6 +510,24 @@ function statement(invoice, plays) {
 
 ```js
 function renderPlainText(data, plays) {
+  //..
+  for (let perf of data.performances) {
+    //..
+  }
+  //..
+}
+```
+
+```js
+// function renderPlainText…
+function totalAmount() {
+  //..
+  for (let perf of data.performances) {
+    //..
+  }
+  //..
+}
+function totalVolumeCredits() {
   //..
   for (let perf of data.performances) {
     //..
@@ -577,7 +600,7 @@ function totalVolumeCredits(data) {
 }
 ```
 
-- extract all the first-phase code into `createStatementData`
+- `Replace Temp with Query`: extract all the first-phase code into `createStatementData`
 
 ```js
 // top level…
@@ -742,7 +765,8 @@ function enrichPerformance(aPerformance) {
 
 ## Moving Functions into the Calculator
 
--`Move Function`: amountFor, volumeCredits 를 PerformanceCalculator 로 이동
+- `Move Function`: amountFor, volumeCredits 를 PerformanceCalculator 로 이동
+  - js 의 get keyword 활용하여 getter 정의
 
 ```js
 class PerformanceCalculator {
@@ -779,7 +803,7 @@ class PerformanceCalculator {
 }
 ```
 
-- What is this?
+- PerformanceCalculator 의 getter 를 사용하도록 변경
 
 ```js
 // function createStatementData…
@@ -792,6 +816,7 @@ function amountFor(aPerformance) {
 // function createStatementData…
 function enrichPerformance(aPerformance) {
   //..
+  result.play = calculator.aPlay;
   result.amount = calculator.amount;
   result.volumeCredits = calculator.volumeCredits;
 }
