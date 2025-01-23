@@ -16,6 +16,7 @@ pub struct Performance<'a> {
     pub play_id: &'a str,
     pub play: Option<Play<'a>>,
     pub audience: i32,
+    pub amount: Option<i32>,
 }
 
 struct StatementData<'a> {
@@ -24,32 +25,10 @@ struct StatementData<'a> {
 }
 
 pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> String {
-    let play_for = |a_performance: Performance<'_>| -> Play<'a> {
+    let play_for = |a_performance: &Performance<'_>| -> Play<'a> {
         plays.get(a_performance.play_id).unwrap().to_owned()
     };
 
-    let enrich_performance = |a_performance: Performance<'a>| {
-        let mut mut_performance = a_performance.clone(); // Cow
-        mut_performance.play = Some(play_for(a_performance));
-
-        mut_performance
-    };
-
-    let performances = invoice
-        .performances
-        .into_iter()
-        .map(enrich_performance)
-        .collect();
-
-    let statement_data = StatementData {
-        customer: invoice.customer,
-        performances,
-    };
-
-    render_plain_text(statement_data)
-}
-
-fn render_plain_text(data: StatementData) -> String {
     let amount_for = |a_performance: &Performance<'_>| -> i32 {
         let mut result;
         match a_performance.play.as_ref().unwrap()._type {
@@ -78,6 +57,29 @@ fn render_plain_text(data: StatementData) -> String {
         result
     };
 
+    let enrich_performance = |a_performance: Performance<'a>| {
+        let mut mut_performance = a_performance.clone(); // Cow
+        mut_performance.play = Some(play_for(&a_performance));
+        mut_performance.amount = Some(amount_for(&mut_performance));
+
+        mut_performance
+    };
+
+    let performances = invoice
+        .performances
+        .into_iter()
+        .map(enrich_performance)
+        .collect();
+
+    let statement_data = StatementData {
+        customer: invoice.customer,
+        performances,
+    };
+
+    render_plain_text(statement_data)
+}
+
+fn render_plain_text(data: StatementData) -> String {
     let volume_credits_for = |a_performance: &Performance<'_>| {
         let mut result = 0;
         result += (a_performance.audience - 30).max(0);
@@ -92,7 +94,7 @@ fn render_plain_text(data: StatementData) -> String {
     let total_amount = || -> i32 {
         let mut result = 0;
         for perf in &data.performances {
-            result += amount_for(perf);
+            result += perf.amount.unwrap();
         }
 
         result
@@ -112,7 +114,7 @@ fn render_plain_text(data: StatementData) -> String {
         result += &format!(
             "{}: {} ({} seats)\n",
             &perf.play.as_ref().unwrap().name,
-            (usd((amount_for(perf) / 100) as f64)),
+            (usd((perf.amount.unwrap() / 100) as f64)),
             perf.audience
         );
     }

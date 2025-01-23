@@ -9,17 +9,19 @@ fn test_statement() {
                 play_id: "hamlet",
                 play: None,
                 audience: 55,
+                amount: None,
             },
             Performance {
                 play_id: "as-like",
                 play: None,
-
                 audience: 35,
+                amount: None,
             },
             Performance {
                 play_id: "othello",
                 play: None,
                 audience: 40,
+                amount: None,
             },
         ],
         customer: "BigCo",
