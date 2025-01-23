@@ -46,28 +46,29 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
         }
     };
 
-    let amount_for = |perf: &Performance<'_>, play: &Play<'_>| -> i32 {
-        let mut this_amount;
+    let amount_for = |a_performance: &Performance<'_>, play: &Play<'_>| -> i32 {
+        let mut result;
         match play._type {
             "tragedy" => {
-                this_amount = 40000;
-                if perf.audience > 30 {
-                    this_amount += 1000 * (perf.audience - 30);
+                result = 40000;
+                if a_performance.audience > 30 {
+                    result += 1000 * (a_performance.audience - 30);
                 }
             }
             "comedy" => {
-                this_amount = 30000;
-                if perf.audience > 20 {
-                    this_amount += 10000 + 500 * (perf.audience - 20);
+                result = 30000;
+                if a_performance.audience > 20 {
+                    result += 10000 + 500 * (a_performance.audience - 20);
                 }
-                this_amount += 300 * perf.audience;
+                result += 300 * a_performance.audience;
             }
             _ => {
                 println!("error: unknown type: {}", play._type);
-                this_amount = 0;
+                result = 0;
             }
         }
-        this_amount
+
+        result
     };
 
     for perf in invoice.performances {
