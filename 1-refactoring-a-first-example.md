@@ -298,7 +298,7 @@ function usd(aNumber) {
 
 ## Removing Total Volume Credits
 
-- `Split Loop` 를 통해 volumeCredits 를 계산하는 부분을 분리한다.
+- `Split Loop` 를 통해 volumeCredits 와 totalAmount 계산하는 부분을 각각 분리한다.
 
 ```javascript
 function statement(invoice, plays) {

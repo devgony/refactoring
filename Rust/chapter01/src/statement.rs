@@ -61,18 +61,22 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
         result
     };
 
-    for perf in invoice.performances {
-        // add volume credits
-        volume_credits += volume_credits_for(&perf);
-        // print line for this order
+    for perf in &invoice.performances {
         result += &format!(
             "{}: {} ({} seats)\n",
-            play_for(&perf).name,
-            (usd((amount_for(&perf) / 100) as f64)),
+            play_for(perf).name,
+            (usd((amount_for(perf) / 100) as f64)),
             perf.audience
         );
-        total_amount += amount_for(&perf)
+        total_amount += amount_for(perf)
     }
+
+    for perf in &invoice.performances {
+        // add volume credits
+        volume_credits += volume_credits_for(perf);
+        // print line for this order
+    }
+
     result += &format!("Amount owed is {}\n", usd((total_amount / 100) as f64));
     result.push_str(&format!("You earned {} credits\n", volume_credits));
 
