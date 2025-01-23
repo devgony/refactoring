@@ -67,7 +67,15 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
         volume_credits
     };
 
-    let mut total_amount = 0;
+    let total_amount = || -> i32 {
+        let mut result = 0;
+        for perf in &invoice.performances {
+            result += amount_for(perf);
+        }
+
+        result
+    };
+
     for perf in &invoice.performances {
         result += &format!(
             "{}: {} ({} seats)\n",
@@ -75,10 +83,9 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
             (usd((amount_for(perf) / 100) as f64)),
             perf.audience
         );
-        total_amount += amount_for(perf)
     }
 
-    result += &format!("Amount owed is {}\n", usd((total_amount / 100) as f64));
+    result += &format!("Amount owed is {}\n", usd((total_amount() / 100) as f64));
     result.push_str(&format!("You earned {} credits\n", total_volume_credits()));
 
     result
