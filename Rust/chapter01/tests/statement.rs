@@ -7,14 +7,18 @@ fn test_statement() {
         performances: vec![
             Performance {
                 play_id: "hamlet",
+                play: None,
                 audience: 55,
             },
             Performance {
                 play_id: "as-like",
+                play: None,
+
                 audience: 35,
             },
             Performance {
                 play_id: "othello",
+                play: None,
                 audience: 40,
             },
         ],

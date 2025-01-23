@@ -5,13 +5,16 @@ pub struct Invoice<'a> {
     pub customer: &'a str,
 }
 
+#[derive(Clone)]
 pub struct Play<'a> {
     pub name: &'a str,
     pub _type: &'a str,
 }
 
+#[derive(Clone)]
 pub struct Performance<'a> {
     pub play_id: &'a str,
+    pub play: Option<Play<'a>>,
     pub audience: i32,
 }
 
@@ -20,22 +23,36 @@ struct StatementData<'a> {
     performances: Vec<Performance<'a>>,
 }
 
-pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
+pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> String {
+    let play_for = |a_performance: Performance<'_>| -> Play<'a> {
+        plays.get(a_performance.play_id).unwrap().to_owned()
+    };
+
+    let enrich_performance = |a_performance: Performance<'a>| {
+        let mut mut_performance = a_performance.clone(); // Cow
+        mut_performance.play = Some(play_for(a_performance));
+
+        mut_performance
+    };
+
+    let performances = invoice
+        .performances
+        .into_iter()
+        .map(enrich_performance)
+        .collect();
+
     let statement_data = StatementData {
         customer: invoice.customer,
-        performances: invoice.performances,
+        performances,
     };
-    render_plain_text(statement_data, plays)
+
+    render_plain_text(statement_data)
 }
 
-fn render_plain_text(data: StatementData, plays: HashMap<&str, Play<'_>>) -> String {
-    let play_for = |a_performance: &Performance<'_>| -> &Play<'_> {
-        plays.get(a_performance.play_id).unwrap()
-    };
-
+fn render_plain_text(data: StatementData) -> String {
     let amount_for = |a_performance: &Performance<'_>| -> i32 {
         let mut result;
-        match play_for(a_performance)._type {
+        match a_performance.play.as_ref().unwrap()._type {
             "tragedy" => {
                 result = 40000;
                 if a_performance.audience > 30 {
@@ -50,7 +67,10 @@ fn render_plain_text(data: StatementData, plays: HashMap<&str, Play<'_>>) -> Str
                 result += 300 * a_performance.audience;
             }
             _ => {
-                println!("error: unknown type: {}", play_for(a_performance)._type);
+                println!(
+                    "error: unknown type: {}",
+                    a_performance.play.as_ref().unwrap()._type
+                );
                 result = 0;
             }
         }
@@ -62,7 +82,7 @@ fn render_plain_text(data: StatementData, plays: HashMap<&str, Play<'_>>) -> Str
         let mut result = 0;
         result += (a_performance.audience - 30).max(0);
         // add extra credit for every ten comedy attendees
-        if "comedy" == play_for(a_performance)._type {
+        if "comedy" == a_performance.play.as_ref().unwrap()._type {
             result += a_performance.audience / 5;
         }
 
@@ -91,7 +111,7 @@ fn render_plain_text(data: StatementData, plays: HashMap<&str, Play<'_>>) -> Str
     for perf in &data.performances {
         result += &format!(
             "{}: {} ({} seats)\n",
-            play_for(perf).name,
+            &perf.play.as_ref().unwrap().name,
             (usd((amount_for(perf) / 100) as f64)),
             perf.audience
         );
