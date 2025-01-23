@@ -16,9 +16,6 @@ pub struct Performance<'a> {
 }
 
 pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
-    let mut total_amount = 0;
-    let mut volume_credits = 0;
-
     let mut result = format!("Statement for {}\n", invoice.customer);
 
     let play_for = |a_performance: &Performance<'_>| -> &Play<'_> {
@@ -61,6 +58,7 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
         result
     };
 
+    let mut total_amount = 0;
     for perf in &invoice.performances {
         result += &format!(
             "{}: {} ({} seats)\n",
@@ -71,6 +69,7 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
         total_amount += amount_for(perf)
     }
 
+    let mut volume_credits = 0;
     for perf in &invoice.performances {
         // add volume credits
         volume_credits += volume_credits_for(perf);
