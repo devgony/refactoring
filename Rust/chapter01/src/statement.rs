@@ -76,14 +76,14 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
     };
 
     let volume_credits_for = |a_performance: &Performance<'_>| {
-        let mut volume_credits = 0;
-        volume_credits += (a_performance.audience - 30).max(0);
+        let mut result = 0;
+        result += (a_performance.audience - 30).max(0);
         // add extra credit for every ten comedy attendees
         if "comedy" == play_for(a_performance)._type {
-            volume_credits += a_performance.audience / 5;
+            result += a_performance.audience / 5;
         }
 
-        volume_credits
+        result
     };
 
     for perf in invoice.performances {
