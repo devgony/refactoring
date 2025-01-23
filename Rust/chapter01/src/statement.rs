@@ -71,8 +71,12 @@ pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
         result
     };
 
+    let play_for = |a_performance: &Performance<'_>| -> &Play<'_> {
+        plays.get(a_performance.play_id).unwrap()
+    };
+
     for perf in invoice.performances {
-        let play = plays.get(perf.play_id).unwrap();
+        let play = play_for(&perf);
         let this_amount = amount_for(&perf, play);
         // add volume credits
         volume_credits += (perf.audience - 30).max(0);
