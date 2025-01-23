@@ -5,7 +5,6 @@ pub struct Invoice<'a> {
     pub customer: &'a str,
 }
 
-#[derive(Clone)]
 pub struct Play<'a> {
     pub name: &'a str,
     pub _type: &'a str,
@@ -13,8 +12,11 @@ pub struct Play<'a> {
 
 #[derive(Clone)]
 pub struct Performance<'a> {
+    // original fields
     pub play_id: &'a str,
-    pub play: Option<Play<'a>>,
+
+    // enriched fields
+    pub play: Option<&'a Play<'a>>,
     pub audience: i32,
     pub amount: Option<i32>,
 }
@@ -25,8 +27,8 @@ struct StatementData<'a> {
 }
 
 pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> String {
-    let play_for = |a_performance: &Performance<'_>| -> Play<'a> {
-        plays.get(a_performance.play_id).unwrap().to_owned()
+    let play_for = |a_performance: &Performance<'_>| -> &Play<'a> {
+        plays.get(a_performance.play_id).unwrap()
     };
 
     let amount_for = |a_performance: &Performance<'_>| -> i32 {
