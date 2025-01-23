@@ -15,7 +15,7 @@ pub struct Performance<'a> {
     pub audience: i32,
 }
 
-pub fn statement(invoice: Invoice, plays: HashMap<String, Play>) -> String {
+pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
     let mut total_amount = 0;
     let mut volume_credits = 0;
 
@@ -46,10 +46,8 @@ pub fn statement(invoice: Invoice, plays: HashMap<String, Play>) -> String {
         }
     };
 
-    for perf in invoice.performances {
-        let play = plays.get(perf.play_id).unwrap();
+    let amount_for = |perf: &Performance<'_>, play: &Play<'_>| -> i32 {
         let mut this_amount;
-
         match play._type {
             "tragedy" => {
                 this_amount = 40000;
@@ -69,6 +67,12 @@ pub fn statement(invoice: Invoice, plays: HashMap<String, Play>) -> String {
                 this_amount = 0;
             }
         }
+        this_amount
+    };
+
+    for perf in invoice.performances {
+        let play = plays.get(perf.play_id).unwrap();
+        let this_amount = amount_for(&perf, play);
         // add volume credits
         volume_credits += (perf.audience - 30).max(0);
         // add extra credit for every ten comedy attendees

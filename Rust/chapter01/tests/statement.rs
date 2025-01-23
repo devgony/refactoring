@@ -22,21 +22,21 @@ fn test_statement() {
     };
     let plays = HashMap::from([
         (
-            "hamlet".to_string(),
+            "hamlet",
             Play {
                 name: "Hamlet",
                 _type: "tragedy",
             },
         ),
         (
-            "as-like".to_string(),
+            "as-like",
             Play {
                 name: "As You Like It",
                 _type: "comedy",
             },
         ),
         (
-            "othello".to_string(),
+            "othello",
             Play {
                 name: "Othello",
                 _type: "tragedy",
