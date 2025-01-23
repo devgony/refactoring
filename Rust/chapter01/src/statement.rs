@@ -16,6 +16,10 @@ pub struct Performance<'a> {
 }
 
 pub fn statement(invoice: Invoice, plays: HashMap<&str, Play>) -> String {
+    render_plain_text(invoice, plays)
+}
+
+fn render_plain_text(invoice: Invoice<'_>, plays: HashMap<&str, Play<'_>>) -> String {
     let play_for = |a_performance: &Performance<'_>| -> &Play<'_> {
         plays.get(a_performance.play_id).unwrap()
     };
