@@ -19,6 +19,7 @@ pub struct Performance<'a> {
     pub play: Option<&'a Play<'a>>,
     pub audience: i32,
     pub amount: Option<i32>,
+    pub volume_credits: Option<i32>,
 }
 
 struct StatementData<'a> {
@@ -59,10 +60,22 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
         result
     };
 
+    let volume_credits_for = |a_performance: &Performance<'_>| {
+        let mut result = 0;
+        result += (a_performance.audience - 30).max(0);
+        // add extra credit for every ten comedy attendees
+        if "comedy" == a_performance.play.as_ref().unwrap()._type {
+            result += a_performance.audience / 5;
+        }
+
+        result
+    };
+
     let enrich_performance = |a_performance: Performance<'a>| {
         let mut mut_performance = a_performance.clone(); // Cow
         mut_performance.play = Some(play_for(&a_performance));
         mut_performance.amount = Some(amount_for(&mut_performance));
+        mut_performance.volume_credits = Some(volume_credits_for(&mut_performance));
 
         mut_performance
     };
@@ -82,17 +95,6 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
 }
 
 fn render_plain_text(data: StatementData) -> String {
-    let volume_credits_for = |a_performance: &Performance<'_>| {
-        let mut result = 0;
-        result += (a_performance.audience - 30).max(0);
-        // add extra credit for every ten comedy attendees
-        if "comedy" == a_performance.play.as_ref().unwrap()._type {
-            result += a_performance.audience / 5;
-        }
-
-        result
-    };
-
     let total_amount = || -> i32 {
         let mut result = 0;
         for perf in &data.performances {
@@ -105,7 +107,7 @@ fn render_plain_text(data: StatementData) -> String {
     let total_volume_credits = || -> i32 {
         let mut volume_credits = 0;
         for perf in &data.performances {
-            volume_credits += volume_credits_for(perf);
+            volume_credits += perf.volume_credits.unwrap();
         }
 
         volume_credits
