@@ -741,6 +741,13 @@ export default function createStatementData(invoice, plays) {
 
 ## Creating a Performance Calculator
 
+````js
+class PerformanceCalculator {
+  constructor(aPerformance) {
+    this.performance = aPerformance;
+  }
+}
+
 - `Change Function Declaration`: play 필드를 PerformanceCalculator 내에 저장한다.
   - 이는 polymorphism 과는 상관없지만 하나의 class에 모아 consistency 를 높힌다.
 
@@ -751,7 +758,7 @@ class PerformanceCalculator {
     this.play = aPlay;
   }
 }
-```
+````
 
 ```js
 function enrichPerformance(aPerformance) {

@@ -22,6 +22,11 @@ pub struct Performance<'a> {
     pub volume_credits: Option<i32>,
 }
 
+pub struct PerformanceCalculator<'a> {
+    pub performance: &'a Performance<'a>,
+    pub play: &'a Play<'a>,
+}
+
 pub struct StatementData<'a> {
     pub customer: &'a str,
     pub performances: Vec<Performance<'a>>,
@@ -77,8 +82,13 @@ pub fn create_statement_data<'a>(
     };
 
     let enrich_performance = |a_performance: &'a Performance<'a>| {
+        let calculator = PerformanceCalculator {
+            performance: a_performance,
+            play: play_for(a_performance),
+        };
+
         let mut mut_performance = a_performance.clone(); // Cow
-        mut_performance.play = Some(play_for(&a_performance));
+        mut_performance.play = Some(calculator.play);
         mut_performance.amount = Some(amount_for(&mut_performance));
         mut_performance.volume_credits = Some(volume_credits_for(&mut_performance));
 
