@@ -27,6 +27,37 @@ pub struct PerformanceCalculator<'a> {
     pub play: &'a Play<'a>,
 }
 
+impl<'a> PerformanceCalculator<'a> {
+    fn new(performance: &'a Performance<'a>, play: &'a Play<'a>) -> Self {
+        Self { performance, play }
+    }
+
+    fn amount(&self) -> i32 {
+        let mut result;
+        match self.play._type {
+            "tragedy" => {
+                result = 40000;
+                if self.performance.audience > 30 {
+                    result += 1000 * (self.performance.audience - 30);
+                }
+            }
+            "comedy" => {
+                result = 30000;
+                if self.performance.audience > 20 {
+                    result += 10000 + 500 * (self.performance.audience - 20);
+                }
+                result += 300 * self.performance.audience;
+            }
+            _ => {
+                println!("error: unknown type: {}", self.play._type);
+                result = 0;
+            }
+        }
+
+        result
+    }
+}
+
 pub struct StatementData<'a> {
     pub customer: &'a str,
     pub performances: Vec<Performance<'a>>,
@@ -42,32 +73,8 @@ pub fn create_statement_data<'a>(
         plays.get(a_performance.play_id).unwrap()
     };
 
-    let amount_for = |a_performance: &Performance<'_>| -> i32 {
-        let mut result;
-        match a_performance.play.as_ref().unwrap()._type {
-            "tragedy" => {
-                result = 40000;
-                if a_performance.audience > 30 {
-                    result += 1000 * (a_performance.audience - 30);
-                }
-            }
-            "comedy" => {
-                result = 30000;
-                if a_performance.audience > 20 {
-                    result += 10000 + 500 * (a_performance.audience - 20);
-                }
-                result += 300 * a_performance.audience;
-            }
-            _ => {
-                println!(
-                    "error: unknown type: {}",
-                    a_performance.play.as_ref().unwrap()._type
-                );
-                result = 0;
-            }
-        }
-
-        result
+    let amount_for = |a_performance: &'a Performance<'a>| {
+        PerformanceCalculator::new(a_performance, play_for(a_performance)).amount()
     };
 
     let volume_credits_for = |a_performance: &Performance<'_>| {
@@ -89,7 +96,7 @@ pub fn create_statement_data<'a>(
 
         let mut mut_performance = a_performance.clone(); // Cow
         mut_performance.play = Some(calculator.play);
-        mut_performance.amount = Some(amount_for(&mut_performance));
+        mut_performance.amount = Some(amount_for(a_performance));
         mut_performance.volume_credits = Some(volume_credits_for(&mut_performance));
 
         mut_performance
