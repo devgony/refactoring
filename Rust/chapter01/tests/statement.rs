@@ -1,7 +1,11 @@
 #[cfg(test)]
 mod tests {
-    use chapter01::statement::{html_statement, statement, Invoice, Performance, Play};
     use std::collections::HashMap;
+
+    use chapter01::{
+        create_statement_data::{Invoice, Performance, Play},
+        statement::{html_statement, statement},
+    };
 
     fn before_each() -> (Invoice<'static>, HashMap<&'static str, Play<'static>>) {
         let invoice = Invoice {
