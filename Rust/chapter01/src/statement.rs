@@ -26,6 +26,7 @@ struct StatementData<'a> {
     customer: &'a str,
     performances: Vec<Performance<'a>>,
     total_amount: Option<i32>,
+    total_volume_credits: Option<i32>,
 }
 
 pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> String {
@@ -90,6 +91,15 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
         result
     };
 
+    let total_volume_credits = |data: &StatementData| -> i32 {
+        let mut volume_credits = 0;
+        for perf in &data.performances {
+            volume_credits += perf.volume_credits.unwrap();
+        }
+
+        volume_credits
+    };
+
     let performances = invoice
         .performances
         .into_iter()
@@ -100,23 +110,16 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
         customer: invoice.customer,
         performances,
         total_amount: None,
+        total_volume_credits: None,
     };
 
     statement_data.total_amount = Some(total_amount(&statement_data));
+    statement_data.total_volume_credits = Some(total_volume_credits(&statement_data));
 
     render_plain_text(statement_data)
 }
 
 fn render_plain_text(data: StatementData) -> String {
-    let total_volume_credits = || -> i32 {
-        let mut volume_credits = 0;
-        for perf in &data.performances {
-            volume_credits += perf.volume_credits.unwrap();
-        }
-
-        volume_credits
-    };
-
     let mut result = format!("Statement for {}\n", data.customer);
     for perf in &data.performances {
         result += &format!(
@@ -131,7 +134,10 @@ fn render_plain_text(data: StatementData) -> String {
         "Amount owed is {}\n",
         usd((data.total_amount.unwrap() / 100) as f64)
     );
-    result.push_str(&format!("You earned {} credits\n", total_volume_credits()));
+    result.push_str(&format!(
+        "You earned {} credits\n",
+        data.total_volume_credits.unwrap()
+    ));
 
     result
 }
