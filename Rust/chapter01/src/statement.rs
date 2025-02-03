@@ -83,21 +83,15 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
     };
 
     let total_amount = |data: &StatementData| -> i32 {
-        let mut result = 0;
-        for perf in &data.performances {
-            result += perf.amount.unwrap();
-        }
-
-        result
+        data.performances
+            .iter()
+            .fold(0, |acc, perf| acc + perf.amount.unwrap())
     };
 
     let total_volume_credits = |data: &StatementData| -> i32 {
-        let mut volume_credits = 0;
-        for perf in &data.performances {
-            volume_credits += perf.volume_credits.unwrap();
-        }
-
-        volume_credits
+        data.performances
+            .iter()
+            .fold(0, |acc, perf| acc + perf.volume_credits.unwrap())
     };
 
     let performances = invoice
