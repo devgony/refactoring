@@ -30,7 +30,14 @@ struct StatementData<'a> {
 }
 
 pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> String {
-    let play_for = |a_performance: &Performance<'_>| -> &Play<'a> {
+    render_plain_text(createStatementData(&invoice, &plays))
+}
+
+fn createStatementData<'a>(
+    invoice: &'a Invoice<'a>,
+    plays: &'a HashMap<&'a str, Play<'a>>,
+) -> StatementData<'a> {
+    let play_for = |a_performance: &'a Performance<'_>| -> &'a Play<'a> {
         plays.get(a_performance.play_id).unwrap()
     };
 
@@ -73,7 +80,7 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
         result
     };
 
-    let enrich_performance = |a_performance: Performance<'a>| {
+    let enrich_performance = |a_performance: &'a Performance<'a>| {
         let mut mut_performance = a_performance.clone(); // Cow
         mut_performance.play = Some(play_for(&a_performance));
         mut_performance.amount = Some(amount_for(&mut_performance));
@@ -96,7 +103,7 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
 
     let performances = invoice
         .performances
-        .into_iter()
+        .iter()
         .map(enrich_performance)
         .collect();
 
@@ -109,8 +116,7 @@ pub fn statement<'a>(invoice: Invoice<'a>, plays: HashMap<&str, Play<'a>>) -> St
 
     statement_data.total_amount = Some(total_amount(&statement_data));
     statement_data.total_volume_credits = Some(total_volume_credits(&statement_data));
-
-    render_plain_text(statement_data)
+    statement_data
 }
 
 fn render_plain_text(data: StatementData) -> String {
