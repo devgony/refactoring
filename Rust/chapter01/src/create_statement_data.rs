@@ -56,6 +56,17 @@ impl<'a> PerformanceCalculator<'a> {
 
         result
     }
+
+    fn volume_credits(&self) -> i32 {
+        let mut result = 0;
+        result += (self.performance.audience - 30).max(0);
+        // add extra credit for every ten comedy attendees
+        if "comedy" == self.play._type {
+            result += self.performance.audience / 5;
+        }
+
+        result
+    }
 }
 
 pub struct StatementData<'a> {
@@ -77,15 +88,8 @@ pub fn create_statement_data<'a>(
         PerformanceCalculator::new(a_performance, play_for(a_performance)).amount()
     };
 
-    let volume_credits_for = |a_performance: &Performance<'_>| {
-        let mut result = 0;
-        result += (a_performance.audience - 30).max(0);
-        // add extra credit for every ten comedy attendees
-        if "comedy" == a_performance.play.as_ref().unwrap()._type {
-            result += a_performance.audience / 5;
-        }
-
-        result
+    let volume_credits_for = |a_performance: &'a Performance<'a>| {
+        PerformanceCalculator::new(a_performance, play_for(a_performance)).volume_credits()
     };
 
     let enrich_performance = |a_performance: &'a Performance<'a>| {
@@ -97,7 +101,7 @@ pub fn create_statement_data<'a>(
         let mut mut_performance = a_performance.clone(); // Cow
         mut_performance.play = Some(calculator.play);
         mut_performance.amount = Some(amount_for(a_performance));
-        mut_performance.volume_credits = Some(volume_credits_for(&mut_performance));
+        mut_performance.volume_credits = Some(volume_credits_for(a_performance));
 
         mut_performance
     };
