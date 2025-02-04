@@ -22,50 +22,79 @@ pub struct Performance<'a> {
     pub volume_credits: Option<i32>,
 }
 
-pub struct PerformanceCalculator<'a> {
-    pub performance: &'a Performance<'a>,
-    pub play: &'a Play<'a>,
+pub trait PerformanceCalculator<'a> {
+    fn performance(&self) -> &'a Performance<'a>;
+    fn play(&self) -> &'a Play<'a>;
+    fn amount(&self) -> i32 {
+        unimplemented!("subclass responsibility")
+    }
+    fn volume_credits(&self) -> i32 {
+        self.super_volume_credits()
+    }
+    /// Only for trait default impl
+    fn super_volume_credits(&self) -> i32 {
+        (self.performance().audience - 30).max(0)
+    }
 }
 
-impl<'a> PerformanceCalculator<'a> {
-    fn new(performance: &'a Performance<'a>, play: &'a Play<'a>) -> Self {
-        Self { performance, play }
+fn create_performance_calculator<'a>(
+    performance: &'a Performance<'a>,
+    play: &'a Play<'a>,
+) -> Box<dyn PerformanceCalculator<'a> + 'a> {
+    match play._type {
+        "tragedy" => Box::new(TragedyCalculator { performance, play }),
+        "comedy" => Box::new(ComedyCalculator { performance, play }),
+        _ => panic!("unknown type: {}", play._type),
+    }
+}
+
+struct TragedyCalculator<'a> {
+    performance: &'a Performance<'a>,
+    play: &'a Play<'a>,
+}
+
+impl<'a> PerformanceCalculator<'a> for TragedyCalculator<'a> {
+    fn performance(&self) -> &'a Performance<'a> {
+        self.performance
+    }
+
+    fn play(&self) -> &'a Play<'a> {
+        self.play
     }
 
     fn amount(&self) -> i32 {
-        let mut result;
-        match self.play._type {
-            "tragedy" => {
-                result = 40000;
-                if self.performance.audience > 30 {
-                    result += 1000 * (self.performance.audience - 30);
-                }
-            }
-            "comedy" => {
-                result = 30000;
-                if self.performance.audience > 20 {
-                    result += 10000 + 500 * (self.performance.audience - 20);
-                }
-                result += 300 * self.performance.audience;
-            }
-            _ => {
-                println!("error: unknown type: {}", self.play._type);
-                result = 0;
-            }
+        let mut result = 40000;
+        if self.performance.audience > 30 {
+            result += 1000 * (self.performance.audience - 30);
         }
 
         result
     }
+}
 
-    fn volume_credits(&self) -> i32 {
-        let mut result = 0;
-        result += (self.performance.audience - 30).max(0);
-        // add extra credit for every ten comedy attendees
-        if "comedy" == self.play._type {
-            result += self.performance.audience / 5;
+struct ComedyCalculator<'a> {
+    performance: &'a Performance<'a>,
+    play: &'a Play<'a>,
+}
+
+impl<'a> PerformanceCalculator<'a> for ComedyCalculator<'a> {
+    fn performance(&self) -> &'a Performance<'a> {
+        self.performance
+    }
+    fn play(&self) -> &'a Play<'a> {
+        self.play
+    }
+    fn amount(&self) -> i32 {
+        let mut result = 30000;
+        if self.performance.audience > 20 {
+            result += 10000 + 500 * (self.performance.audience - 20);
         }
+        result += 300 * self.performance.audience;
 
         result
+    }
+    fn volume_credits(&self) -> i32 {
+        self.super_volume_credits() + (self.performance.audience / 5)
     }
 }
 
@@ -84,24 +113,13 @@ pub fn create_statement_data<'a>(
         plays.get(a_performance.play_id).unwrap()
     };
 
-    let amount_for = |a_performance: &'a Performance<'a>| {
-        PerformanceCalculator::new(a_performance, play_for(a_performance)).amount()
-    };
-
-    let volume_credits_for = |a_performance: &'a Performance<'a>| {
-        PerformanceCalculator::new(a_performance, play_for(a_performance)).volume_credits()
-    };
-
     let enrich_performance = |a_performance: &'a Performance<'a>| {
-        let calculator = PerformanceCalculator {
-            performance: a_performance,
-            play: play_for(a_performance),
-        };
+        let calculator = create_performance_calculator(a_performance, play_for(a_performance));
 
         let mut mut_performance = a_performance.clone(); // Cow
-        mut_performance.play = Some(calculator.play);
-        mut_performance.amount = Some(amount_for(a_performance));
-        mut_performance.volume_credits = Some(volume_credits_for(a_performance));
+        mut_performance.play = Some(calculator.play());
+        mut_performance.amount = Some(calculator.amount());
+        mut_performance.volume_credits = Some(calculator.volume_credits());
 
         mut_performance
     };

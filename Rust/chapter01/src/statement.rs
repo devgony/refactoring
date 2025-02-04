@@ -1,8 +1,8 @@
-use crate::create_statement_data::{self, create_statement_data, Invoice, Play, StatementData};
+use crate::create_statement_data::{create_statement_data, Invoice, Play, StatementData};
 use std::collections::HashMap;
 type Plays<'a> = HashMap<&'a str, Play<'a>>;
 
-pub fn statement<'a>(invoice: Invoice<'a>, plays: Plays) -> String {
+pub fn statement(invoice: Invoice, plays: Plays) -> String {
     render_plain_text(create_statement_data(&invoice, &plays))
 }
 
