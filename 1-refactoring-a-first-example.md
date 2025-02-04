@@ -298,7 +298,7 @@ function usd(aNumber) {
 
 ## Removing Total Volume Credits
 
-- `Split Loop` 를 통해 volumeCredits 를 계산하는 부분을 분리한다.
+- `Split Loop` 를 통해 volumeCredits 와 totalAmount 계산하는 부분을 각각 분리한다.
 
 ```javascript
 function statement(invoice, plays) {
@@ -741,6 +741,13 @@ export default function createStatementData(invoice, plays) {
 
 ## Creating a Performance Calculator
 
+````js
+class PerformanceCalculator {
+  constructor(aPerformance) {
+    this.performance = aPerformance;
+  }
+}
+
 - `Change Function Declaration`: play 필드를 PerformanceCalculator 내에 저장한다.
   - 이는 polymorphism 과는 상관없지만 하나의 class에 모아 consistency 를 높힌다.
 
@@ -751,7 +758,7 @@ class PerformanceCalculator {
     this.play = aPlay;
   }
 }
-```
+````
 
 ```js
 function enrichPerformance(aPerformance) {
