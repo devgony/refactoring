@@ -37,6 +37,7 @@ pub trait PerformanceCalculator<'a> {
     }
 }
 
+/// factory method to create a performance calculator with the concrete type
 fn create_performance_calculator<'a>(
     performance: &'a Performance<'a>,
     play: &'a Play<'a>,
