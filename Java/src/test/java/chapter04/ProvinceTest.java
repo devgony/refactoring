@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ShortFallTest {
+class ProvinceTest {
     JsonNode sampleProvinceData() {
         String jsonString = "{"
                 + "\"name\": \"Asia\","
@@ -29,7 +29,7 @@ class ShortFallTest {
     }
 
     @Test
-    void provinceShortFall() {
+    void shortfall() {
         Province asia = new Province(sampleProvinceData());
         assertThat(asia.shortfall()).isEqualTo(5);
     }
