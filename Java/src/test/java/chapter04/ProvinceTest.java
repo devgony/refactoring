@@ -1,5 +1,6 @@
 package chapter04;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -8,6 +9,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProvinceTest {
+    Province asia;
+
+    @BeforeEach
+    void setUp() {
+        asia = new Province(sampleProvinceData());
+    }
+
     JsonNode sampleProvinceData() {
         String jsonString = "{"
                 + "\"name\": \"Asia\","
@@ -30,13 +38,11 @@ class ProvinceTest {
 
     @Test
     void shortfall() {
-        Province asia = new Province(sampleProvinceData());
         assertThat(asia.shortfall()).isEqualTo(5);
     }
 
     @Test
     void profit() {
-        Province asia = new Province(sampleProvinceData());
         assertThat(asia.profit()).isEqualTo(230);
     }
 }
