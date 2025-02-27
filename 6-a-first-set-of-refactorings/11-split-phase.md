@@ -313,7 +313,7 @@ public static void main(String[] args) {
 - 첫 단계: 인자를 구문 분석
 - 두번쨰 단계: 파일을 읽어서 Order 배열로 변환
 
-- 테스트를 쉽게 하기 위해 메인 프로세스를 `Exatract Function`
+- 테스트를 쉽게 하기 위해 메인 프로세스를 `Extract Function`
 
 ```java
 public static void main(String[] args) {
