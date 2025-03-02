@@ -53,4 +53,15 @@ class CombineFunctionsIntoTransform {
         return taxableCharge;
     }
 
+    int client3() {
+        Reading reading = acquireReading();
+        int basicChargeAmount = calculateBaseCharge(reading);
+
+        return basicChargeAmount;
+    }
+
+    int calculateBaseCharge(Reading reading) {
+        return baseRate(reading.month, reading.year) * reading.quantity;
+    }
+
 }

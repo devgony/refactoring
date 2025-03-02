@@ -22,5 +22,6 @@ class CombineFunctionsIntoTransformTest {
         CombineFunctionsIntoTransform c = new CombineFunctionsIntoTransform();
         assertThat(c.client1()).isEqualTo(1000);
         assertThat(c.client2()).isEqualTo(950);
+        assertThat(c.client3()).isEqualTo(1000);
     }
 }
