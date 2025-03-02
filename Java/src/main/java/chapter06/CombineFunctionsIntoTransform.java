@@ -56,8 +56,8 @@ class CombineFunctionsIntoTransform {
 
     int client2() {
         Reading reading = acquireReading();
-        int baseCharge = baseRate(reading.month, reading.year) * reading.quantity;
-        int taxableCharge = Math.max(0, baseCharge - taxThreshold(reading.year));
+        reading = enrichReading(reading);
+        int taxableCharge = Math.max(0, reading.baseCharge.get() - taxThreshold(reading.year));
 
         return taxableCharge;
     }
