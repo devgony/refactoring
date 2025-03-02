@@ -18,11 +18,11 @@ class ExtractFunction {
     }
 
     static String printOwing(Invoice invoice) {
-        int outstanding = 0;
 
         String result = printBanner();
 
         // calculate outstanding
+        int outstanding = 0;
         for (Order o : invoice.orders) {
             outstanding += o.amount;
         }
