@@ -26,7 +26,7 @@ class EncapsulateVariable {
             lastName = arg;
         }
 
-        static Owner getDefaultOwner() {
+        static Owner defaultOwner() {
             return new Owner("Martin", "Fowler");
         }
 
