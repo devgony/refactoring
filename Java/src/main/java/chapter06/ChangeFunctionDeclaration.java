@@ -38,6 +38,10 @@ class ChangeFunctionDeclaration {
 
     static boolean inNewEngland(Customer aCustomer) {
         String stateCode = aCustomer.address.state;
+        return xxNEWinNewEngland(stateCode);
+    }
+
+    private static boolean xxNEWinNewEngland(String stateCode) {
         return Arrays.asList("MA", "CT", "ME", "VT", "NH", "RI").contains(stateCode);
     }
 
