@@ -154,6 +154,8 @@ function printOwing(invoice) {
 
 # Example: Using Local Variables
 
+- 변수가 사용된 이후로 재할당이 되지 않는다면 인자로 전달하는것이 좋다
+
 ```js
 function printOwing(invoice) {
   let outstanding = 0;

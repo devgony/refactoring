@@ -29,15 +29,17 @@ class ExtractFunction {
 
         invoice.dueDate = new Date();
 
-        result = printDetails(invoice, outstanding, result);
+        result = printDetails(invoice, outstanding);
 
         return result;
     }
 
-    private static String printDetails(Invoice invoice, int outstanding, String result) {
+    private static String printDetails(Invoice invoice, int outstanding) {
+        String result = "";
         result += "name: " + invoice.customer + "\n";
         result += "amount: " + outstanding + "\n";
         result += "due: " + invoice.dueDate;
+
         return result;
     }
 
