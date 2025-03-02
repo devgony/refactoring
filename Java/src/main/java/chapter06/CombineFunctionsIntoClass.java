@@ -60,7 +60,7 @@ class CombineFunctionsIntoClass {
 
     int client1() {
         Reading reading = acquireReading();
-        int baseCharge = baseRate(reading._month, reading._year) * reading._quantity;
+        int baseCharge = reading.baseCharge();
 
         return baseCharge;
     }
