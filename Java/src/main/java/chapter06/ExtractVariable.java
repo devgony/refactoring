@@ -13,8 +13,9 @@ class ExtractVariable {
 
     static double price(Order order) {
         double basePrice = order.quantity * order.itemPrice;
+        double quantityDiscount = Math.max(0, order.quantity - 500) * order.itemPrice * 0.05;
         return basePrice -
-                Math.max(0, order.quantity - 500) * order.itemPrice * 0.05 +
+                quantityDiscount +
                 Math.min(basePrice * 0.1, 100);
 
     }
