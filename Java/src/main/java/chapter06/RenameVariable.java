@@ -1,6 +1,8 @@
 package chapter06;
 
 class RenameVariable {
+    public static final String cpyNm = "Acme Gooseberries";
+
     String _title = "untitled";
 
     String headingOne() {
