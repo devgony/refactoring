@@ -23,7 +23,7 @@ class ChangeFunctionDeclarationTest {
 
     @Test
     void circum() {
-        double actual = ChangeFunctionDeclaration.circum(6);
+        double actual = ChangeFunctionDeclaration.circumference(6);
         assertThat(actual).isEqualTo(37.69911184307752);
     }
 

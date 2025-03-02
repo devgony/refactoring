@@ -6,11 +6,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 
 class ChangeFunctionDeclaration {
-    static double circum(double radius) {
-        return circumference(radius);
-    }
-
-    private static double circumference(double radius) {
+    static double circumference(double radius) {
         return 2 * Math.PI * radius;
     }
 
