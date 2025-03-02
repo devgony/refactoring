@@ -342,7 +342,7 @@ function calculateOutstanding(invoice) {
   - 함수당 하나의 값을 리턴하는 것을 권장한다
   - 여러 함수를 만들어 복수의 리턴값을 나눠 처리할 수 있도록 시도한다
   - 정말 필요한 경우, 객체를 리턴하도록 변경한다
-  - 하지만 사전에 `Replaca Temp with Query`, `Split Variable` 만 사용해도 하나만 리턴하게 되는 경우가 많다
+  - 하지만 사전에 `Replace Temp with Query`, `Split Variable` 만 사용해도 하나만 리턴하게 되는 경우가 많다
     - TODO: 예시 필요
 
 - 작은 스텝으로 일단 nested function 추출하는게 좋긴 하지만, 나중에 옮기기 전까지는 score 문제를 알 수 없기때문에 첫 추출 때 적어도 sibling level 로 추출하는 것도 좋은 방법이다
