@@ -83,7 +83,7 @@ export function setDefaultOwner(arg) {
 
 ## Encapsulating the Value
 
-- 기존 리팩토링은 구조의 변경은 막지 못했다
+- 기존 리팩토링은 변수에 대한 접근은 함수로 제한했지만, 그 변수가 가리키는 객체(내부 데이터)에 대한 수정은 막지 못했다
 
 ```js
 const owner1 = defaultOwner();

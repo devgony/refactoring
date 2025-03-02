@@ -29,7 +29,7 @@ class EncapsulateVariable {
         }
 
         static Owner defaultOwner() {
-            return _defaultOwner;
+            return new Owner(_defaultOwner.getFirstName(), _defaultOwner.getLastName());
         }
 
     }

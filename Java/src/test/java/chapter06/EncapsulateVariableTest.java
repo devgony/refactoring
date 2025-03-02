@@ -26,7 +26,7 @@ class EncapsulateVariableTest {
 
         Owner owner2 = Owner.defaultOwner();
         owner2.setLastName("Parsons");
-        assertThat(owner1.getLastName()).isEqualTo("Parsons"); // owner1 was also mutated
+        assertThat(owner1.getLastName()).isEqualTo("Fowler"); // preserved
         assertThat(owner2.getLastName()).isEqualTo("Parsons");
     }
 
