@@ -50,7 +50,8 @@ class IntroductionParameterObject {
         int temperatureCeiling;
     }
 
-    static List<Reading> readingsOutsideRange(Station station, int low, int high, NumberRange range) {
-        return station.readings.stream().filter(r -> r.temp < low || r.temp > high).collect(Collectors.toList());
+    static List<Reading> readingsOutsideRange(Station station, NumberRange range) {
+        return station.readings.stream().filter(r -> r.temp < range.min() || r.temp > range.max())
+                .collect(Collectors.toList());
     }
 }
