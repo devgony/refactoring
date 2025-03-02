@@ -50,7 +50,8 @@ class CombineFunctionsIntoTransform {
 
     int client1() {
         Reading reading = acquireReading();
-        int baseCharge = baseRate(reading.month, reading.year) * reading.quantity;
+        reading = enrichReading(reading);
+        int baseCharge = reading.baseCharge.get();
 
         return baseCharge;
     }
