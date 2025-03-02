@@ -37,8 +37,7 @@ class ChangeFunctionDeclaration {
     }
 
     static boolean inNewEngland(Customer aCustomer) {
-        String stateCode = aCustomer.address.state;
-        return xxNEWinNewEngland(stateCode);
+        return xxNEWinNewEngland(aCustomer.address.state);
     }
 
     private static boolean xxNEWinNewEngland(String stateCode) {
