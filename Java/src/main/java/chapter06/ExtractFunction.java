@@ -30,11 +30,11 @@ class ExtractFunction {
 
     private static int calculateOutstanding(Invoice invoice) {
         // calculate outstanding
-        int outstanding = 0;
+        int result = 0;
         for (Order o : invoice.orders) {
-            outstanding += o.amount;
+            result += o.amount;
         }
-        return outstanding;
+        return result;
     }
 
     private static void recordDueDate(Invoice invoice) {
