@@ -28,6 +28,10 @@ class IntroductionParameterObject {
         int max() {
             return this._data.max;
         }
+
+        boolean contains(int arg) {
+            return arg >= min() && arg <= max();
+        }
     }
 
     @AllArgsConstructor
@@ -51,7 +55,6 @@ class IntroductionParameterObject {
     }
 
     static List<Reading> readingsOutsideRange(Station station, NumberRange range) {
-        return station.readings.stream().filter(r -> r.temp < range.min() || r.temp > range.max())
-                .collect(Collectors.toList());
+        return station.readings.stream().filter(r -> !range.contains(r.temp)).collect(Collectors.toList());
     }
 }
