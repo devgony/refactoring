@@ -18,12 +18,9 @@ class ExtractFunction {
     }
 
     static String printOwing(Invoice invoice) {
-        String result = "";
         int outstanding = 0;
 
-        result += "***********************\n";
-        result += "**** Customer Owes ****\n";
-        result += "***********************\n";
+        String result = printBanner();
 
         // calculate outstanding
         for (Order o : invoice.orders) {
@@ -36,6 +33,14 @@ class ExtractFunction {
         result += "amount: " + outstanding + "\n";
         result += "due: " + invoice.dueDate;
 
+        return result;
+    }
+
+    private static String printBanner() {
+        String result = "";
+        result += "***********************\n";
+        result += "**** Customer Owes ****\n";
+        result += "***********************\n";
         return result;
     }
 }
