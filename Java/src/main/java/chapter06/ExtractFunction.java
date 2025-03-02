@@ -1,0 +1,41 @@
+package chapter06;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+
+class ExtractFunction {
+    @AllArgsConstructor
+    static public class Invoice {
+        String customer;
+        Date dueDate;
+        Order[] orders;
+    }
+
+    @AllArgsConstructor
+    static public class Order {
+        int amount;
+    }
+
+    static String printOwing(Invoice invoice) {
+        String result = "";
+        int outstanding = 0;
+
+        result += "***********************\n";
+        result += "**** Customer Owes ****\n";
+        result += "***********************\n";
+
+        // calculate outstanding
+        for (Order o : invoice.orders) {
+            outstanding += o.amount;
+        }
+
+        invoice.dueDate = new Date();
+
+        result += "name: " + invoice.customer + "\n";
+        result += "amount: " + outstanding + "\n";
+        result += "due: " + invoice.dueDate;
+
+        return result;
+    }
+}

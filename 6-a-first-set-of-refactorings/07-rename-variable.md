@@ -27,21 +27,24 @@ let area = height * width;
 # Example
 
 - codebase 전체에 걸쳐 참조되고 있는 경우 rename이 어렵다
-- read ref
 
 ```js
 let tpHd = "untitled";
-```
 
-- mut ref
+// read ref
+result += `<h1>${tpHd}</h1>`;
 
-```js
+// mut ref
 tpHd = obj["articleTitle"];
 ```
 
 - `Encapsulate Variable` 고려
 
 ```js
+// read ref
+result += `<h1>${title()}</h1>`;
+
+// mut ref
 setTitle(obj["articleTitle"]);
 
 function title() {
