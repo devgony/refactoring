@@ -1,7 +1,7 @@
 package chapter06;
 
 class RenameVariable {
-    String tpHd = "untitled";
+    String _title = "untitled";
 
     String headingOne() {
         return "<h1>" + title() + "</h1>";
@@ -12,11 +12,11 @@ class RenameVariable {
     }
 
     String title() {
-        return tpHd;
+        return _title;
     };
 
     void setTitle(String arg) {
-        tpHd = arg;
+        _title = arg;
     }
 
 }

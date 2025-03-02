@@ -11,6 +11,6 @@ class RenameVariableTest {
         assertThat(actual).isEqualTo("<h1>untitled</h1>");
 
         renameVariable.mutateTpHd("new title");
-        assertThat(renameVariable.tpHd).isEqualTo("new title");
+        assertThat(renameVariable._title).isEqualTo("new title");
     }
 }
