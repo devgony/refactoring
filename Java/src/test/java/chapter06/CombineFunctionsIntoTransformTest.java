@@ -10,10 +10,10 @@ class CombineFunctionsIntoTransformTest {
         Reading aReading = CombineFunctionsIntoTransform.acquireReading();
         assertThat(aReading).isEqualTo(new Reading("ivan", 10, 5, 2017));
 
-        int baseCharge = CombineFunctionsIntoClass.baseRate(aReading.month, aReading.year) * aReading.quantity;
+        int baseCharge = CombineFunctionsIntoTransform.baseRate(aReading.month, aReading.year) * aReading.quantity;
         assertThat(baseCharge).isEqualTo(0);
 
-        int texThreshold = new CombineFunctionsIntoClass().taxThreshold(aReading.year);
+        int texThreshold = new CombineFunctionsIntoTransform().taxThreshold(aReading.year);
         assertThat(texThreshold).isEqualTo(0);
 
     }
