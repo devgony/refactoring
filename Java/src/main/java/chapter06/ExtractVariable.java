@@ -25,9 +25,19 @@ class ExtractVariable {
         }
 
         double price2() {
-            return (this.quantity() * this.itemPrice() -
-                    Math.max(0, this.quantity() - 500) * this.itemPrice() * 0.05 +
-                    Math.min(this.quantity() * this.itemPrice() * 0.1, 100));
+            return (basePrice() - quantityDiscount() + shipping());
+        }
+
+        double basePrice() {
+            return this._data.quantity * this._data.itemPrice;
+        }
+
+        double quantityDiscount() {
+            return Math.max(0, this._data.quantity - 500) * this._data.itemPrice * 0.05;
+        }
+
+        double shipping() {
+            return Math.min(this.basePrice() * 0.1, 100);
         }
     }
 
