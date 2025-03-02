@@ -5,6 +5,8 @@ class EncapsulateVariable {
         private String firstName;
         private String lastName;
 
+        static Owner _defaultOwner = new Owner("Martin", "Fowler");
+
         public Owner(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -27,7 +29,7 @@ class EncapsulateVariable {
         }
 
         static Owner defaultOwner() {
-            return new Owner("Martin", "Fowler");
+            return _defaultOwner;
         }
 
     }

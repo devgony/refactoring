@@ -19,4 +19,15 @@ class EncapsulateVariableTest {
         assertThat(spaceship.owner.getLastName()).isEqualTo("Parsons");
     }
 
+    @Test
+    void encapsulatingTheValue() {
+        Owner owner1 = Owner.defaultOwner();
+        assertThat(owner1.getLastName()).isEqualTo("Fowler");
+
+        Owner owner2 = Owner.defaultOwner();
+        owner2.setLastName("Parsons");
+        assertThat(owner1.getLastName()).isEqualTo("Parsons"); // owner1 was also mutated
+        assertThat(owner2.getLastName()).isEqualTo("Parsons");
+    }
+
 }
