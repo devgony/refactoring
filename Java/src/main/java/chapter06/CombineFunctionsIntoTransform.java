@@ -64,7 +64,8 @@ class CombineFunctionsIntoTransform {
 
     int client3() {
         Reading reading = acquireReading();
-        int basicChargeAmount = calculateBaseCharge(reading);
+        reading = enrichReading(reading);
+        int basicChargeAmount = reading.baseCharge.get();
 
         return basicChargeAmount;
     }
