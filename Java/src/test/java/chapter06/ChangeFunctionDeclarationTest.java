@@ -35,7 +35,7 @@ class ChangeFunctionDeclarationTest {
 
     @Test
     void isNewEngland() {
-        boolean actual = ChangeFunctionDeclaration.xxNEWinNewEngland(customer.address.state);
+        boolean actual = ChangeFunctionDeclaration.inNewEngland(customer.address.state);
         assertThat(actual).isFalse();
     }
 }
