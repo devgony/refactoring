@@ -21,16 +21,20 @@ class ExtractFunction {
 
         String result = printBanner();
 
+        int outstanding = calculateOutstanding(invoice);
+        recordDueDate(invoice);
+        result = printDetails(invoice, outstanding);
+
+        return result;
+    }
+
+    private static int calculateOutstanding(Invoice invoice) {
         // calculate outstanding
         int outstanding = 0;
         for (Order o : invoice.orders) {
             outstanding += o.amount;
         }
-
-        recordDueDate(invoice);
-        result = printDetails(invoice, outstanding);
-
-        return result;
+        return outstanding;
     }
 
     private static void recordDueDate(Invoice invoice) {
