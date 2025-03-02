@@ -29,12 +29,9 @@ class InlineFunction {
     static List<String> reportLines(Customer aCustomer) {
         List<String> lines = new ArrayList<>();
         lines.add("name: " + aCustomer.name);
-        gatherCustomerData(lines, aCustomer);
-        return lines;
-    }
+        lines.add("id: " + aCustomer.id);
 
-    static private void gatherCustomerData(List<String> out, Customer aCustomer) {
-        out.add("id: " + aCustomer.id);
+        return lines;
     }
 
 }
