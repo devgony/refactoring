@@ -21,6 +21,19 @@ class CombineFunctionsIntoTransform {
             this.month = month;
             this.year = year;
         }
+
+        Reading enrichReading() {
+            Reading result = new Reading(customer, quantity, month, year);
+            result.baseCharge = Optional.of(calculateBaseCharge(result));
+            result.taxableCharge = Optional.of(Math.max(0, result.baseCharge.get() - taxThreshold(result.year)));
+
+            return result;
+
+        }
+
+        int calculateBaseCharge(Reading reading) {
+            return baseRate(reading.month, reading.year) * reading.quantity;
+        }
     }
 
     static Reading acquireReading() {
@@ -49,40 +62,24 @@ class CombineFunctionsIntoTransform {
     }
 
     int client1() {
-        Reading reading = acquireReading();
-        reading = enrichReading(reading);
+        Reading reading = acquireReading().enrichReading();
         int baseCharge = reading.baseCharge.get();
 
         return baseCharge;
     }
 
     int client2() {
-        Reading reading = acquireReading();
-        reading = enrichReading(reading);
+        Reading reading = acquireReading().enrichReading();
         int taxableCharge = reading.taxableCharge.get();
 
         return taxableCharge;
     }
 
     int client3() {
-        Reading reading = acquireReading();
-        reading = enrichReading(reading);
+        Reading reading = acquireReading().enrichReading();
         int basicChargeAmount = reading.baseCharge.get();
 
         return basicChargeAmount;
-    }
-
-    int calculateBaseCharge(Reading reading) {
-        return baseRate(reading.month, reading.year) * reading.quantity;
-    }
-
-    Reading enrichReading(Reading original) {
-        Reading result = new Reading(original.customer, original.quantity, original.month, original.year);
-        result.baseCharge = Optional.of(calculateBaseCharge(result));
-        result.taxableCharge = Optional.of(Math.max(0, result.baseCharge.get() - taxThreshold(result.year)));
-
-        return result;
-
     }
 
 }
