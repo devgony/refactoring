@@ -13,6 +13,7 @@ class CombineFunctionsIntoTransform {
         int month;
         int year;
         Optional<Integer> baseCharge = Optional.empty();
+        Optional<Integer> taxableCharge = Optional.empty();
 
         Reading(String customer, int quantity, int month, int year) {
             this.customer = customer;
@@ -57,7 +58,7 @@ class CombineFunctionsIntoTransform {
     int client2() {
         Reading reading = acquireReading();
         reading = enrichReading(reading);
-        int taxableCharge = Math.max(0, reading.baseCharge.get() - taxThreshold(reading.year));
+        int taxableCharge = reading.taxableCharge.get();
 
         return taxableCharge;
     }
@@ -77,6 +78,7 @@ class CombineFunctionsIntoTransform {
     Reading enrichReading(Reading original) {
         Reading result = new Reading(original.customer, original.quantity, original.month, original.year);
         result.baseCharge = Optional.of(calculateBaseCharge(result));
+        result.taxableCharge = Optional.of(Math.max(0, result.baseCharge.get() - taxThreshold(result.year)));
 
         return result;
 
