@@ -10,11 +10,7 @@ class InlineFunction {
     }
 
     int rating(Driver aDriver) {
-        return moreThanFiveLateDeliveries(aDriver) ? 2 : 1;
-    }
-
-    boolean moreThanFiveLateDeliveries(Driver dvr) {
-        return dvr.numberOfLateDeliveries > 5;
+        return aDriver.numberOfLateDeliveries > 5 ? 2 : 1;
     }
 
 }
