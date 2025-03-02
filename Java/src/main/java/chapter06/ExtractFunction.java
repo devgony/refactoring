@@ -27,11 +27,14 @@ class ExtractFunction {
             outstanding += o.amount;
         }
 
-        invoice.dueDate = new Date();
-
+        recordDueDate(invoice);
         result = printDetails(invoice, outstanding);
 
         return result;
+    }
+
+    private static void recordDueDate(Invoice invoice) {
+        invoice.dueDate = new Date();
     }
 
     private static String printDetails(Invoice invoice, int outstanding) {

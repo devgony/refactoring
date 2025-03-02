@@ -210,6 +210,8 @@ function printDetails(invoice, outstanding) {
 }
 ```
 
+- 날짜 생성 역시 함수로 추출
+
 ```js
 function printOwing(invoice) {
   let outstanding = 0;
