@@ -25,10 +25,19 @@ class EncapsulateVariable {
         public void setLastName(String arg) {
             lastName = arg;
         }
+
+        static Owner getDefaultOwner() {
+            return new Owner("Martin", "Fowler");
+        }
+
     }
 
     static class Spaceship {
         Owner owner;
+
+        void setDefaultOwner(Owner arg) {
+            this.owner = arg;
+        }
     }
 
 }

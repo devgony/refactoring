@@ -10,14 +10,13 @@ class EncapsulateVariableTest {
     @Test
     void testEncapsulateVariable() {
         Spaceship spaceship = new Spaceship();
-        Owner defaultOwner = new Owner("Martin", "Fowler");
-        spaceship.owner = defaultOwner;
-        defaultOwner = new Owner("Rebecca", "Parsons");
-
+        spaceship.owner = Owner.getDefaultOwner();
         assertThat(spaceship.owner.getFirstName()).isEqualTo("Martin");
         assertThat(spaceship.owner.getLastName()).isEqualTo("Fowler");
-        assertThat(defaultOwner.getFirstName()).isEqualTo("Rebecca");
-        assertThat(defaultOwner.getLastName()).isEqualTo("Parsons");
+
+        spaceship.setDefaultOwner(new Owner("Rebecca", "Parsons"));
+        assertThat(spaceship.owner.getFirstName()).isEqualTo("Rebecca");
+        assertThat(spaceship.owner.getLastName()).isEqualTo("Parsons");
     }
 
 }

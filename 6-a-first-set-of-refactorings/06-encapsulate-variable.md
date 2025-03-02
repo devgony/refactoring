@@ -73,7 +73,7 @@ setDefaultOwner({ firstName: "Rebecca", lastName: "Parsons" });
 ```js
 // defaultOwner.js…
 let defaultOwnerData = { firstName: "Martin", lastName: "Fowler" };
-export function getdefaultOwner() {
+export function defaultOwner() {
   return defaultOwnerData;
 }
 export function setDefaultOwner(arg) {
