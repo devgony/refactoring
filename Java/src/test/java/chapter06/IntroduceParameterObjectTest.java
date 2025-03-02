@@ -25,7 +25,7 @@ class IntroduceParameterObjectTest {
         OperatingPlan operatingPlan = new OperatingPlan(50, 55);
 
         List<Reading> actual = IntroductionParameterObject.readingsOutsideRange(station, operatingPlan.temperatureFloor,
-                operatingPlan.temperatureCeiling);
+                operatingPlan.temperatureCeiling, null);
         assertThat(actual).containsExactly(
                 new Reading(47, "2016-11-10 09:10"),
                 new Reading(58, "2016-11-10 09:30"));
