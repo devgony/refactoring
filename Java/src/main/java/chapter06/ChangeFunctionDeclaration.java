@@ -26,10 +26,11 @@ class ChangeFunctionDeclaration {
         List<Customer> _reservations;
 
         void addReservation(Customer customer) {
-            zz_addReservation(customer);
+            zz_addReservation(customer, false);
         }
 
-        private void zz_addReservation(Customer customer) {
+        private void zz_addReservation(Customer customer, boolean isPriority) {
+            // do something with isPriority
             this._reservations.add(customer);
         }
 
