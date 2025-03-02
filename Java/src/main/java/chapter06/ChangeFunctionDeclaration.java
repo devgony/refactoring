@@ -26,6 +26,10 @@ class ChangeFunctionDeclaration {
         List<Customer> _reservations;
 
         void addReservation(Customer customer) {
+            zz_addReservation(customer);
+        }
+
+        private void zz_addReservation(Customer customer) {
             this._reservations.add(customer);
         }
 
