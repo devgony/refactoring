@@ -1,16 +1,25 @@
 package chapter06;
 
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 class CombineFunctionsIntoTransform {
-    @AllArgsConstructor
     @EqualsAndHashCode
     static class Reading {
         String customer;
         int quantity;
         int month;
         int year;
+        Optional<Integer> baseCharge = Optional.empty();
+
+        Reading(String customer, int quantity, int month, int year) {
+            this.customer = customer;
+            this.quantity = quantity;
+            this.month = month;
+            this.year = year;
+        }
     }
 
     static Reading acquireReading() {
@@ -62,6 +71,14 @@ class CombineFunctionsIntoTransform {
 
     int calculateBaseCharge(Reading reading) {
         return baseRate(reading.month, reading.year) * reading.quantity;
+    }
+
+    Reading enrichReading(Reading original) {
+        Reading result = new Reading(original.customer, original.quantity, original.month, original.year);
+        result.baseCharge = Optional.of(calculateBaseCharge(result));
+
+        return result;
+
     }
 
 }
