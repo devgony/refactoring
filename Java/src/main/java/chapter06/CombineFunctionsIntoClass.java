@@ -31,6 +31,10 @@ class CombineFunctionsIntoClass {
         int baseCharge() {
             return baseRate(this._month, this._year) * this._quantity;
         }
+
+        int taxableCharge() {
+            return Math.max(0, this.baseCharge() - taxThreshold(this._year));
+        }
     }
 
     static Reading acquireReading() {
@@ -49,7 +53,7 @@ class CombineFunctionsIntoClass {
         return rate;
     }
 
-    int taxThreshold(int year) {
+    static int taxThreshold(int year) {
         // 예시 로직: 연도에 따라 세금 기준을 계산
         int threshold = 50; // 기본 세금 기준
         if (year > 2020) { // 2020년 이후는 기준 증가
@@ -67,8 +71,7 @@ class CombineFunctionsIntoClass {
 
     int client2() {
         Reading reading = acquireReading();
-        int baseCharge = baseRate(reading._month, reading._year) * reading._quantity;
-        int taxableCharge = Math.max(0, baseCharge - taxThreshold(reading._year));
+        int taxableCharge = reading.taxableCharge();
 
         return taxableCharge;
     }
