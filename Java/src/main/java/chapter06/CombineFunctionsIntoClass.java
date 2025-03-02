@@ -27,6 +27,10 @@ class CombineFunctionsIntoClass {
         int year() {
             return _year;
         }
+
+        int calculateBaseCharge() {
+            return baseRate(this._month, this._year) * this._quantity;
+        }
     }
 
     static Reading acquireReading() {
@@ -71,13 +75,9 @@ class CombineFunctionsIntoClass {
 
     int client3() {
         Reading aReading = acquireReading();
-        int basicChargeAmount = calculateBaseCharge(aReading);
+        int basicChargeAmount = aReading.calculateBaseCharge();
 
         return basicChargeAmount;
-    }
-
-    int calculateBaseCharge(Reading aReading) {
-        return baseRate(aReading._month, aReading._year) * aReading._quantity;
     }
 
 }
