@@ -7,10 +7,26 @@ class CombineFunctionsIntoClass {
     @AllArgsConstructor
     @EqualsAndHashCode
     static class Reading {
-        String customer;
-        int quantity;
-        int month;
-        int year;
+        String _customer;
+        int _quantity;
+        int _month;
+        int _year;
+
+        String customer() {
+            return _customer;
+        }
+
+        int quantity() {
+            return _quantity;
+        }
+
+        int month() {
+            return _month;
+        }
+
+        int year() {
+            return _year;
+        }
     }
 
     static Reading acquireReading() {
@@ -40,15 +56,15 @@ class CombineFunctionsIntoClass {
 
     int client1() {
         Reading reading = acquireReading();
-        int baseCharge = baseRate(reading.month, reading.year) * reading.quantity;
+        int baseCharge = baseRate(reading._month, reading._year) * reading._quantity;
 
         return baseCharge;
     }
 
     int client2() {
         Reading reading = acquireReading();
-        int baseCharge = baseRate(reading.month, reading.year) * reading.quantity;
-        int taxableCharge = Math.max(0, baseCharge - taxThreshold(reading.year));
+        int baseCharge = baseRate(reading._month, reading._year) * reading._quantity;
+        int taxableCharge = Math.max(0, baseCharge - taxThreshold(reading._year));
 
         return taxableCharge;
     }
@@ -61,7 +77,7 @@ class CombineFunctionsIntoClass {
     }
 
     int calculateBaseCharge(Reading aReading) {
-        return baseRate(aReading.month, aReading.year) * aReading.quantity;
+        return baseRate(aReading._month, aReading._year) * aReading._quantity;
     }
 
 }
