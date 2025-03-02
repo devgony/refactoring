@@ -4,11 +4,19 @@ class RenameVariable {
     String tpHd = "untitled";
 
     String headingOne() {
-        return "<h1>" + tpHd + "</h1>";
+        return "<h1>" + title() + "</h1>";
     }
 
     void mutateTpHd(String newTitle) {
-        tpHd = newTitle;
+        setTitle(newTitle);
+    }
+
+    String title() {
+        return tpHd;
+    };
+
+    void setTitle(String arg) {
+        tpHd = arg;
     }
 
 }
