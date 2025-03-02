@@ -40,7 +40,7 @@ class ChangeFunctionDeclaration {
         return xxNEWinNewEngland(aCustomer.address.state);
     }
 
-    private static boolean xxNEWinNewEngland(String stateCode) {
+    static boolean xxNEWinNewEngland(String stateCode) {
         return Arrays.asList("MA", "CT", "ME", "VT", "NH", "RI").contains(stateCode);
     }
 
