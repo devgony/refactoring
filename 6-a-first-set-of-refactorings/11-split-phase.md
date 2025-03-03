@@ -779,7 +779,7 @@ public class CommandLine {
 +   if (args.length == 0) throw new RuntimeException("must supply a filename");
   }
   String filename() {
-+   return args[args.length - 1];
+    return args[args.length - 1];
   }
   boolean onlyCountReady() {
     return Stream.of(args).anyMatch(arg -> "-r".equals(arg));
