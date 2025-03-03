@@ -91,7 +91,8 @@ class SplitPhase {
         File input = Paths.get(filename).toFile();
         ObjectMapper mapper = new ObjectMapper();
         Order[] orders = mapper.readValue(input, Order[].class);
-        if (Stream.of(args).anyMatch(arg -> "-r".equals(arg)))
+        boolean onlyCountReady = Stream.of(args).anyMatch(arg -> "-r".equals(arg));
+        if (onlyCountReady)
             return Stream.of(orders).filter(o -> "ready".equals(o.status)).count();
         else
             return orders.length;
