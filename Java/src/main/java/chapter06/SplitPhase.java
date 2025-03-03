@@ -79,12 +79,17 @@ class SplitPhase {
     }
 
     static long run(String[] args) throws IOException, StreamReadException, DatabindException {
+        CommandLine commandLine = parseCommandLine(args);
+        return countOrders(commandLine);
+    }
+
+    private static CommandLine parseCommandLine(String[] args) {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
         CommandLine commandLine = new CommandLine();
         commandLine.filename = args[args.length - 1];
         commandLine.onlyCountReady = Stream.of(args).anyMatch(arg -> "-r".equals(arg));
-        return countOrders(commandLine);
+        return commandLine;
     }
 
     private static long countOrders(CommandLine commandLine)
