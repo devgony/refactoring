@@ -24,6 +24,12 @@ class SplitPhase {
     }
 
     static class PriceData {
+        double basePrice;
+
+        public PriceData(double basePrice) {
+            this.basePrice = basePrice;
+        }
+
     }
 
     static double priceOrder(Product product, int quantity, ShippingMethod shippingMethod) {
@@ -31,19 +37,18 @@ class SplitPhase {
         double discount = Math.max(quantity - product.discountThreshold, 0) *
                 product.basePrice *
                 product.discountRate;
-        PriceData priceData = new PriceData();
-        double price = applyShipping(priceData, quantity, shippingMethod, basePrice, discount);
+        PriceData priceData = new PriceData(basePrice);
+        double price = applyShipping(priceData, quantity, shippingMethod, discount);
         return price;
     }
 
     private static double applyShipping(PriceData priceData, int quantity, ShippingMethod shippingMethod,
-            double basePrice,
             double discount) {
-        double shippingPerCase = basePrice > shippingMethod.discountThreshold
+        double shippingPerCase = priceData.basePrice > shippingMethod.discountThreshold
                 ? shippingMethod.discountedFee
                 : shippingMethod.feePerCase;
         double shippingCost = quantity * shippingPerCase;
-        double price = basePrice - discount + shippingCost;
+        double price = priceData.basePrice - discount + shippingCost;
         return price;
     }
 
