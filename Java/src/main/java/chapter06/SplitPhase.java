@@ -76,7 +76,7 @@ class SplitPhase {
         }
     }
 
-    private static void run(String[] args) throws IOException, StreamReadException, DatabindException {
+    private static long run(String[] args) throws IOException, StreamReadException, DatabindException {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
         String filename = args[args.length - 1];
@@ -84,9 +84,9 @@ class SplitPhase {
         ObjectMapper mapper = new ObjectMapper();
         Order[] orders = mapper.readValue(input, Order[].class);
         if (Stream.of(args).anyMatch(arg -> "-r".equals(arg)))
-            System.out.println(Stream.of(orders).filter(o -> "ready".equals(o.status)).count());
+            return Stream.of(orders).filter(o -> "ready".equals(o.status)).count();
         else
-            System.out.println(orders.length);
+            return orders.length;
     }
 
 }
