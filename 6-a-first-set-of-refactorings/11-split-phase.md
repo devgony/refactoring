@@ -671,14 +671,14 @@ public class CommandLine {
 + }
 ```
 
-- `Change Function Decalaraion` 을 통해 filename 을 인자로 받지 않도록 변경
+- `Change Function Declaraion` 을 통해 filename 을 인자로 받지 않도록 변경
 
 ```diff
 # class App…
   static long run(String[] args) throws IOException {
     if (args.length == 0) throw new RuntimeException("must supply a filename");
     CommandLine commandLine = new CommandLine(args);
-+   return countOrders(commandLine, args, commandLine.filename..);
++   return countOrders(commandLine, args);
   }
 
 + private static long countOrders(CommandLine commandLine, String[] args, String filename) throws IOException {
