@@ -18,12 +18,7 @@ class SplitPhaseTransformer {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
         CommandLine commandLine = new CommandLine(args);
-        return countOrders(commandLine, args, filename(args));
-    }
-
-    private static String filename(String[] args) {
-        String filename = args[args.length - 1];
-        return filename;
+        return countOrders(commandLine, args, commandLine.filename());
     }
 
     private static long countOrders(CommandLine commandLine, String[] args, String filename) throws IOException {
@@ -41,6 +36,10 @@ class SplitPhaseTransformer {
 
         public CommandLine(String[] args) {
             this.args = args;
+        }
+
+        private String filename() {
+            return this.args[args.length - 1];
         }
     }
 }
