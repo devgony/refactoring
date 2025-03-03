@@ -38,8 +38,8 @@ class SplitPhase {
 
     static double priceOrder(Product product, int quantity, ShippingMethod shippingMethod) {
         PriceData priceData = calculatePricingData(product, quantity);
-        double price = applyShipping(priceData, shippingMethod);
-        return price;
+
+        return applyShipping(priceData, shippingMethod);
     }
 
     private static PriceData calculatePricingData(Product product, int quantity) {
