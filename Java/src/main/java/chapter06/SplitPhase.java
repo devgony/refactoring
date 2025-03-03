@@ -82,6 +82,11 @@ class SplitPhase {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
         String filename = args[args.length - 1];
+        return countOrders(args, filename);
+    }
+
+    private static long countOrders(String[] args, String filename)
+            throws IOException, StreamReadException, DatabindException {
         File input = Paths.get(filename).toFile();
         ObjectMapper mapper = new ObjectMapper();
         Order[] orders = mapper.readValue(input, Order[].class);
