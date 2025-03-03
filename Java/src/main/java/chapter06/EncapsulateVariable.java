@@ -5,6 +5,8 @@ class EncapsulateVariable {
         private String firstName;
         private String lastName;
 
+        static Owner _defaultOwner = new Owner("Martin", "Fowler");
+
         public Owner(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -25,10 +27,19 @@ class EncapsulateVariable {
         public void setLastName(String arg) {
             lastName = arg;
         }
+
+        static Owner defaultOwner() {
+            return new Owner(_defaultOwner.getFirstName(), _defaultOwner.getLastName());
+        }
+
     }
 
     static class Spaceship {
         Owner owner;
+
+        void setDefaultOwner(Owner arg) {
+            this.owner = arg;
+        }
     }
 
 }

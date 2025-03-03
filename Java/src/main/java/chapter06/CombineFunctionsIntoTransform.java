@@ -1,16 +1,39 @@
 package chapter06;
 
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 class CombineFunctionsIntoTransform {
-    @AllArgsConstructor
     @EqualsAndHashCode
     static class Reading {
         String customer;
         int quantity;
         int month;
         int year;
+        Optional<Integer> baseCharge = Optional.empty();
+        Optional<Integer> taxableCharge = Optional.empty();
+
+        Reading(String customer, int quantity, int month, int year) {
+            this.customer = customer;
+            this.quantity = quantity;
+            this.month = month;
+            this.year = year;
+        }
+
+        Reading enrichReading() {
+            Reading result = new Reading(customer, quantity, month, year);
+            result.baseCharge = Optional.of(calculateBaseCharge(result));
+            result.taxableCharge = Optional.of(Math.max(0, result.baseCharge.get() - taxThreshold(result.year)));
+
+            return result;
+
+        }
+
+        int calculateBaseCharge(Reading reading) {
+            return baseRate(reading.month, reading.year) * reading.quantity;
+        }
     }
 
     static Reading acquireReading() {
@@ -18,22 +41,45 @@ class CombineFunctionsIntoTransform {
     }
 
     static int baseRate(int month, int year) {
-        return 0;
+        // 예시 로직: 월과 연도에 따라 기본 요율을 계산
+        int rate = 100; // 기본 요율
+        if (month == 12) { // 12월은 특별 할인
+            rate -= 20;
+        }
+        if (year > 2020) { // 2020년 이후는 요율 증가
+            rate += 10;
+        }
+        return rate;
     }
 
-    int taxThreshold(int year) {
-        return 0;
+    static int taxThreshold(int year) {
+        // 예시 로직: 연도에 따라 세금 기준을 계산
+        int threshold = 50; // 기본 세금 기준
+        if (year > 2020) { // 2020년 이후는 기준 증가
+            threshold += 10;
+        }
+        return threshold;
     }
 
-    void client1() {
-        Reading reading = acquireReading();
-        int baseCharge = baseRate(reading.month, reading.year) * reading.quantity;
+    int client1() {
+        Reading reading = acquireReading().enrichReading();
+        int baseCharge = reading.baseCharge.get();
+
+        return baseCharge;
     }
 
-    void client2() {
-        Reading reading = acquireReading();
-        int baseCharge = baseRate(reading.month, reading.year) * reading.quantity;
-        int taxableCharge = Math.max(0, baseCharge - taxThreshold(reading.year));
+    int client2() {
+        Reading reading = acquireReading().enrichReading();
+        int taxableCharge = reading.taxableCharge.get();
+
+        return taxableCharge;
+    }
+
+    int client3() {
+        Reading reading = acquireReading().enrichReading();
+        int basicChargeAmount = reading.baseCharge.get();
+
+        return basicChargeAmount;
     }
 
 }

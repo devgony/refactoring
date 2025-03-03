@@ -18,24 +18,43 @@ class ExtractFunction {
     }
 
     static String printOwing(Invoice invoice) {
-        String result = "";
-        int outstanding = 0;
 
-        result += "***********************\n";
-        result += "**** Customer Owes ****\n";
-        result += "***********************\n";
+        String result = printBanner();
 
+        int outstanding = calculateOutstanding(invoice);
+        recordDueDate(invoice);
+        result = printDetails(invoice, outstanding);
+
+        return result;
+    }
+
+    private static int calculateOutstanding(Invoice invoice) {
         // calculate outstanding
+        int result = 0;
         for (Order o : invoice.orders) {
-            outstanding += o.amount;
+            result += o.amount;
         }
+        return result;
+    }
 
+    private static void recordDueDate(Invoice invoice) {
         invoice.dueDate = new Date();
+    }
 
+    private static String printDetails(Invoice invoice, int outstanding) {
+        String result = "";
         result += "name: " + invoice.customer + "\n";
         result += "amount: " + outstanding + "\n";
         result += "due: " + invoice.dueDate;
 
+        return result;
+    }
+
+    private static String printBanner() {
+        String result = "";
+        result += "***********************\n";
+        result += "**** Customer Owes ****\n";
+        result += "***********************\n";
         return result;
     }
 }

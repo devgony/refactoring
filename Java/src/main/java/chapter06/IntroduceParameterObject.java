@@ -5,9 +5,35 @@ import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 class IntroductionParameterObject {
+    @AllArgsConstructor
+    static class Data {
+        int min, max;
+    }
+
+    static class NumberRange {
+        Data _data;
+
+        NumberRange(int min, int max) {
+            this._data = new Data(min, max);
+        }
+
+        int min() {
+            return this._data.min;
+        }
+
+        int max() {
+            return this._data.max;
+        }
+
+        boolean contains(int arg) {
+            return arg >= min() && arg <= max();
+        }
+    }
+
     @AllArgsConstructor
     @EqualsAndHashCode
     @ToString
@@ -28,7 +54,7 @@ class IntroductionParameterObject {
         int temperatureCeiling;
     }
 
-    static List<Reading> readingsOutsideRange(Station station, int low, int high) {
-        return station.readings.stream().filter(r -> r.temp < low || r.temp > high).collect(Collectors.toList());
+    static List<Reading> readingsOutsideRange(Station station, NumberRange range) {
+        return station.readings.stream().filter(r -> !range.contains(r.temp)).collect(Collectors.toList());
     }
 }

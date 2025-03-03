@@ -121,76 +121,10 @@ alerts = readingsOutsideRange(
 
 ```js
 function readingsOutsideRange(station, min, max, range) {
-  return station.readings.filter((r) => r.temp < min || r.temp > range.max);
+  return station.readings.filter(
+    (r) => r.temp < range.min || r.temp > range.max,
+  );
 }
-```
-
-```js
-// caller
-alerts = readingsOutsideRange(
-  station,
-  operatingPlan.temperatureFloor,
-  operatingPlan.temperatureCeiling,
-  null,
-);
-```
-
-```diff
-// caller
-+const range = new NumberRange(
-+  operatingPlan.temperatureFloor,
-+  operatingPlan.temperatureCeiling,
-+);
-alerts = readingsOutsideRange(
-  station,
-  operatingPlan.temperatureFloor,
-  operatingPlan.temperatureCeiling,
-+ range,
-);
-```
-
-- range.max 사용하도록 변경
-
-```diff
-function readingsOutsideRange(station,
-    min,
--   max,
-    range) {
-  return station.readings.filter((r) => r.temp < min || r.temp > range.max);
-}
-```
-
-```diff
-// caller
-const range = new NumberRange(
-  operatingPlan.temperatureFloor,
-_ operatingPlan.temperatureCeiling,
-);
-alerts = readingsOutsideRange(
-  station,
-  operatingPlan.temperatureFloor,
-- operatingPlan.temperatureCeiling,
-  range,
-);
-```
-
-- range.min 사용으로 변경
-
-```diff
-function readingsOutsideRange(station,
--   min,
-    range) {
-        return station.readings
-        .filter(r => r.temp < range.min || r.temp > range.max);
-    }
-
-```
-
-```diff
-const range = new NumberRange(operatingPlan.temperatureFloor, operatingPlan.temperatureCeiling);
-alerts = readingsOutsideRange(station,
--                           operatingPlan.temperatureFloor,
-                            range);
 ```
 
 - validation 행동을 옮길 수 있다

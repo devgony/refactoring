@@ -114,7 +114,7 @@ class Book {
 }
 ```
 
-- 일반 queue 와 high-priority quere 를 구분하기 위해 새로운 인자를 추가한다
+- 일반 queue 와 high-priority queue 를 구분하기 위해 새로운 인자를 추가한다
 - 이때 `Extract Function` 을 통해 새 함수를 만들어둔다
 - 이름을 유지하고 싶으므로 임시 이름을 부여한다
 

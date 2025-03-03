@@ -1,5 +1,8 @@
 package chapter06;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class InlineFunction {
     static class Driver {
         int numberOfLateDeliveries;
@@ -10,11 +13,25 @@ class InlineFunction {
     }
 
     int rating(Driver aDriver) {
-        return moreThanFiveLateDeliveries(aDriver) ? 2 : 1;
+        return aDriver.numberOfLateDeliveries > 5 ? 2 : 1;
     }
 
-    boolean moreThanFiveLateDeliveries(Driver dvr) {
-        return dvr.numberOfLateDeliveries > 5;
+    static class Customer {
+        String name;
+        String id;
+
+        public Customer(String name, String id) {
+            this.name = name;
+            this.id = id;
+        }
+    }
+
+    static List<String> reportLines(Customer aCustomer) {
+        List<String> lines = new ArrayList<>();
+        lines.add("name: " + aCustomer.name);
+        lines.add("id: " + aCustomer.id);
+
+        return lines;
     }
 
 }
