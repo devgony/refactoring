@@ -81,11 +81,12 @@ class SplitPhase {
     static long run(String[] args) throws IOException, StreamReadException, DatabindException {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
+        CommandLine commandLine = new CommandLine();
         String filename = args[args.length - 1];
-        return countOrders(args, filename);
+        return countOrders(commandLine, args, filename);
     }
 
-    private static long countOrders(String[] args, String filename)
+    private static long countOrders(CommandLine commandLine, String[] args, String filename)
             throws IOException, StreamReadException, DatabindException {
         File input = Paths.get(filename).toFile();
         ObjectMapper mapper = new ObjectMapper();
@@ -94,6 +95,9 @@ class SplitPhase {
             return Stream.of(orders).filter(o -> "ready".equals(o.status)).count();
         else
             return orders.length;
+    }
+
+    private static class CommandLine {
     }
 
 }
