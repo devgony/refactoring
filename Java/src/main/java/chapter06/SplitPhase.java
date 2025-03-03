@@ -26,10 +26,12 @@ class SplitPhase {
     static class PriceData {
         double basePrice;
         int quantity;
+        double discount;
 
-        public PriceData(double basePrice, int quantity) {
+        public PriceData(double basePrice, int quantity, double discount) {
             this.basePrice = basePrice;
             this.quantity = quantity;
+            this.discount = discount;
         }
 
     }
@@ -39,18 +41,17 @@ class SplitPhase {
         double discount = Math.max(quantity - product.discountThreshold, 0) *
                 product.basePrice *
                 product.discountRate;
-        PriceData priceData = new PriceData(basePrice, quantity);
-        double price = applyShipping(priceData, shippingMethod, discount);
+        PriceData priceData = new PriceData(basePrice, quantity, discount);
+        double price = applyShipping(priceData, shippingMethod);
         return price;
     }
 
-    private static double applyShipping(PriceData priceData, ShippingMethod shippingMethod,
-            double discount) {
+    private static double applyShipping(PriceData priceData, ShippingMethod shippingMethod) {
         double shippingPerCase = priceData.basePrice > shippingMethod.discountThreshold
                 ? shippingMethod.discountedFee
                 : shippingMethod.feePerCase;
         double shippingCost = priceData.quantity * shippingPerCase;
-        double price = priceData.basePrice - discount + shippingCost;
+        double price = priceData.basePrice - priceData.discount + shippingCost;
         return price;
     }
 
