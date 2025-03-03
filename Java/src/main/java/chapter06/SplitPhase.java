@@ -37,13 +37,18 @@ class SplitPhase {
     }
 
     static double priceOrder(Product product, int quantity, ShippingMethod shippingMethod) {
+        PriceData priceData = calculatePricingData(product, quantity);
+        double price = applyShipping(priceData, shippingMethod);
+        return price;
+    }
+
+    private static PriceData calculatePricingData(Product product, int quantity) {
         double basePrice = product.basePrice * quantity;
         double discount = Math.max(quantity - product.discountThreshold, 0) *
                 product.basePrice *
                 product.discountRate;
         PriceData priceData = new PriceData(basePrice, quantity, discount);
-        double price = applyShipping(priceData, shippingMethod);
-        return price;
+        return priceData;
     }
 
     private static double applyShipping(PriceData priceData, ShippingMethod shippingMethod) {
