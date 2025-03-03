@@ -18,21 +18,17 @@ class SplitPhaseTransformer {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
         CommandLine commandLine = new CommandLine(args);
-        return countOrders(commandLine, args);
+        return countOrders(commandLine);
     }
 
-    private static long countOrders(CommandLine commandLine, String[] args) throws IOException {
+    private static long countOrders(CommandLine commandLine) throws IOException {
         File input = Paths.get(commandLine.filename()).toFile();
         ObjectMapper mapper = new ObjectMapper();
         Order[] orders = mapper.readValue(input, Order[].class);
-        if (onlyCountReady(args))
+        if (commandLine.onlyCountReady())
             return Stream.of(orders).filter(o -> "ready".equals(o.status)).count();
         else
             return orders.length;
-    }
-
-    private static boolean onlyCountReady(String[] args) {
-        return Stream.of(args).anyMatch(arg -> "-r".equals(arg));
     }
 
     static public class CommandLine {
@@ -44,6 +40,10 @@ class SplitPhaseTransformer {
 
         private String filename() {
             return this.args[args.length - 1];
+        }
+
+        private boolean onlyCountReady() {
+            return Stream.of(args).anyMatch(arg -> "-r".equals(arg));
         }
     }
 }
