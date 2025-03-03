@@ -47,8 +47,8 @@ class SplitPhase {
         double discount = Math.max(quantity - product.discountThreshold, 0) *
                 product.basePrice *
                 product.discountRate;
-        PriceData priceData = new PriceData(basePrice, quantity, discount);
-        return priceData;
+
+        return new PriceData(basePrice, quantity, discount);
     }
 
     private static double applyShipping(PriceData priceData, ShippingMethod shippingMethod) {
@@ -56,8 +56,8 @@ class SplitPhase {
                 ? shippingMethod.discountedFee
                 : shippingMethod.feePerCase;
         double shippingCost = priceData.quantity * shippingPerCase;
-        double price = priceData.basePrice - priceData.discount + shippingCost;
-        return price;
+
+        return priceData.basePrice - priceData.discount + shippingCost;
     }
 
     static class Order {
