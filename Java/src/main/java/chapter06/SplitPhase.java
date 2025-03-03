@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,6 +65,7 @@ class SplitPhase {
     }
 
     static class Order {
+        @JsonProperty("status")
         String status;
     }
 
@@ -76,7 +78,7 @@ class SplitPhase {
         }
     }
 
-    private static long run(String[] args) throws IOException, StreamReadException, DatabindException {
+    static long run(String[] args) throws IOException, StreamReadException, DatabindException {
         if (args.length == 0)
             throw new RuntimeException("must supply a filename");
         String filename = args[args.length - 1];

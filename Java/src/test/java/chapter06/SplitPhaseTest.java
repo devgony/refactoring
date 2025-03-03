@@ -2,7 +2,12 @@ package chapter06;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 
 import chapter06.SplitPhase.Product;
 import chapter06.SplitPhase.ShippingMethod;
@@ -18,7 +23,12 @@ class SplitPhaseTest {
     }
 
     @Test
-    void jsonTest() {
-        // TODO:
+    void countOrdersTest() throws StreamReadException, DatabindException, IOException {
+        String path = getClass().getClassLoader().getResource("split-phase.json").getPath();
+        long actual = SplitPhase.run(new String[] { path });
+        assertThat(actual).isEqualTo(3);
+
+        actual = SplitPhase.run(new String[] { "-r", path, });
+        assertThat(actual).isEqualTo(1);
     }
 }
