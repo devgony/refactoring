@@ -1,24 +1,24 @@
 package chapter07;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import utils.ObjectBuilder;
-
 class EncapsulateRecord {
-    static Organization organization = new Organization("{\"name\": \"Acme Gooseberries\", \"country\": \"GB\"}");
+    static Organization organization = new Organization("Acme Gooseberries", "GB");
 
     static class Organization {
-        private ObjectNode _data;
+        private String _name;
+        private String _country;
 
-        Organization(String jsonString) {
-            _data = ObjectBuilder.readValue(jsonString);
+        Organization(String name, String country) {
+            _name = name;
+            _country = country;
+
         }
 
         String name() {
-            return _data.get("name").asText();
+            return _name;
         }
 
         void name(String arg) {
-            _data.set("name", ObjectBuilder.mapper.valueToTree(arg));
+            _name = arg;
         }
 
     }
