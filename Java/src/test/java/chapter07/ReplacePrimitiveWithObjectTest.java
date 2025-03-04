@@ -7,16 +7,17 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import chapter07.ReplacePrimitiveWithObject.Data;
+import chapter07.ReplacePrimitiveWithObject.RawData;
 import chapter07.ReplacePrimitiveWithObject.Order;
 
 class ReplacePrimitiveWithObjectTest {
     @Test
     void client() {
-        List<Order> orders = Arrays.asList(new Order(new Data("low")), new Order(new Data("high")),
-                new Order(new Data("rush")));
+        List<Order> orders = Arrays.asList(new Order(new RawData("low")), new Order(new RawData("high")),
+                new Order(new RawData("rush")));
         long highPriorityCount = orders.stream()
-                .filter(order -> order.priority.equals("high") || order.priority.equals("rush")).count();
+                .filter(order -> order._priority.toString().equals("high") || order._priority.toString().equals("rush"))
+                .count();
 
         assertThat(highPriorityCount).isEqualTo(2);
     }
