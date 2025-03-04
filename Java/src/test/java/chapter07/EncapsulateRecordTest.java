@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import utils.ObjectBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static chapter07.EncapsulateRecord.getRawDataOfOrganization;
 
 class EncapsulateRecordTest {
     JsonNode customerData;
@@ -22,13 +23,11 @@ class EncapsulateRecordTest {
 
     @Test
     void testMain() throws JsonMappingException, JsonProcessingException {
-        String simpleRecord = "{\"name\": \"Acme Gooseberries\", \"country\": \"GB\"}";
-        ObjectNode organization = ObjectBuilder.readValue(simpleRecord);
-        String result = "<h1>" + organization.get("name").asText() + "</h1>";
+        String result = "<h1>" + getRawDataOfOrganization().get("name").asText() + "</h1>";
         assertThat(result).isEqualTo("<h1>Acme Gooseberries</h1>");
-        organization.set("name", ObjectBuilder.mapper.valueToTree("newName"));
+        getRawDataOfOrganization().set("name", ObjectBuilder.mapper.valueToTree("newName"));
 
-        assertThat(organization.get("name").asText()).isEqualTo("newName");
+        assertThat(getRawDataOfOrganization().get("name").asText()).isEqualTo("newName");
     }
 
     @Test
