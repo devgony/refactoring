@@ -50,7 +50,7 @@ orders.filter((o) => o.priority.higherThan(new Priority("normal")));
   set priority(aString) {this._priority = aString;}
 
 constructor(data) {
-    priority(data.priority);
+    priority(data.priority); // TODO: contructor 에서 setter 를 사용하는 것이 일반적인 사례인가?
     // more initialization
 ```
 
