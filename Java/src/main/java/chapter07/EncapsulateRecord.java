@@ -23,11 +23,8 @@ class EncapsulateRecord {
 
     }
 
-    static Organization getRawDataOfOrganization() {
-        return organization;
-    }
-
     static Organization getOrganization() {
         return organization;
     }
+
 }
