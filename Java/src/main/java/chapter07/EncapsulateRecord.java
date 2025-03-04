@@ -7,15 +7,24 @@ class EncapsulateRecord {
     static Organization organization = new Organization("{\"name\": \"Acme Gooseberries\", \"country\": \"GB\"}");
 
     static class Organization {
-        ObjectNode _data;
+        private ObjectNode _data;
 
         Organization(String jsonString) {
             _data = ObjectBuilder.readValue(jsonString);
         }
+
+        String name() {
+            return _data.get("name").asText();
+        }
+
+        void name(String arg) {
+            _data.set("name", ObjectBuilder.mapper.valueToTree(arg));
+        }
+
     }
 
-    static ObjectNode getRawDataOfOrganization() {
-        return organization._data;
+    static Organization getRawDataOfOrganization() {
+        return organization;
     }
 
     static Organization getOrganization() {

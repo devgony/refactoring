@@ -6,8 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import chapter07.EncapsulateRecord.Organization;
 import utils.ObjectBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,11 +22,11 @@ class EncapsulateRecordTest {
 
     @Test
     void testMain() throws JsonMappingException, JsonProcessingException {
-        String result = "<h1>" + getRawDataOfOrganization().get("name").asText() + "</h1>";
+        String result = "<h1>" + getRawDataOfOrganization().name() + "</h1>";
         assertThat(result).isEqualTo("<h1>Acme Gooseberries</h1>");
-        getRawDataOfOrganization().set("name", ObjectBuilder.mapper.valueToTree("newName"));
+        getRawDataOfOrganization().name("newName");
 
-        assertThat(getRawDataOfOrganization().get("name").asText()).isEqualTo("newName");
+        assertThat(getRawDataOfOrganization().name()).isEqualTo("newName");
     }
 
     @Test
