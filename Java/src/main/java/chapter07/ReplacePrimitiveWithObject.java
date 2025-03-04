@@ -23,4 +23,17 @@ class ReplacePrimitiveWithObject {
             priority(data.priority);
         }
     }
+
+    static class Priority {
+        private String _value;
+
+        Priority(String value) {
+            this._value = value;
+        }
+
+        public String toString() {
+            return this._value;
+        }
+    }
+
 }
