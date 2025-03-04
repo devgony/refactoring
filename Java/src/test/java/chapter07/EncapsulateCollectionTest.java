@@ -21,9 +21,9 @@ class EncapsulateCollectionTest {
         Person aPerson = new Person("John Doe");
         String filename = "courses.txt";
         for (String name : readBasicCourseNames(filename)) {
-            aPerson.courses().add(new Course(name, false));
+            aPerson.addCourse(new Course(name, false));
         }
-        assertThat(aPerson.courses().size()).isEqualTo(0);
+        assertThat(aPerson.courses().size()).isEqualTo(2);
     }
 
     private String[] readBasicCourseNames(String filename) {
