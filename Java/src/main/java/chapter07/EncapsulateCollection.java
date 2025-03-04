@@ -19,7 +19,7 @@ class EncapsulateCollection {
         }
 
         List<Course> courses() {
-            return this._courses;
+            return new ArrayList<>(_courses);
         }
 
         void courses(List<Course> aList) {
