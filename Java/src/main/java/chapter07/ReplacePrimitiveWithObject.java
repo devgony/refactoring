@@ -11,7 +11,7 @@ class ReplacePrimitiveWithObject {
     static class Order {
         Priority _priority;
 
-        String priority() {
+        String priorityString() {
             return this._priority.toString();
         }
 

@@ -16,7 +16,7 @@ class ReplacePrimitiveWithObjectTest {
         List<Order> orders = Arrays.asList(new Order(new RawData("low")), new Order(new RawData("high")),
                 new Order(new RawData("rush")));
         long highPriorityCount = orders.stream()
-                .filter(order -> order._priority.toString().equals("high") || order._priority.toString().equals("rush"))
+                .filter(order -> order.priorityString().equals("high") || order.priorityString().equals("rush"))
                 .count();
 
         assertThat(highPriorityCount).isEqualTo(2);
