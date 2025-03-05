@@ -25,10 +25,6 @@ class InlineClass {
         void trackingNumber(String arg) {
             this._trackingNumber = arg;
         }
-
-        String display() {
-            return this.shippingCompany() + ": " + this.trackingNumber();
-        }
     }
 
     static class Shipment {
@@ -39,7 +35,7 @@ class InlineClass {
         }
 
         String trackingInfo() {
-            return this._trackingInformation.display();
+            return this.shippingCompany() + ": " + this.trackingNumber();
         }
 
         TrackingInformation trackingInformation() {
