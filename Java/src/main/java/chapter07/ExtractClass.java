@@ -6,13 +6,16 @@ public class ExtractClass {
     @NoArgsConstructor
     static class Person {
         String _name;
-        String _officeAreaCode;
-        String _officeNumber;
+        TelephoneNumber _telephoneNumber;
+
+        Person(String name, TelephoneNumber telephoneNumber) {
+            this._name = name;
+            this._telephoneNumber = telephoneNumber;
+        }
 
         Person(String name, String officeAreaCode, String officeNumber) {
             this._name = name;
-            this._officeAreaCode = officeAreaCode;
-            this._officeNumber = officeNumber;
+            this._telephoneNumber._number = officeNumber;
         }
 
         String name() {
@@ -24,24 +27,55 @@ public class ExtractClass {
         }
 
         String telephoneNumber() {
-            return ("(" + this._officeAreaCode + ") " + this._officeNumber);
+            return this._telephoneNumber.toString();
+        }
+
+        void telephoneNumber(TelephoneNumber arg) {
+            this._telephoneNumber = arg;
         }
 
         String officeAreaCode() {
-            return this._officeAreaCode;
-        }
-
-        void officeAreaCode(String arg) {
-            this._officeAreaCode = arg;
+            return this._telephoneNumber._areaCode;
         }
 
         String officeNumber() {
-            return this._officeNumber;
+            return this._telephoneNumber._number;
         }
 
         void officeNumber(String arg) {
-            this._officeNumber = arg;
+            this._telephoneNumber._number = arg;
         }
+    }
+
+    static class TelephoneNumber {
+        String _areaCode;
+        String _number;
+
+        TelephoneNumber(String areaCode, String number) {
+            this._areaCode = areaCode;
+            this._number = number;
+        }
+
+        String officeAreaCode() {
+            return _areaCode;
+        }
+
+        void officeAreaCode(String arg) {
+            this._areaCode = arg;
+        }
+
+        String officeNumber() {
+            return _number;
+        }
+
+        void officeNumber(String arg) {
+            this._number = arg;
+        }
+
+        public String toString() {
+            return ("(" + this._areaCode + ") " + this._number);
+        }
+
     }
 
 }

@@ -105,7 +105,7 @@ for (const name of readBasicCourseNames(filename)) {
 
 ```js
 // class Person…
-  set courses(aList) {this._courses = aList.slice();}
+set courses(aList) {this._courses = aList.slice();} // TODO: why slice?
 ```
 
 - 주어진 modifier 이외에는 수정 못하도록 getter 에서 복제본을 return

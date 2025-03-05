@@ -144,5 +144,6 @@ class TelephoneNumber {}
 ```
 
 - `TelephoneNumber` 노출 시키고 싶다면
-  - 각 office 관련 method 를 tlephoneNumber 에 대한 접근자로 대체
+  - 각 office 관련 method 를 telephoneNumber 에 대한 접근자로 대체
   - VO 가 되는 것이 적합하기 때문에 `Change Reference to Value` 를 수행
+    - TODO: 예시 필요

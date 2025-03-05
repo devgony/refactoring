@@ -2,6 +2,7 @@ package chapter07;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 class EncapsulateCollection {
     static class Person {
@@ -18,11 +19,33 @@ class EncapsulateCollection {
         }
 
         List<Course> courses() {
-            return this._courses;
+            return new ArrayList<>(_courses);
         }
 
         void courses(List<Course> aList) {
             this._courses = aList;
+        }
+
+        void addCourse(Course arg) {
+            this._courses.add(arg);
+        }
+
+        void removeCourse(Course arg, Function<Void, Boolean> fnIfAbsent) {
+            int index = this._courses.indexOf(arg);
+            if (index == -1) {
+                fnIfAbsent.apply(null);
+            } else {
+                this._courses.remove(index);
+            }
+        }
+
+        void removeCourse(Course arg) {
+            int index = this._courses.indexOf(arg);
+            if (index == -1) {
+                throw new UnsupportedOperationException("RangeError");
+            } else {
+                this._courses.remove(index);
+            }
         }
     }
 

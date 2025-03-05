@@ -11,8 +11,32 @@ class EncapsulateCollectionTest {
     @Test
     void client() {
         Person aPerson = new Person("John Doe");
-        aPerson.courses().add(new Course("Math", true));
+        aPerson.addCourse(new Course("Math", true));
         long numberAdvancedCourses = aPerson.courses().stream().filter(Course::isAdvanced).count();
         assertThat(numberAdvancedCourses).isEqualTo(1);
+    }
+
+    @Test
+    void shouldNotMutateOriginalCollection() {
+        Person aPerson = new Person("John Doe");
+        String filename = "courses.txt";
+        for (String name : readBasicCourseNames(filename)) {
+            aPerson.courses().add(new Course(name, false));
+        }
+        assertThat(aPerson.courses().size()).isEqualTo(0);
+    }
+
+    @Test
+    void shouldMutateOriginalCollectionByAddCourse() {
+        Person aPerson = new Person("John Doe");
+        String filename = "courses.txt";
+        for (String name : readBasicCourseNames(filename)) {
+            aPerson.addCourse(new Course(name, false));
+        }
+        assertThat(aPerson.courses().size()).isEqualTo(2);
+    }
+
+    private String[] readBasicCourseNames(String filename) {
+        return new String[] { "Math", "Science" };
     }
 }

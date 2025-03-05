@@ -14,7 +14,7 @@ class HideDelegateTest {
         Person manager = new Person("Man");
         Department department = new Department("charcode", manager);
         aPerson.department(department);
-        Person actual = aPerson.department().manager();
+        Person actual = aPerson.manager();
         assertThat(actual).isEqualTo(manager);
     }
 }
