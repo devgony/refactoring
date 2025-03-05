@@ -93,17 +93,20 @@ aShipment.trackingInformation.shippingCompany = request.vendor;
 
 - `display` method 를 `Inline Function` 통해 이동
 
-````js
+```js
 // class Shipment…
   get trackingInfo() {
     return `${this.shippingCompany}: ${this.trackingNumber}`;
   }
+```
 
 - shipping company field 이동
+
 ```js
- get shippingCompany()    {return this._shippingCompany;}
-  set shippingCompany(arg) {this._shippingCompany = arg;}
-````
+// class Shipment
+get shippingCompany()    {return this._shippingCompany;}
+set shippingCompany(arg) {this._shippingCompany = arg;}
+```
 
 - 모두 옮겨지면 TrackingInformation class 를 삭제한다
 
