@@ -20,6 +20,10 @@ class HideDelegate {
         void department(Department arg) {
             this._department = arg;
         }
+
+        Person manager() {
+            return this.department().manager();
+        }
     }
 
     static class Department {
