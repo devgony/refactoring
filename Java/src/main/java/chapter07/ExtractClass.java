@@ -15,7 +15,7 @@ public class ExtractClass {
 
         Person(String name, String officeAreaCode, String officeNumber) {
             this._name = name;
-            this._telephoneNumber._officeNumber = officeNumber;
+            this._telephoneNumber._number = officeNumber;
         }
 
         String name() {
@@ -35,45 +35,45 @@ public class ExtractClass {
         }
 
         String officeAreaCode() {
-            return this._telephoneNumber._officeAreaCode;
+            return this._telephoneNumber._areaCode;
         }
 
         String officeNumber() {
-            return this._telephoneNumber._officeNumber;
+            return this._telephoneNumber._number;
         }
 
         void officeNumber(String arg) {
-            this._telephoneNumber._officeNumber = arg;
+            this._telephoneNumber._number = arg;
         }
     }
 
     static class TelephoneNumber {
-        String _officeAreaCode;
-        String _officeNumber;
+        String _areaCode;
+        String _number;
 
-        TelephoneNumber(String officeAreaCode, String officeNumber) {
-            this._officeAreaCode = officeAreaCode;
-            this._officeNumber = officeNumber;
+        TelephoneNumber(String areaCode, String number) {
+            this._areaCode = areaCode;
+            this._number = number;
         }
 
         String officeAreaCode() {
-            return _officeAreaCode;
+            return _areaCode;
         }
 
         void officeAreaCode(String arg) {
-            this._officeAreaCode = arg;
+            this._areaCode = arg;
         }
 
         String officeNumber() {
-            return _officeNumber;
+            return _number;
         }
 
         void officeNumber(String arg) {
-            this._officeNumber = arg;
+            this._number = arg;
         }
 
         String telephoneNumber() {
-            return ("(" + this._officeAreaCode + ") " + this._officeNumber);
+            return ("(" + this._areaCode + ") " + this._number);
         }
 
     }
