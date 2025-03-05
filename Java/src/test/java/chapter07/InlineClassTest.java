@@ -14,7 +14,7 @@ class InlineClassTest {
         assertThat(aShipment.trackingInformation().display()).isEqualTo("company: 1");
 
         Request request = new Request("vendor");
-        aShipment.trackingInformation().shippingCompany(request.vendor());
+        aShipment.shippingCompany(request.vendor());
         assertThat(aShipment.trackingInformation().display()).isEqualTo("vendor: 1");
 
     }

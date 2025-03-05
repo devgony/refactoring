@@ -79,7 +79,7 @@ class Shipment {
 aShipment.trackingInformation.shippingCompany = request.vendor;
 ```
 
-- TrackingInformation 을 Shipment 로 합친다
+- TrackingInformation 을 Shipment 로 합치기 위해서..
   - `shippingCompany` 복제하여 생성
   - 모든 method 에 대해 반복 수행
 
