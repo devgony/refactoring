@@ -9,9 +9,8 @@ import java.util.List;
 class SubstituteAlgorithmTest {
     @Test
     void testFound() {
-        // String[] people = { "Don", "John", "Kent" };
         List<String> people = Arrays.asList("Don", "John", "Kent");
-        String actual = SubstituteAlgorithm.foundPerson2(people);
+        String actual = SubstituteAlgorithm.foundPerson(people);
         assertThat(actual).contains("Don");
     }
 }
