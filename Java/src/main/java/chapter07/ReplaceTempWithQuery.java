@@ -11,12 +11,16 @@ class ReplaceTempWithQuery {
         }
 
         double price() {
-            final double basePrice = _quantity * _item;
+            final double basePrice = basePrice();
             double discountFactor = 0.98;
             if (basePrice > 1000) {
                 discountFactor -= 0.03;
             }
             return (double) (basePrice * discountFactor);
+        }
+
+        private double basePrice() {
+            return _quantity * _item;
         }
 
     }
