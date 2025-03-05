@@ -57,6 +57,14 @@ class InlineClass {
         void shippingCompany(String arg) {
             this._trackingInformation._shippingCompany = arg;
         }
+
+        String trackingNumber() {
+            return this._trackingInformation._trackingNumber;
+        }
+
+        void trackingNumber(String arg) {
+            this._trackingInformation._trackingNumber = arg;
+        }
     }
 
     static class Request {
