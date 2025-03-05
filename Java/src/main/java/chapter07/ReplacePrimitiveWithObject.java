@@ -15,6 +15,10 @@ class ReplacePrimitiveWithObject {
             return this._priority.toString();
         }
 
+        Priority priority() {
+            return this._priority;
+        }
+
         void priority(String arg) {
             this._priority = new Priority(arg);
         }
