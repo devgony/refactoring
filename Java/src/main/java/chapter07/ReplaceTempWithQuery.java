@@ -11,8 +11,7 @@ class ReplaceTempWithQuery {
         }
 
         double price() {
-            double discountFactor = discountFactor();
-            return basePrice() * discountFactor;
+            return basePrice() * discountFactor();
         }
 
         private double discountFactor() {
