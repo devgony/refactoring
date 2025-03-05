@@ -20,10 +20,6 @@ class RemoveMiddleMan {
         void department(Department arg) {
             this._department = arg;
         }
-
-        Person manager() {
-            return this._department.manager();
-        }
     }
 
     static class Department {
