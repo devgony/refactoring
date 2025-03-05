@@ -11,8 +11,7 @@ class ExtractClassTest {
     void client() {
         Person person = new Person();
         person.name("John Doe");
-        person.telephoneNumber(new TelephoneNumber("123"));
-        person.officeNumber("456");
+        person.telephoneNumber(new TelephoneNumber("123", "456"));
 
         assertThat(person.telephoneNumber()).isEqualTo("(123) 456");
         assertThat(person.name()).isEqualTo("John Doe");

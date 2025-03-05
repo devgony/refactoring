@@ -6,7 +6,6 @@ public class ExtractClass {
     @NoArgsConstructor
     static class Person {
         String _name;
-        String _officeNumber;
         TelephoneNumber _telephoneNumber;
 
         Person(String name, TelephoneNumber telephoneNumber) {
@@ -16,7 +15,7 @@ public class ExtractClass {
 
         Person(String name, String officeAreaCode, String officeNumber) {
             this._name = name;
-            this._officeNumber = officeNumber;
+            this._telephoneNumber._officeNumber = officeNumber;
         }
 
         String name() {
@@ -28,7 +27,7 @@ public class ExtractClass {
         }
 
         String telephoneNumber() {
-            return ("(" + this._telephoneNumber._officeAreaCode + ") " + this._officeNumber);
+            return ("(" + this._telephoneNumber._officeAreaCode + ") " + this._telephoneNumber._officeNumber);
         }
 
         void telephoneNumber(TelephoneNumber arg) {
@@ -40,19 +39,21 @@ public class ExtractClass {
         }
 
         String officeNumber() {
-            return this._officeNumber;
+            return this._telephoneNumber._officeNumber;
         }
 
         void officeNumber(String arg) {
-            this._officeNumber = arg;
+            this._telephoneNumber._officeNumber = arg;
         }
     }
 
     static class TelephoneNumber {
         String _officeAreaCode;
+        String _officeNumber;
 
-        TelephoneNumber(String officeAreaCode) {
+        TelephoneNumber(String officeAreaCode, String officeNumber) {
             this._officeAreaCode = officeAreaCode;
+            this._officeNumber = officeNumber;
         }
 
         String officeAreaCode() {
@@ -61,6 +62,14 @@ public class ExtractClass {
 
         void officeAreaCode(String arg) {
             this._officeAreaCode = arg;
+        }
+
+        String officeNumber() {
+            return _officeNumber;
+        }
+
+        void officeNumber(String arg) {
+            this._officeNumber = arg;
         }
 
     }
