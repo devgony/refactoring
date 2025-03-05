@@ -27,7 +27,7 @@ public class ExtractClass {
         }
 
         String telephoneNumber() {
-            return ("(" + this._telephoneNumber._officeAreaCode + ") " + this._telephoneNumber._officeNumber);
+            return this._telephoneNumber.telephoneNumber();
         }
 
         void telephoneNumber(TelephoneNumber arg) {
@@ -70,6 +70,10 @@ public class ExtractClass {
 
         void officeNumber(String arg) {
             this._officeNumber = arg;
+        }
+
+        String telephoneNumber() {
+            return ("(" + this._officeAreaCode + ") " + this._officeNumber);
         }
 
     }
