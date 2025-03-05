@@ -1,11 +1,6 @@
 package chapter07;
 
 class InlineClass {
-    static class TrackingInformation {
-        TrackingInformation() {
-        }
-    }
-
     static class Shipment {
         String _shippingCompany;
         String _trackingNumber;
