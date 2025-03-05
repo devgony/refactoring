@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import chapter07.ReplacePrimitiveWithObject.RawData;
 import chapter07.ReplacePrimitiveWithObject.Order;
+import chapter07.ReplacePrimitiveWithObject.Priority;
 
 class ReplacePrimitiveWithObjectTest {
     @Test
@@ -16,8 +17,7 @@ class ReplacePrimitiveWithObjectTest {
         List<Order> orders = Arrays.asList(new Order(new RawData("low")), new Order(new RawData("high")),
                 new Order(new RawData("rush")));
         long highPriorityCount = orders.stream()
-                .filter(order -> order.priorityString().equals("high") || order.priorityString().equals("rush"))
-                .count();
+                .filter(o -> o.priority().higherThan(new Priority("normal"))).count();
 
         assertThat(highPriorityCount).isEqualTo(2);
     }

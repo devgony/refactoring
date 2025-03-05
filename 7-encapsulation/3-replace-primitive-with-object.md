@@ -116,7 +116,7 @@ client…
 // class Priority…
   constructor(value) {
     if (value instanceof Priority) return value;
-    if (Priority.legalValues().includes(value))
+    if (Priority.legalValues().includes(value)) // TODO: 정적타입 언어에서는 전혀 불필요한 validation 인가?
       this._value = value;
     else
       throw new Error(`<${value}> is invalid for Priority`);

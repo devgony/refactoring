@@ -1,5 +1,9 @@
 package chapter07;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 
 class ReplacePrimitiveWithObject {
@@ -41,6 +45,26 @@ class ReplacePrimitiveWithObject {
 
         public String toString() {
             return this._value;
+        }
+
+        int _index() {
+            return Priority.legalValues().indexOf(this._value);
+        }
+
+        static List<String> legalValues() {
+            return Arrays.asList("low", "normal", "high", "rush");
+        }
+
+        public boolean equals(Priority other) {
+            return this._index() == other._index();
+        }
+
+        boolean higherThan(Priority arg) {
+            return this._index() > arg._index();
+        }
+
+        boolean lowerThan(Priority arg) {
+            return this._index() < arg._index();
         }
     }
 
