@@ -35,6 +35,10 @@ class ReplacePrimitiveWithObject {
             this._value = value;
         }
 
+        public static Priority of(Priority priority) {
+            return priority;
+        }
+
         public String toString() {
             return this._value;
         }

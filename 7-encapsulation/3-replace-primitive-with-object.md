@@ -103,7 +103,7 @@ client…
 ```js
 // class Priority…
   constructor(value) {
-    if (value instanceof Priority) return value; // TODO: js 특화 문법인가?  java 의 constructor 는 return type 이 없다
+    if (value instanceof Priority) return value; // TODO: js 특화 문법인가?  java 의 constructor 는 return type 이 없다 => static factory method 로 대체 가능?
     this._value = value;
   }
 
