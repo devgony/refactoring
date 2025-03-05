@@ -27,7 +27,7 @@ public class ExtractClass {
         }
 
         String telephoneNumber() {
-            return this._telephoneNumber.telephoneNumber();
+            return this._telephoneNumber.toString();
         }
 
         void telephoneNumber(TelephoneNumber arg) {
@@ -72,7 +72,7 @@ public class ExtractClass {
             this._number = arg;
         }
 
-        String telephoneNumber() {
+        public String toString() {
             return ("(" + this._areaCode + ") " + this._number);
         }
 
