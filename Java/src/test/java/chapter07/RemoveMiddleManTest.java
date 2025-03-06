@@ -13,7 +13,7 @@ class RemoveMiddleManTest {
         Person manager = new Person("Man");
         Department department = new Department("charcode", manager);
         aPerson.department(department);
-        Person actual = aPerson.manager();
+        Person actual = aPerson.department().manager();
         assertThat(actual).isEqualTo(manager);
     }
 }

@@ -50,7 +50,7 @@ orders.filter((o) => o.priority.higherThan(new Priority("normal")));
   set priority(aString) {this._priority = aString;}
 
 constructor(data) {
-    priority(data.priority);
+    priority(data.priority); // TODO: contructor 에서 setter 를 사용하는 것이 일반적인 사례인가?
     // more initialization
 ```
 
@@ -98,12 +98,12 @@ client…
   get priority()        {return this._priority;}
 ```
 
-- setter 가 priority instance 도 받을 수 있게 하고 그 경우에는 재생성이 아니라 동등한 객체를 return 하도록 수정
+- setter 가 priority instance 도 받을 수 있게 하고 그 경우에는 재 생성이 아니라 동등한 객체를 return 하도록 수정
 
 ```js
 // class Priority…
   constructor(value) {
-    if (value instanceof Priority) return value;
+    if (value instanceof Priority) return value; // TODO: js 특화 문법인가?  java 의 constructor 는 return type 이 없다 => static factory method 로 대체 가능?
     this._value = value;
   }
 
@@ -116,7 +116,7 @@ client…
 // class Priority…
   constructor(value) {
     if (value instanceof Priority) return value;
-    if (Priority.legalValues().includes(value))
+    if (Priority.legalValues().includes(value)) // TODO: 정적타입 언어에서는 전혀 불필요한 validation 인가?
       this._value = value;
     else
       throw new Error(`<${value}> is invalid for Priority`);

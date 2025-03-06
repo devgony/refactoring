@@ -79,7 +79,7 @@ class Shipment {
 aShipment.trackingInformation.shippingCompany = request.vendor;
 ```
 
-- TrackingInformation 을 Shipment 로 합친다
+- TrackingInformation 을 Shipment 로 합치기 위해서..
   - `shippingCompany` 복제하여 생성
   - 모든 method 에 대해 반복 수행
 
@@ -93,17 +93,20 @@ aShipment.trackingInformation.shippingCompany = request.vendor;
 
 - `display` method 를 `Inline Function` 통해 이동
 
-````js
+```js
 // class Shipment…
   get trackingInfo() {
     return `${this.shippingCompany}: ${this.trackingNumber}`;
   }
+```
 
 - shipping company field 이동
+
 ```js
- get shippingCompany()    {return this._shippingCompany;}
-  set shippingCompany(arg) {this._shippingCompany = arg;}
-````
+// class Shipment
+get shippingCompany()    {return this._shippingCompany;}
+set shippingCompany(arg) {this._shippingCompany = arg;}
+```
 
 - 모두 옮겨지면 TrackingInformation class 를 삭제한다
 

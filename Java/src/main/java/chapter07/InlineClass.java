@@ -1,13 +1,17 @@
 package chapter07;
 
 class InlineClass {
-    static class TrackingInformation {
+    static class Shipment {
         String _shippingCompany;
         String _trackingNumber;
 
-        TrackingInformation(String shippingCompany, String trackingNumber) {
+        Shipment(String shippingCompany, String trackingNumber) {
             this._shippingCompany = shippingCompany;
             this._trackingNumber = trackingNumber;
+        }
+
+        String trackingInfo() {
+            return this.shippingCompany() + ": " + this.trackingNumber();
         }
 
         String shippingCompany() {
@@ -24,30 +28,6 @@ class InlineClass {
 
         void trackingNumber(String arg) {
             this._trackingNumber = arg;
-        }
-
-        String display() {
-            return this.shippingCompany() + ": " + this.trackingNumber();
-        }
-    }
-
-    static class Shipment {
-        TrackingInformation _trackingInformation;
-
-        Shipment(String shippingCompany, String trackingNumber) {
-            this._trackingInformation = new TrackingInformation(shippingCompany, trackingNumber);
-        }
-
-        String trackingInfo() {
-            return this._trackingInformation.display();
-        }
-
-        TrackingInformation trackingInformation() {
-            return this._trackingInformation;
-        }
-
-        void setTrackingInformation(TrackingInformation aTrackingInformation) {
-            this._trackingInformation = aTrackingInformation;
         }
     }
 

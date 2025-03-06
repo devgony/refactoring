@@ -13,12 +13,12 @@ class HideDelegate {
             return this._name;
         }
 
-        Department department() {
-            return this._department;
-        }
-
         void department(Department arg) {
             this._department = arg;
+        }
+
+        Person manager() {
+            return this._department.manager();
         }
     }
 
