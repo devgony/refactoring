@@ -51,11 +51,6 @@ class MoveStatementsToCallers {
         return new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
     }
 
-    static void emitPhotoData(StringWriter outStream, Photo photo) {
-        zztmp(outStream, photo);
-        outStream.write("<p>location: " + photo.location + "</p>\n");
-    }
-
     private static void zztmp(StringWriter outStream, Photo photo) {
         outStream.write("<p>title: " + photo.title + "</p>\n");
         outStream.write("<p>date: " + photo.date.toString() + "</p>\n");
