@@ -19,10 +19,6 @@ class SplitLoop {
     }
 
     private static int totalSalary(List<Person> people) {
-        int totalSalary = 0;
-        for (Person p : people) {
-            totalSalary += p.salary;
-        }
-        return totalSalary;
+        return people.stream().mapToInt(p -> p.salary).sum();
     }
 }
