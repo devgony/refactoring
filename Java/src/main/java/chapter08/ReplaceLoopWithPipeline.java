@@ -24,9 +24,9 @@ class ReplaceLoopWithPipeline {
         return Arrays.asList(lines).stream()
                 .skip(1)
                 .filter(line -> !line.trim().isEmpty())
-                .map(l -> l.split(","))
-                .filter(record -> record[1].trim().equals("India"))
-                .map(record -> new CityPhoneData(record[0].trim(), record[2].trim()))
+                .map(line -> line.split(","))
+                .filter(fields -> fields[1].trim().equals("India"))
+                .map(fields -> new CityPhoneData(fields[0].trim(), fields[2].trim()))
                 .collect(Collectors.toList());
     }
 }
