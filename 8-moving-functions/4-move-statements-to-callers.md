@@ -68,7 +68,7 @@ function emitPhotoData(outStream, photo) {
 ```
 
 - `listRecentPhotos` 가 `renderPerson` 과는 다르게 렌더링을 하게 하고싶다
-  - 마지막 줄을 `Move Statements to Callers on the final line`
+  - 마지막 줄을 `Move Statements to Callers`
 - 호출자가 두 개 이하이므로 바로 복붙 해도 되지만 설명을 위해 정석으로 접근
 - `Extract Function`: `emitPhotoData` 의 고정할 부분을 함수로 추출
 

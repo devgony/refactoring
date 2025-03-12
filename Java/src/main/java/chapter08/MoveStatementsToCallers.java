@@ -50,9 +50,13 @@ class MoveStatementsToCallers {
     }
 
     static void emitPhotoData(StringWriter outStream, Photo photo) {
+        zztmp(outStream, photo);
+        outStream.write("<p>location: " + photo.location + "</p>\n");
+    }
+
+    private static void zztmp(StringWriter outStream, Photo photo) {
         outStream.write("<p>title: " + photo.title + "</p>\n");
         outStream.write("<p>date: " + photo.date.toString() + "</p>\n");
-        outStream.write("<p>location: " + photo.location + "</p>\n");
     }
 
 }
