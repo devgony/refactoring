@@ -71,12 +71,8 @@ class MoveFunction {
         double bankCharge() {
             double result = 4.5;
             if (this._daysOverdrawn > 0)
-                result += this.overdraftCharge();
+                result += this.type.overdraftCharge(this._daysOverdrawn);
             return result;
-        }
-
-        double overdraftCharge() {
-            return this.type.overdraftCharge(this._daysOverdrawn);
         }
     }
 
