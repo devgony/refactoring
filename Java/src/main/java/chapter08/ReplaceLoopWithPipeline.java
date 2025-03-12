@@ -1,7 +1,9 @@
 package chapter08;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,13 +20,11 @@ class ReplaceLoopWithPipeline {
 
     static List<CityPhoneData> acquireData(String input) {
         String[] lines = input.split("\n");
-        boolean firstLine = true;
         List<CityPhoneData> result = new ArrayList<>();
-        for (String line : lines) {
-            if (firstLine) {
-                firstLine = false;
-                continue;
-            }
+        List<String> loopItems = Arrays.asList(lines).stream()
+                .skip(1)
+                .collect(Collectors.toList());
+        for (String line : loopItems) {
             if (line.trim().isEmpty())
                 continue;
             String[] record = line.split(",");
@@ -35,5 +35,4 @@ class ReplaceLoopWithPipeline {
 
         return result;
     }
-
 }
