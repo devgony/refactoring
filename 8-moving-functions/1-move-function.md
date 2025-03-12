@@ -160,7 +160,7 @@ function trackSummary(points) {
 ```
 
 - 적합한 이름으로 변경
-  - totalDisTance 변수를 inline 으로 없애고 그 이름을 새로운 함수에 적용
+  - totalDistance 변수를 inline 으로 없애고 그 이름을 새로운 함수에 적용
 
 ```diff
  function trackSummary(points) {

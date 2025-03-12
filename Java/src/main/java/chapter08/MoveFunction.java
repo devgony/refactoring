@@ -28,17 +28,13 @@ class MoveFunction {
             return 600;
         };
 
-        Supplier<Double> calculateDistance = () -> {
-            return topCalculateDistance(points);
-        };
         int totalTime = calculateTime.get();
-        double totalDistance = calculateDistance.get();
-        double pace = totalTime / 60 / totalDistance;
+        double pace = totalTime / 60 / totalDistance(points);
 
-        return new Summary(totalTime, totalDistance, pace);
+        return new Summary(totalTime, totalDistance(points), pace);
     }
 
-    static double topCalculateDistance(Point[] points) {
+    static double totalDistance(Point[] points) {
         BiFunction<Point, Point, Double> distance = (p1, p2) -> {
             return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
         };
