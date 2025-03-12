@@ -20,14 +20,13 @@ class ReplaceLoopWithPipeline {
 
     static List<CityPhoneData> acquireData(String input) {
         String[] lines = input.split("\n");
-        List<CityPhoneData> result = Arrays.asList(lines).stream()
+
+        return Arrays.asList(lines).stream()
                 .skip(1)
                 .filter(line -> !line.trim().isEmpty())
                 .map(l -> l.split(","))
                 .filter(record -> record[1].trim().equals("India"))
                 .map(record -> new CityPhoneData(record[0].trim(), record[2].trim()))
                 .collect(Collectors.toList());
-
-        return result;
     }
 }
