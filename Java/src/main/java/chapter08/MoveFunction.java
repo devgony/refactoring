@@ -1,8 +1,6 @@
 package chapter08;
 
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -35,17 +33,18 @@ class MoveFunction {
     }
 
     static double totalDistance(Point[] points) {
-        BiFunction<Point, Point, Double> distance = (p1, p2) -> {
-            return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
-        };
-        // function radians(degrees) { ... }
-        //
         double result = 0;
         for (int i = 1; i < points.length; i++) {
-            result += distance.apply(points[i - 1], points[i]);
+            result += distance(points[i - 1], points[i]);
         }
         return result;
     };
+
+    static double distance(Point p1, Point p2) {
+        return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+    }
+
+    // function radians(degrees) { ... }
 
     // Example: Moving between Classes
     @AllArgsConstructor
