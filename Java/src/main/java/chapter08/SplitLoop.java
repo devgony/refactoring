@@ -12,13 +12,16 @@ class SplitLoop {
     }
 
     static String ageAndSalary(List<Person> people) {
+        return "youngestAge: " + youngestAge(people) + ", totalSalary: " + totalSalary(people);
+    }
+
+    private static int youngestAge(List<Person> people) {
         int youngest = people.isEmpty() ? Integer.MAX_VALUE : people.get(0).age;
         for (Person p : people) {
             if (p.age < youngest)
                 youngest = p.age;
         }
-
-        return "youngestAge: " + youngest + ", totalSalary: " + totalSalary(people);
+        return youngest;
     }
 
     private static int totalSalary(List<Person> people) {
