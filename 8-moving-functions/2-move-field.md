@@ -84,8 +84,8 @@ class Customer {
   }
 ```
 
-- property setter 가 아닌 일반 메서드를 사용하여 discountRate 변경
-  - TODO: 해석불가
+- CustomerContract로 discountRate를 복제한다.
+  - public setter 노출 시키고 싶지 않기 때문에 constructor에서 값을 직접 할당한다.
 
 ```js
 // class CustomerContract…

@@ -5,9 +5,19 @@ import java.util.Date;
 class MoveField {
     static class CustomerContract {
         Date _startDate;
+        double _discountRate;
 
-        CustomerContract(Date startDate) {
+        CustomerContract(Date startDate, double discountRate) {
             this._startDate = startDate;
+            this._discountRate = discountRate;
+        }
+
+        double discountRate() {
+            return this._discountRate;
+        }
+
+        void setDiscountRate(double discountRate) {
+            this._discountRate = discountRate;
         }
     }
 
@@ -19,7 +29,7 @@ class MoveField {
         Customer(String name, double discountRate) {
             this._name = name;
             this._setDiscountRate(discountRate);
-            this._contract = new CustomerContract(new Date());
+            this._contract = new CustomerContract(new Date(), discountRate);
         }
 
         double discountRate() {
