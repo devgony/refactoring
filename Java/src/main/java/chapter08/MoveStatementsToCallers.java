@@ -26,7 +26,8 @@ class MoveStatementsToCallers {
     static void renderPerson(StringWriter outStream, Person person) {
         outStream.write("<p>" + person.name + "</p>\n");
         renderPhoto(outStream, person.photo);
-        emitPhotoData(outStream, person.photo);
+        zztmp(outStream, person.photo);
+        outStream.write("<p>location: " + person.photo.location + "</p>\n");
     }
 
     static void renderPhoto(StringWriter outStream, Photo photo) {
