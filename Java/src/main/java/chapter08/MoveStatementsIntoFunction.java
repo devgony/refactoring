@@ -29,28 +29,22 @@ class MoveStatementsIntoFunction {
         List<String> result = new ArrayList<>();
         result.add("<p>" + person.name + "</p>");
         result.add(photoDiv(person.photo));
-        result.add(zznew(person.photo));
+        result.add(emitPhotoData(person.photo));
 
         return String.join("\n", result);
     }
 
     static String photoDiv(Photo p) {
-        List<String> result = Arrays.asList("<div>", zznew(p), "</div>");
+        List<String> result = Arrays.asList("<div>", emitPhotoData(p), "</div>");
 
         return String.join("\n", result);
     }
 
-    static String zznew(Photo p) {
-        List<String> result = Arrays.asList("<p>title: " + p.title + "</p>", emitPhotoData(p));
+    static String emitPhotoData(Photo p) {
+        List<String> result = Arrays.asList("<p>title: " + p.title + "</p>", "<p>location: " + p.location + "</p>",
+                "<p>date: " + p.date.toString() + "</p>");
 
         return String.join("\n", result);
     }
 
-    static String emitPhotoData(Photo aPhoto) {
-        List<String> result = new ArrayList<>();
-        result.add("<p>location: " + aPhoto.location + "</p>");
-        result.add("<p>date: " + aPhoto.date.toString() + "</p>");
-
-        return String.join("\n", result);
-    }
 }
