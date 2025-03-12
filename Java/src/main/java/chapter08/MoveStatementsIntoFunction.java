@@ -29,7 +29,7 @@ class MoveStatementsIntoFunction {
         List<String> result = new ArrayList<>();
         result.add("<p>" + person.name + "</p>");
         result.add(photoDiv(person.photo));
-        result.add("<p>title: " + person.name + "</p>");
+        result.add("<p>title: " + person.photo.title + "</p>");
         result.add(emitPhotoData(person.photo));
 
         return String.join("\n", result);

@@ -29,7 +29,7 @@ class MoveStatementsIntoFunctionTest {
                 "<p>location: My Location</p>\n" +
                 "<p>date: " + photo.date.toString() + "</p>\n" +
                 "</div>\n" +
-                "<p>title: John</p>\n" +
+                "<p>title: My Photo</p>\n" +
                 "<p>location: My Location</p>\n" +
                 "<p>date: " + photo.date.toString() + "</p>");
     }
