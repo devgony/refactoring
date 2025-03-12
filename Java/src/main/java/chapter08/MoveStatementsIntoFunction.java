@@ -36,7 +36,13 @@ class MoveStatementsIntoFunction {
     }
 
     static String photoDiv(Photo p) {
-        List<String> result = Arrays.asList("<div>", "<p>title: " + p.title + "</p>", emitPhotoData(p), "</div>");
+        List<String> result = Arrays.asList("<div>", zznew(p), "</div>");
+
+        return String.join("\n", result);
+    }
+
+    static String zznew(Photo p) {
+        List<String> result = Arrays.asList("<p>title: " + p.title + "</p>", emitPhotoData(p));
 
         return String.join("\n", result);
     }
