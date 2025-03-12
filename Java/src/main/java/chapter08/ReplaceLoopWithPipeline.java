@@ -25,12 +25,11 @@ class ReplaceLoopWithPipeline {
                 .skip(1)
                 .filter(line -> !line.trim().isEmpty())
                 .map(l -> l.split(","))
+                .filter(record -> record[1].trim().equals("India"))
                 .collect(Collectors.toList());
         for (String[] line : loopItems) {
             String[] record = line;
-            if (record[1].trim().equals("India")) {
-                result.add(new CityPhoneData(record[0].trim(), record[2].trim()));
-            }
+            result.add(new CityPhoneData(record[0].trim(), record[2].trim()));
         }
 
         return result;
