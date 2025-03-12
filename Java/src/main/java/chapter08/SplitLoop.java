@@ -15,9 +15,12 @@ class SplitLoop {
         int youngest = people.isEmpty() ? Integer.MAX_VALUE : people.get(0).age;
         int totalSalary = 0;
         for (Person p : people) {
+            totalSalary += p.salary;
+        }
+
+        for (Person p : people) {
             if (p.age < youngest)
                 youngest = p.age;
-            totalSalary += p.salary;
         }
 
         return "youngestAge: " + youngest + ", totalSalary: " + totalSalary;
