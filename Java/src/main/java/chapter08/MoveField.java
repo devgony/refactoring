@@ -58,6 +58,7 @@ class MoveField {
         Account(int number, AccountType type, double interestRate) {
             this._number = number;
             this._type = type;
+            assert interestRate == this._type.interestRate();
             this._interestRate = interestRate;
         }
 
