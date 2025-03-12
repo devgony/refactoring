@@ -259,7 +259,7 @@ function radians(degrees) { ... }
   }
 ```
 
-- 새 함수에서 너무 많은 필드를 참조했다는 생각이 들면 account 전체를 넘겨도 좋다
+- 만약 새 함수에 넘겨야 할 인자 개수가 너무 많다고 하면 account 전체를 넘겨도 좋다
 
 ```js
 //class Account…
