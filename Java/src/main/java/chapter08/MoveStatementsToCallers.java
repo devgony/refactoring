@@ -26,7 +26,7 @@ class MoveStatementsToCallers {
     static void renderPerson(StringWriter outStream, Person person) {
         outStream.write("<p>" + person.name + "</p>\n");
         renderPhoto(outStream, person.photo);
-        zztmp(outStream, person.photo);
+        emitPhotoData(outStream, person.photo);
         outStream.write("<p>location: " + person.photo.location + "</p>\n");
     }
 
@@ -40,7 +40,7 @@ class MoveStatementsToCallers {
                 .filter(p -> p.date.after(recentDateCutoff()))
                 .forEach(p -> {
                     outStream.write("<div>\n");
-                    zztmp(outStream, p);
+                    emitPhotoData(outStream, p);
                     outStream.write("<p>location: " + p.location + "</p>\n");
                     outStream.write("</div>\n");
                 });
@@ -51,7 +51,7 @@ class MoveStatementsToCallers {
         return new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
     }
 
-    private static void zztmp(StringWriter outStream, Photo photo) {
+    private static void emitPhotoData(StringWriter outStream, Photo photo) {
         outStream.write("<p>title: " + photo.title + "</p>\n");
         outStream.write("<p>date: " + photo.date.toString() + "</p>\n");
     }

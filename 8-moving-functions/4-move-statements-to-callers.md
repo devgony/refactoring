@@ -110,6 +110,6 @@ function listRecentPhotos(outStream, photos) {
 }
 ```
 
-- `emidPhotoData` 함수 제거
+- `emitPhotoData` 함수 제거
 
 - `zztmp` 를 원래 함수 이름(`emitPhotoData`)으로 변경
