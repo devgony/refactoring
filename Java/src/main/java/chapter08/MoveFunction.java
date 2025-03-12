@@ -46,6 +46,19 @@ class MoveFunction {
         return new Summary(totalTime, totalDistance, pace);
     }
 
+    double topCalculateDistance(Point[] points) {
+        BiFunction<Point, Point, Double> distance = (p1, p2) -> {
+            return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+        };
+        // function radians(degrees) { ... }
+        //
+        double result = 0;
+        for (int i = 1; i < points.length; i++) {
+            result += distance.apply(points[i - 1], points[i]);
+        }
+        return result;
+    };
+
     // Example: Moving between Classes
     @AllArgsConstructor
     static class AccountType {
