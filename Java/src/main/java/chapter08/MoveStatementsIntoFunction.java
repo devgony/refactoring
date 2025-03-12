@@ -1,11 +1,10 @@
 package chapter08;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
-
 import lombok.AllArgsConstructor;
 
 class MoveStatementsIntoFunction {
@@ -26,7 +25,7 @@ class MoveStatementsIntoFunction {
         }
     }
 
-    static String renderPerson(Stream outStream, Person person) {
+    static String renderPerson(StringWriter _outStream, Person person) {
         List<String> result = new ArrayList<>();
         result.add("<p>" + person.name + "</p>");
         result.add(photoDiv(person.photo));
