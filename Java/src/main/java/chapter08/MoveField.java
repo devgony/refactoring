@@ -23,21 +23,20 @@ class MoveField {
 
     static class Customer {
         String _name;
-        double _discountRate;
         CustomerContract _contract;
 
         Customer(String name, double discountRate) {
             this._name = name;
-            this._setDiscountRate(discountRate);
             this._contract = new CustomerContract(new Date(), discountRate);
+            this._setDiscountRate(discountRate);
         }
 
         double discountRate() {
-            return this._discountRate;
+            return this._contract.discountRate();
         }
 
         void _setDiscountRate(double discountRate) {
-            this._discountRate = discountRate;
+            this._contract.setDiscountRate(discountRate);
         }
 
         void becomePreferred() {
