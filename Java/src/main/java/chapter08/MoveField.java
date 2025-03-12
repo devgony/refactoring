@@ -68,9 +68,15 @@ class MoveField {
 
     static class AccountType {
         String _name;
+        double _interestRate;
 
-        AccountType(String nameString) {
+        AccountType(String nameString, double interestRate) {
             this._name = nameString;
+            this._interestRate = interestRate;
+        }
+
+        double interestRate() {
+            return this._interestRate;
         }
     }
 }

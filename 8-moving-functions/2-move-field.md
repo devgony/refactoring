@@ -136,7 +136,7 @@ class Customer {
   }
 ```
 
-- `_interestRate` 를 AccountType 으로 이동
+- `_interestRate` 를 AccountType 으로 복제
 
 ```js
 // class AccountType…

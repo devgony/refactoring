@@ -20,7 +20,7 @@ class MoveFieldTest {
 
     @Test
     void client2() {
-        AccountType accountType = new AccountType("Savings");
+        AccountType accountType = new AccountType("Savings", 0.05);
         Account account = new Account(123, accountType, 0.05);
         double actual = account.interestRate();
         assertThat(actual).isEqualTo(0.05);
