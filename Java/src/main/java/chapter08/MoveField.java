@@ -18,7 +18,7 @@ class MoveField {
 
         Customer(String name, double discountRate) {
             this._name = name;
-            this._discountRate = discountRate;
+            this._setDiscountRate(discountRate);
             this._contract = new CustomerContract(new Date());
         }
 
@@ -26,8 +26,12 @@ class MoveField {
             return this._discountRate;
         }
 
+        void _setDiscountRate(double discountRate) {
+            this._discountRate = discountRate;
+        }
+
         void becomePreferred() {
-            this._discountRate += 0.03;
+            this._setDiscountRate(this.discountRate() + 0.03);
             // other nice things
         }
 
