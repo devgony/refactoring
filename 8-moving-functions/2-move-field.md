@@ -64,27 +64,28 @@ class Customer {
 
 - discountRate 필드를 customer 에서 CustomerContract 로 변경
   - `Encapsulate Variable` 을 통해 discountRate 에 대한 접근을 encapsulate 한다
+  - getter, setter 를 제외한 모든 데이터 조작은 getter, setter 를 통해 이루어져야 한다
 
-```js
+```diff
 // class Customer…
   constructor(name, discountRate) {
     this._name = name;
-    this._setDiscountRate(discountRate);
++   this._setDiscountRate(discountRate);
     this._contract = new CustomerContract(dateToday());
   }
   get discountRate() {return this._discountRate;}
-  _setDiscountRate(aNumber) {this._discountRate = aNumber;}
++ _setDiscountRate(aNumber) {this._discountRate = aNumber;}
   becomePreferred() {
-    this._setDiscountRate(this.discountRate + 0.03);
++   this._setDiscountRate(this.discountRate + 0.03);
     // other nice things
   }
   applyDiscount(amount) {
-    return amount.subtract(amount.multiply(this.discountRate));
++   return amount.subtract(amount.multiply(this.discountRate));
   }
 ```
 
-- property setter 가 아닌 일반 메서드를 사용하여 discountRate 변경
-  - TODO: 해석불가
+- CustomerContract로 discountRate를 복제한다.
+  - public setter 노출 시키고 싶지 않기 때문에 constructor에서 값을 직접 할당한다.
 
 ```js
 // class CustomerContract…
@@ -135,7 +136,7 @@ class Customer {
   }
 ```
 
-- `_interestRate` 를 AccountType 으로 이동
+- `_interestRate` 를 AccountType 으로 복제
 
 ```js
 // class AccountType…

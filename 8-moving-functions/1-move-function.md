@@ -160,7 +160,7 @@ function trackSummary(points) {
 ```
 
 - 적합한 이름으로 변경
-  - totalDisTance 변수를 inline 으로 없애고 그 이름을 새로운 함수에 적용
+  - totalDistance 변수를 inline 으로 없애고 그 이름을 새로운 함수에 적용
 
 ```diff
  function trackSummary(points) {
@@ -194,8 +194,7 @@ function radians(degrees) { ... }
 # Example: Moving between Classes
 
 ```js
-class Account…
-
+// class Account…
   get bankCharge() {
     let result = 4.5;
     if (this._daysOverdrawn > 0) result += this.overdraftCharge;
@@ -260,7 +259,7 @@ class Account…
   }
 ```
 
-- 새 함수에서 너무 많은 필드를 참조했다는 생각이 들면 account 전체를 넘겨도 좋다
+- 만약 새 함수에 넘겨야 할 인자 개수가 너무 많다고 하면 account 전체를 넘겨도 좋다
 
 ```js
 //class Account…

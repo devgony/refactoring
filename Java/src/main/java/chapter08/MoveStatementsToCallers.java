@@ -27,6 +27,7 @@ class MoveStatementsToCallers {
         outStream.write("<p>" + person.name + "</p>\n");
         renderPhoto(outStream, person.photo);
         emitPhotoData(outStream, person.photo);
+        outStream.write("<p>location: " + person.photo.location + "</p>\n");
     }
 
     static void renderPhoto(StringWriter outStream, Photo photo) {
@@ -40,6 +41,7 @@ class MoveStatementsToCallers {
                 .forEach(p -> {
                     outStream.write("<div>\n");
                     emitPhotoData(outStream, p);
+                    outStream.write("<p>location: " + p.location + "</p>\n");
                     outStream.write("</div>\n");
                 });
     }
@@ -49,10 +51,9 @@ class MoveStatementsToCallers {
         return new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
     }
 
-    static void emitPhotoData(StringWriter outStream, Photo photo) {
+    private static void emitPhotoData(StringWriter outStream, Photo photo) {
         outStream.write("<p>title: " + photo.title + "</p>\n");
         outStream.write("<p>date: " + photo.date.toString() + "</p>\n");
-        outStream.write("<p>location: " + photo.location + "</p>\n");
     }
 
 }

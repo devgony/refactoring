@@ -1,9 +1,7 @@
 package chapter08;
 
 import java.util.Date;
-
 import org.junit.jupiter.api.Test;
-
 import chapter08.MoveStatementsIntoFunction.*;
 import static chapter08.MoveStatementsIntoFunction.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +17,8 @@ class MoveStatementsIntoFunctionTest {
                 "<p>date: " + photo.date.toString() + "</p>\n" +
                 "</div>");
 
-        assertThat(emitPhotoData(photo)).isEqualTo("<p>location: My Location</p>\n" +
+        assertThat(emitPhotoData(photo)).isEqualTo("<p>title: My Photo</p>\n" +
+                "<p>location: My Location</p>\n" +
                 "<p>date: " + photo.date.toString() + "</p>");
 
         Person person = new Person("John", photo);
@@ -29,7 +28,7 @@ class MoveStatementsIntoFunctionTest {
                 "<p>location: My Location</p>\n" +
                 "<p>date: " + photo.date.toString() + "</p>\n" +
                 "</div>\n" +
-                "<p>title: John</p>\n" +
+                "<p>title: My Photo</p>\n" +
                 "<p>location: My Location</p>\n" +
                 "<p>date: " + photo.date.toString() + "</p>");
     }

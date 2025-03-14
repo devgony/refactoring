@@ -5,29 +5,42 @@ import java.util.Date;
 class MoveField {
     static class CustomerContract {
         Date _startDate;
-
-        CustomerContract(Date startDate) {
-            this._startDate = startDate;
-        }
-    }
-
-    static class Customer {
-        String _name;
         double _discountRate;
-        CustomerContract _contract;
 
-        Customer(String name, double discountRate) {
-            this._name = name;
+        CustomerContract(Date startDate, double discountRate) {
+            this._startDate = startDate;
             this._discountRate = discountRate;
-            this._contract = new CustomerContract(new Date());
         }
 
         double discountRate() {
             return this._discountRate;
         }
 
+        void setDiscountRate(double discountRate) {
+            this._discountRate = discountRate;
+        }
+    }
+
+    static class Customer {
+        String _name;
+        CustomerContract _contract;
+
+        Customer(String name, double discountRate) {
+            this._name = name;
+            this._contract = new CustomerContract(new Date(), discountRate);
+            this._setDiscountRate(discountRate);
+        }
+
+        double discountRate() {
+            return this._contract.discountRate();
+        }
+
+        void _setDiscountRate(double discountRate) {
+            this._contract.setDiscountRate(discountRate);
+        }
+
         void becomePreferred() {
-            this._discountRate += 0.03;
+            this._setDiscountRate(this.discountRate() + 0.03);
             // other nice things
         }
 
@@ -40,24 +53,28 @@ class MoveField {
     static class Account {
         int _number;
         AccountType _type;
-        double _interestRate;
 
-        Account(int number, AccountType type, double interestRate) {
+        Account(int number, AccountType type) {
             this._number = number;
             this._type = type;
-            this._interestRate = interestRate;
         }
 
-        double interestRate() {
-            return this._interestRate;
+        AccountType type() {
+            return this._type;
         }
     }
 
     static class AccountType {
         String _name;
+        double _interestRate;
 
-        AccountType(String nameString) {
+        AccountType(String nameString, double interestRate) {
             this._name = nameString;
+            this._interestRate = interestRate;
+        }
+
+        double interestRate() {
+            return this._interestRate;
         }
     }
 }
