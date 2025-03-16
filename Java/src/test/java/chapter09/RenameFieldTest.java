@@ -10,7 +10,7 @@ class RenameFieldTest {
     void client1() {
         Organization organization = new Organization(
                 ObjectBuilder.readValue(
-                        "{\"name\": \"Acme Gooseberries\", \"country\": \"GB\"}"));
+                        "{\"title\": \"Acme Gooseberries\", \"country\": \"GB\"}"));
 
         assertThat(organization.name()).isEqualTo("Acme Gooseberries");
         assertThat(organization.country()).isEqualTo("GB");
