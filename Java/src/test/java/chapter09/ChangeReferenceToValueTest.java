@@ -12,5 +12,10 @@ class ChangeReferenceToValueTest {
                 "781");
         assertThat(kent.officeNumber()).isEqualTo("555-1212");
         assertThat(kent.officeAreaCode()).isEqualTo("781");
+
+        kent.officeNumber("444-3322");
+        kent.officeAreaCode("617");
+        assertThat(kent.officeNumber()).isEqualTo("444-3322");
+        assertThat(kent.officeAreaCode()).isEqualTo("617");
     }
 }
