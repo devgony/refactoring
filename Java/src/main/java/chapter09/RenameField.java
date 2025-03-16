@@ -4,20 +4,20 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class RenameField {
     static class Organization {
-        String _name;
+        String _title;
         String _country;
 
         Organization(ObjectNode data) {
-            this._name = data.get("name").asText();
+            this._title = data.get("name").asText();
             this._country = data.get("country").asText();
         }
 
         String name() {
-            return this._name;
+            return this._title;
         }
 
         void name(String aString) {
-            this._name = aString;
+            this._title = aString;
         }
 
         String country() {
