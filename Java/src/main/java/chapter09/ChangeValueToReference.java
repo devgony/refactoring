@@ -6,26 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 class ChangeValueToReference {
-    static Map<String, Map<Integer, Customer>> _repositoryData;
-    static {
-        initialize();
-    }
+    @AllArgsConstructor
+    static class Repository {
+        Map<String, Map<Integer, Customer>> _repositoryData;
 
-    static void initialize() {
-        _repositoryData = new HashMap<>();
-        _repositoryData.put("customers", new HashMap<>());
-    }
-
-    static Customer registerCustomer(int id) {
-        if (!_repositoryData.get("customers").containsKey(id)) {
-            _repositoryData.get("customers").put(id, new Customer(id));
+        Repository() {
+            _repositoryData = new HashMap<>();
+            _repositoryData.put("customers", new HashMap<>());
         }
 
-        return findCustomer(id);
-    }
+        Customer registerCustomer(int id) {
+            if (!_repositoryData.get("customers").containsKey(id)) {
+                _repositoryData.get("customers").put(id, new Customer(id));
+            }
 
-    static Customer findCustomer(int id) {
-        return _repositoryData.get("customers").get(id);
+            return findCustomer(id);
+        }
+
+        Customer findCustomer(int id) {
+            return _repositoryData.get("customers").get(id);
+        }
     }
 
     @AllArgsConstructor
@@ -37,10 +37,12 @@ class ChangeValueToReference {
     static class Order {
         int _number;
         Customer _customer;
+        Repository _repository;
 
-        Order(Data data) {
+        Order(Data data, Repository repository) {
             this._number = data.number;
-            this._customer = registerCustomer(data.customerId);
+            this._repository = repository;
+            this._customer = repository.registerCustomer(data.customerId);
             // load other data
         }
 
