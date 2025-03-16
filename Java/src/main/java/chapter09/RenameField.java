@@ -12,11 +12,11 @@ class RenameField {
             this._country = data.get("country").asText();
         }
 
-        String name() {
+        String title() {
             return this._title;
         }
 
-        void name(String aString) {
+        void title(String aString) {
             this._title = aString;
         }
 

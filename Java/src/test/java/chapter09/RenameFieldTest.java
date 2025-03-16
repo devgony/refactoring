@@ -12,7 +12,7 @@ class RenameFieldTest {
                 ObjectBuilder.readValue(
                         "{\"title\": \"Acme Gooseberries\", \"country\": \"GB\"}"));
 
-        assertThat(organization.name()).isEqualTo("Acme Gooseberries");
+        assertThat(organization.title()).isEqualTo("Acme Gooseberries");
         assertThat(organization.country()).isEqualTo("GB");
     }
 }
