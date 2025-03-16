@@ -48,12 +48,18 @@ class ReplaceDerivedVariableWithQuery {
         }
 
         double production() {
+            assert this._productionAccumulator == this.calculatedProductionAccumulator();
             return this._initialProduction + this._productionAccumulator;
+        }
+
+        double calculatedProductionAccumulator() {
+            return this._adjustments.stream().mapToDouble(Adjustment::amount).sum();
         }
 
         void applyAdjustment(Adjustment anAdjustment) {
             this._adjustments.add(anAdjustment);
-            this._initialProduction += anAdjustment.amount();
+            _productionAccumulator += anAdjustment.amount();
+            // this._initialProduction += anAdjustment.amount();
         }
     }
 }
