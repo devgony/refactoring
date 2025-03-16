@@ -19,9 +19,9 @@ class SplitVariable {
         double secondaryTime = time - scenario.delay;
         if (secondaryTime > 0) {
             double primaryVelocity = primaryAcceleration * scenario.delay;
-            final double acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
+            final double secondaryAcceleration = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
             result += primaryVelocity * secondaryTime +
-                    0.5 * acc * secondaryTime * secondaryTime;
+                    0.5 * secondaryAcceleration * secondaryTime * secondaryTime;
         }
         return result;
     }
