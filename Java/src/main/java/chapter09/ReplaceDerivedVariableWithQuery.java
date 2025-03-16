@@ -21,11 +21,9 @@ class ReplaceDerivedVariableWithQuery {
     }
 
     static class ProductionPlan {
-        double _production;
         List<Adjustment> _adjustments;
 
         ProductionPlan(double production) {
-            this._production = production;
             this._adjustments = new ArrayList<>();
         }
 
@@ -35,7 +33,6 @@ class ReplaceDerivedVariableWithQuery {
 
         void applyAdjustment(Adjustment anAdjustment) {
             this._adjustments.add(anAdjustment);
-            this._production += anAdjustment.amount();
         }
     }
 }
