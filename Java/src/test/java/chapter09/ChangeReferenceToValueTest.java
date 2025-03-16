@@ -1,7 +1,6 @@
 package chapter09;
 
 import org.junit.jupiter.api.Test;
-
 import chapter09.ChangeReferenceToValue.Person;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,5 +13,4 @@ class ChangeReferenceToValueTest {
         assertThat(kent.officeAreaCode()).isEqualTo("781");
         assertThat(kent.officeNumber()).isEqualTo("555-1212");
     }
-
 }
