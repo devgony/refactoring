@@ -35,4 +35,25 @@ class ReplaceDerivedVariableWithQuery {
             this._adjustments.add(anAdjustment);
         }
     }
+
+    static class ProductionPlan2 {
+        double _initialProduction;
+        List<Adjustment> _adjustments;
+        double _productionAccumulator;
+
+        ProductionPlan2(double production) {
+            this._initialProduction = production;
+            this._productionAccumulator = 0;
+            this._adjustments = new ArrayList<>();
+        }
+
+        double production() {
+            return this._initialProduction + this._productionAccumulator;
+        }
+
+        void applyAdjustment(Adjustment anAdjustment) {
+            this._adjustments.add(anAdjustment);
+            this._initialProduction += anAdjustment.amount();
+        }
+    }
 }
