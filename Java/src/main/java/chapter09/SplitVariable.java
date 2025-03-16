@@ -26,7 +26,8 @@ class SplitVariable {
         return result;
     }
 
-    static double discount(double inputValue, int quantity) {
+    static double discount(double originalInputValue, int quantity) {
+        double inputValue = originalInputValue;
         if (inputValue > 50)
             inputValue = inputValue - 2;
         if (quantity > 100)
