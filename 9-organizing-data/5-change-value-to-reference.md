@@ -87,5 +87,7 @@ export function findCustomer(id) {
 
     - repository 에 없는 고객 ID 가 포함된 주문은 오류 발생
 
+# Inject repository
+
 - 현재 방식의 문제는 global repository 에 의존되어있다는것.
   - 이를 해결하기 위해 constructor 에 repository 를 주입하는 방식도 있다
