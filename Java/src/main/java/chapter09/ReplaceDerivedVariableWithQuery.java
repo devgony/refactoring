@@ -30,11 +30,6 @@ class ReplaceDerivedVariableWithQuery {
         }
 
         double production() {
-            assert this._production == calculatedProduction();
-            return this._production;
-        }
-
-        double calculatedProduction() {
             return this._adjustments.stream().mapToDouble(Adjustment::amount).sum();
         }
 
