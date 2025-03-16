@@ -8,7 +8,7 @@ class RenameField {
         String _country;
 
         Organization(ObjectNode data) {
-            this._title = data.get("title") != null ? data.get("title").asText() : data.get("name").asText();
+            this._title = data.get("title").asText();
             this._country = data.get("country").asText();
         }
 
