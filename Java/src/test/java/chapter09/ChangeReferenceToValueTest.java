@@ -17,5 +17,7 @@ class ChangeReferenceToValueTest {
         kent.officeAreaCode("617");
         assertThat(kent.officeNumber()).isEqualTo("444-3322");
         assertThat(kent.officeAreaCode()).isEqualTo("617");
+
+        assertThat(kent._telephoneNumber).isEqualTo(new Person("444-3322", "617")._telephoneNumber);
     }
 }

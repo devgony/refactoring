@@ -40,5 +40,14 @@ class ChangeReferenceToValue {
         String number() {
             return this._number;
         }
+
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof TelephoneNumber)) {
+                return false;
+            }
+            TelephoneNumber telephoneNumber = (TelephoneNumber) other;
+            return this._number.equals(telephoneNumber._number) && this._areaCode.equals(telephoneNumber._areaCode);
+        }
     }
 }
