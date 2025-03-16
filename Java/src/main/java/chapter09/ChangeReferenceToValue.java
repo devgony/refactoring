@@ -1,30 +1,26 @@
 package chapter09;
 
+import lombok.AllArgsConstructor;
+
 class ChangeReferenceToValue {
     static class Person {
         TelephoneNumber _telephoneNumber;
 
-        Person() {
-            this._telephoneNumber = new TelephoneNumber();
-        }
-
-        String officeAreaCode() {
-            return this._telephoneNumber.areaCode();
-        }
-
-        void officeAreaCode(String arg) {
-            this._telephoneNumber.areaCode(arg);
+        Person(String number, String areaCode) {
+            this._telephoneNumber = new TelephoneNumber(number, areaCode);
         }
 
         String officeNumber() {
             return this._telephoneNumber.number();
         }
 
-        void officeNumber(String arg) {
-            this._telephoneNumber.number(arg);
+        String officeAreaCode() {
+            return this._telephoneNumber.areaCode();
         }
+
     }
 
+    @AllArgsConstructor
     static class TelephoneNumber {
         String _number;
         String _areaCode;
@@ -33,16 +29,9 @@ class ChangeReferenceToValue {
             return this._areaCode;
         }
 
-        void areaCode(String arg) {
-            this._areaCode = arg;
-        }
-
         String number() {
             return this._number;
         }
 
-        void number(String arg) {
-            this._number = arg;
-        }
     }
 }
