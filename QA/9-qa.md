@@ -2,7 +2,7 @@
 
 # ReplaceDerivedVariableWithQuery
 
-- [Example One More Source](9-organizing-data/3-replace-derived-variable-with-query.md#example-more-than-one-source)
+- [Example One More Source](../9-organizing-data/3-replace-derived-variable-with-query.md#example-more-than-one-source)
 - 책에서 누락된 것인지, applyAdjustment 내부 로직을 변경 해주어야 테스트 성공함
 
 ```diff
@@ -15,7 +15,7 @@ void applyAdjustment(Adjustment anAdjustment) {
 
 # Inject Repository 추가 수행
 
-- [Inject Repository](/9-organizing-data/5-change-value-to-reference.md/inject-repository)
+- [Inject Repository](../9-organizing-data/5-change-value-to-reference.md#inject-repository)
 
 ```java
 static class Repository {
