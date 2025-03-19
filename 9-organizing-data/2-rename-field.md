@@ -64,7 +64,7 @@ const organization = new Organization({
 });
 ```
 
-- record 가 class 로 변경되는 단계이므로 일단은 class 의 field 만 \_name 에서 \_title 로 변경
+- record 가 class 로 변경되는 단계이므로 일단은 class 의 field 만 `_name` 에서 `_title` 로 변경
 
 ```diff
 class Organization {

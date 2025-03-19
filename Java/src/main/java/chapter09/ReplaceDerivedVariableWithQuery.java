@@ -21,21 +21,40 @@ class ReplaceDerivedVariableWithQuery {
     }
 
     static class ProductionPlan {
-        double _production;
         List<Adjustment> _adjustments;
 
         ProductionPlan(double production) {
-            this._production = production;
             this._adjustments = new ArrayList<>();
         }
 
         double production() {
-            return this._production;
+            return this._adjustments.stream().mapToDouble(Adjustment::amount).sum();
         }
 
         void applyAdjustment(Adjustment anAdjustment) {
             this._adjustments.add(anAdjustment);
-            this._production += anAdjustment.amount();
+        }
+    }
+
+    static class ProductionPlan2 {
+        double _initialProduction;
+        List<Adjustment> _adjustments;
+        double _productionAccumulator;
+
+        ProductionPlan2(double production) {
+            this._initialProduction = production;
+            this._productionAccumulator = 0;
+            this._adjustments = new ArrayList<>();
+        }
+
+        double production() {
+            return this._initialProduction + this._adjustments.stream().mapToDouble(Adjustment::amount).sum();
+        }
+
+        void applyAdjustment(Adjustment anAdjustment) {
+            this._adjustments.add(anAdjustment);
+            // _productionAccumulator += anAdjustment.amount(); // CORRECT
+            // this._initialProduction += anAdjustment.amount(); // WRONG
         }
     }
 }

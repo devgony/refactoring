@@ -12,4 +12,10 @@ class SplitVariableTest {
         assertThat(actual).isEqualTo(43.0);
 
     }
+
+    @Test
+    void client2() {
+        double actual = discount(60, 200);
+        assertThat(actual).isEqualTo(57.0);
+    }
 }

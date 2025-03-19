@@ -1,19 +1,13 @@
 package chapter09;
 
+import lombok.AllArgsConstructor;
+
 class ChangeReferenceToValue {
     static class Person {
         TelephoneNumber _telephoneNumber;
 
-        Person() {
-            this._telephoneNumber = new TelephoneNumber();
-        }
-
-        String officeAreaCode() {
-            return this._telephoneNumber.areaCode();
-        }
-
-        void officeAreaCode(String arg) {
-            this._telephoneNumber.areaCode(arg);
+        Person(String number, String areaCode) {
+            this._telephoneNumber = new TelephoneNumber(number, areaCode);
         }
 
         String officeNumber() {
@@ -21,10 +15,20 @@ class ChangeReferenceToValue {
         }
 
         void officeNumber(String arg) {
-            this._telephoneNumber.number(arg);
+            this._telephoneNumber = new TelephoneNumber(arg, this._telephoneNumber.areaCode());
         }
+
+        String officeAreaCode() {
+            return this._telephoneNumber.areaCode();
+        }
+
+        void officeAreaCode(String arg) {
+            this._telephoneNumber = new TelephoneNumber(this._telephoneNumber.number(), arg);
+        }
+
     }
 
+    @AllArgsConstructor
     static class TelephoneNumber {
         String _number;
         String _areaCode;
@@ -33,16 +37,17 @@ class ChangeReferenceToValue {
             return this._areaCode;
         }
 
-        void areaCode(String arg) {
-            this._areaCode = arg;
-        }
-
         String number() {
             return this._number;
         }
 
-        void number(String arg) {
-            this._number = arg;
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof TelephoneNumber)) {
+                return false;
+            }
+            TelephoneNumber telephoneNumber = (TelephoneNumber) other;
+            return this._number.equals(telephoneNumber._number) && this._areaCode.equals(telephoneNumber._areaCode);
         }
     }
 }

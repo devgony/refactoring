@@ -64,7 +64,7 @@ set discount(aNumber) {this._discount = aNumber;}
   }
 ```
 
-- Test 이상 없다면 `productio()` 이 바로 return 하도록 `Inline Function`
+- Test 이상 없다면 `production()` 이 바로 return 하도록 `Inline Function`
 
 ```js
 // class ProductionPlan…
