@@ -23,7 +23,7 @@ class ReplaceConditionalWithPolymorphism {
         String plumage() {
             switch (this.type) {
                 case "EuropeanSwallow":
-                    return "average";
+                    throw new RuntimeException("Should not reach here");
                 case "AfricanSwallow":
                     return this.numberOfCoconuts > 2 ? "tired" : "average";
                 case "NorwegianBlueParrot":
@@ -47,34 +47,59 @@ class ReplaceConditionalWithPolymorphism {
         }
     }
 
-    class EuropeanSwallow extends Bird {
-        EuropeanSwallow(Bird bird) {
-            super(bird.name, bird.type, bird.numberOfCoconuts, bird.voltage, bird.isNailed);
+    static class EuropeanSwallow extends Bird {
+        EuropeanSwallow(
+                String name,
+                String type,
+                int numberOfCoconuts,
+                int voltage,
+                boolean isNailed) {
+            super(name, type, numberOfCoconuts, voltage, isNailed);
+        }
+
+        @Override
+        String plumage() {
+            return "average";
         }
     }
 
-    class AfricanSwallow extends Bird {
-        AfricanSwallow(Bird bird) {
-            super(bird.name, bird.type, bird.numberOfCoconuts, bird.voltage, bird.isNailed);
+    static class AfricanSwallow extends Bird {
+        AfricanSwallow(
+                String name,
+                String type,
+                int numberOfCoconuts,
+                int voltage,
+                boolean isNailed) {
+            super(name, type, numberOfCoconuts, voltage, isNailed);
         }
     }
 
-    class NorwegianBlueParrot extends Bird {
-        NorwegianBlueParrot(Bird bird) {
-            super(bird.name, bird.type, bird.numberOfCoconuts, bird.voltage, bird.isNailed);
+    static class NorwegianBlueParrot extends Bird {
+        NorwegianBlueParrot(
+                String name,
+                String type,
+                int numberOfCoconuts,
+                int voltage,
+                boolean isNailed) {
+            super(name, type, numberOfCoconuts, voltage, isNailed);
         }
     }
 
-    Bird createBird(Bird bird) {
-        switch (bird.type) {
+    static Bird createBird(
+            String name,
+            String type,
+            int numberOfCoconuts,
+            int voltage,
+            boolean isNailed) {
+        switch (type) {
             case "EuropeanSwallow":
-                return new EuropeanSwallow(bird);
+                return new EuropeanSwallow(name, type, numberOfCoconuts, voltage, isNailed);
             case "AfricanSwallow":
-                return new AfricanSwallow(bird);
+                return new AfricanSwallow(name, type, numberOfCoconuts, voltage, isNailed);
             case "NorweigianBlueParrot":
-                return new NorwegianBlueParrot(bird);
+                return new NorwegianBlueParrot(name, type, numberOfCoconuts, voltage, isNailed);
             default:
-                return bird;
+                return new Bird(name, type, numberOfCoconuts, voltage, isNailed);
         }
     }
 
