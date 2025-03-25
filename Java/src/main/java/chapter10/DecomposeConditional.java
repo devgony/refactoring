@@ -26,13 +26,7 @@ class DecomposeConditional {
     }
 
     static double client1(Date aDate, Plan plan, int quantity) {
-        double charge;
-        if (summer(aDate, plan))
-            charge = summerCharge(plan, quantity);
-        else
-            charge = regularCharge(plan, quantity);
-
-        return charge;
+        return summer(aDate, plan) ? summerCharge(plan, quantity) : regularCharge(plan, quantity);
     }
 
     private static double regularCharge(Plan plan, int quantity) {
