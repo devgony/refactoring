@@ -25,7 +25,7 @@ class ReplaceConditionalWithPolymorphism {
                 case "EuropeanSwallow":
                     throw new RuntimeException("Should not reach here");
                 case "AfricanSwallow":
-                    return this.numberOfCoconuts > 2 ? "tired" : "average";
+                    throw new RuntimeException("Should not reach here");
                 case "NorwegianBlueParrot":
                     return this.voltage > 100 ? "scorched" : "beautiful";
                 default:
@@ -71,6 +71,11 @@ class ReplaceConditionalWithPolymorphism {
                 int voltage,
                 boolean isNailed) {
             super(name, type, numberOfCoconuts, voltage, isNailed);
+        }
+
+        @Override
+        String plumage() {
+            return this.numberOfCoconuts > 2 ? "tired" : "average";
         }
     }
 
