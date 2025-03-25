@@ -12,11 +12,15 @@ class ConsolidateConditionalExpression {
     }
 
     static int disabilityAmount(Employee anEmployee) {
-        if (anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12 || anEmployee.isPartTime)
+        if (isNotEligableForDisability(anEmployee))
             return 0;
         // compute the disability amount
         //
         return 1;
+    }
+
+    private static boolean isNotEligableForDisability(Employee anEmployee) {
+        return anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12 || anEmployee.isPartTime;
     }
 
     static double usingAnds(Employee anEmployee) {
