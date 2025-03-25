@@ -27,7 +27,7 @@ class ReplaceConditionalWithPolymorphism {
                 case "AfricanSwallow":
                     throw new RuntimeException("Should not reach here");
                 case "NorwegianBlueParrot":
-                    return this.voltage > 100 ? "scorched" : "beautiful";
+                    throw new RuntimeException("Should not reach here");
                 default:
                     return "unknown";
             }
@@ -88,6 +88,11 @@ class ReplaceConditionalWithPolymorphism {
                 boolean isNailed) {
             super(name, type, numberOfCoconuts, voltage, isNailed);
         }
+
+        @Override
+        String plumage() {
+            return this.voltage > 100 ? "scorched" : "beautiful";
+        }
     }
 
     static Bird createBird(
@@ -101,7 +106,7 @@ class ReplaceConditionalWithPolymorphism {
                 return new EuropeanSwallow(name, type, numberOfCoconuts, voltage, isNailed);
             case "AfricanSwallow":
                 return new AfricanSwallow(name, type, numberOfCoconuts, voltage, isNailed);
-            case "NorweigianBlueParrot":
+            case "NorwegianBlueParrot":
                 return new NorwegianBlueParrot(name, type, numberOfCoconuts, voltage, isNailed);
             default:
                 return new Bird(name, type, numberOfCoconuts, voltage, isNailed);

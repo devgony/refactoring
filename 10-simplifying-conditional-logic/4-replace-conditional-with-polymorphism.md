@@ -151,7 +151,7 @@ function createBird(bird) {
       return new EuropeanSwallow(bird);
     case "AfricanSwallow":
       return new AfricanSwallow(bird);
-    case "NorweigianBlueParrot":
+    case "NorwegianBlueParrot":
       return new NorwegianBlueParrot(bird);
     default:
       return new Bird(bird);
