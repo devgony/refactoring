@@ -27,12 +27,16 @@ class DecomposeConditional {
 
     static double client1(Date aDate, Plan plan, int quantity) {
         double charge;
-        if (!aDate.isBefore(plan.summerStart) && !aDate.isAfter(plan.summerEnd))
+        if (summer(aDate, plan))
             charge = quantity * plan.summerRate;
         else
             charge = quantity * plan.regularRate + plan.regularServiceCharge;
 
         return charge;
+    }
+
+    private static boolean summer(Date aDate, Plan plan) {
+        return !aDate.isBefore(plan.summerStart) && !aDate.isAfter(plan.summerEnd);
     }
 
 }
