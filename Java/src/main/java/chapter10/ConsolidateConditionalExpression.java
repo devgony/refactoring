@@ -12,9 +12,7 @@ class ConsolidateConditionalExpression {
     }
 
     static int disabilityAmount(Employee anEmployee) {
-        if (anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12)
-            return 0;
-        if (anEmployee.isPartTime)
+        if (anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12 || anEmployee.isPartTime)
             return 0;
         // compute the disability amount
         //
