@@ -30,9 +30,13 @@ class DecomposeConditional {
         if (summer(aDate, plan))
             charge = summerCharge(plan, quantity);
         else
-            charge = quantity * plan.regularRate + plan.regularServiceCharge;
+            charge = regularCharge(plan, quantity);
 
         return charge;
+    }
+
+    private static double regularCharge(Plan plan, int quantity) {
+        return quantity * plan.regularRate + plan.regularServiceCharge;
     }
 
     private static double summerCharge(Plan plan, int quantity) {
