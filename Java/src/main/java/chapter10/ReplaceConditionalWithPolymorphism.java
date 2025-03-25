@@ -47,6 +47,37 @@ class ReplaceConditionalWithPolymorphism {
         }
     }
 
+    class EuropeanSwallow extends Bird {
+        EuropeanSwallow(Bird bird) {
+            super(bird.name, bird.type, bird.numberOfCoconuts, bird.voltage, bird.isNailed);
+        }
+    }
+
+    class AfricanSwallow extends Bird {
+        AfricanSwallow(Bird bird) {
+            super(bird.name, bird.type, bird.numberOfCoconuts, bird.voltage, bird.isNailed);
+        }
+    }
+
+    class NorwegianBlueParrot extends Bird {
+        NorwegianBlueParrot(Bird bird) {
+            super(bird.name, bird.type, bird.numberOfCoconuts, bird.voltage, bird.isNailed);
+        }
+    }
+
+    Bird createBird(Bird bird) {
+        switch (bird.type) {
+            case "EuropeanSwallow":
+                return new EuropeanSwallow(bird);
+            case "AfricanSwallow":
+                return new AfricanSwallow(bird);
+            case "NorweigianBlueParrot":
+                return new NorwegianBlueParrot(bird);
+            default:
+                return bird;
+        }
+    }
+
     static Map<String, String> plumages(List<Bird> birds) {
         return birds.stream().collect(Collectors.toMap(b -> b.name(), b -> plumage(b)));
     }
