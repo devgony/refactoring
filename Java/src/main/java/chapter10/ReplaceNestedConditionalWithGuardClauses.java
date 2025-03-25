@@ -1,7 +1,5 @@
 package chapter10;
 
-import java.time.ZoneId;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,16 +20,14 @@ class ReplaceNestedConditionalWithGuardClauses {
     }
 
     static Result payAmount(Employee employee) {
-        Result result;
         if (employee.isSeparated) {
             return new Result(0, "SEP");
         }
         if (employee.isRetired) {
-            result = new Result(0, "RET");
-        } else {
-            result = someFinalComputation();
+            return new Result(0, "RET");
         }
-        return result;
+
+        return someFinalComputation();
     }
 
     static private Result someFinalComputation() {
