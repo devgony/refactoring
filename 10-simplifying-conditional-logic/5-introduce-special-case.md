@@ -474,7 +474,7 @@ function enrichSite(aSite) {
 }
 ```
 
-- `isUnkown` 를 갱신. 기존 조건절도 남겨놓아 호환성 유지
+- `isUnknown` 를 갱신. 기존 조건절도 남겨놓아 호환성 유지
 
 ```diff
 function isUnknown(aCustomer) {
