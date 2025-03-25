@@ -24,13 +24,12 @@ class ReplaceNestedConditionalWithGuardClauses {
     static Result payAmount(Employee employee) {
         Result result;
         if (employee.isSeparated) {
-            result = new Result(0, "SEP");
+            return new Result(0, "SEP");
+        }
+        if (employee.isRetired) {
+            result = new Result(0, "RET");
         } else {
-            if (employee.isRetired) {
-                result = new Result(0, "RET");
-            } else {
-                result = someFinalComputation();
-            }
+            result = someFinalComputation();
         }
         return result;
     }
