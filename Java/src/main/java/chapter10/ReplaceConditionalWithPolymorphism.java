@@ -3,7 +3,6 @@ package chapter10;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +19,32 @@ class ReplaceConditionalWithPolymorphism {
         String name() {
             return name;
         }
+
+        String plumage() {
+            switch (this.type) {
+                case "EuropeanSwallow":
+                    return "average";
+                case "AfricanSwallow":
+                    return this.numberOfCoconuts > 2 ? "tired" : "average";
+                case "NorwegianBlueParrot":
+                    return this.voltage > 100 ? "scorched" : "beautiful";
+                default:
+                    return "unknown";
+            }
+        }
+
+        Integer airSpeedVelocity() {
+            switch (this.type) {
+                case "EuropeanSwallow":
+                    return 35;
+                case "AfricanSwallow":
+                    return 40 - 2 * this.numberOfCoconuts;
+                case "NorwegianBlueParrot":
+                    return this.isNailed ? 0 : 10 + this.voltage / 10;
+                default:
+                    return null;
+            }
+        }
     }
 
     static Map<String, String> plumages(List<Bird> birds) {
@@ -31,30 +56,14 @@ class ReplaceConditionalWithPolymorphism {
     }
 
     static String plumage(Bird bird) {
-        switch (bird.type) {
-            case "EuropeanSwallow":
-                return "average";
-            case "AfricanSwallow":
-                return bird.numberOfCoconuts > 2 ? "tired" : "average";
-            case "NorwegianBlueParrot":
-                return bird.voltage > 100 ? "scorched" : "beautiful";
-            default:
-                return "unknown";
-        }
+        return bird.plumage();
     }
 
     static Integer airSpeedVelocity(Bird bird) {
-        switch (bird.type) {
-            case "EuropeanSwallow":
-                return 35;
-            case "AfricanSwallow":
-                return 40 - 2 * bird.numberOfCoconuts;
-            case "NorwegianBlueParrot":
-                return bird.isNailed ? 0 : 10 + bird.voltage / 10;
-            default:
-                return null;
-        }
+        return bird.airSpeedVelocity();
     }
+
+    // ----
 
     @AllArgsConstructor
     static class Voyage {
