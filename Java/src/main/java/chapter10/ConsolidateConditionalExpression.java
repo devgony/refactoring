@@ -24,9 +24,13 @@ class ConsolidateConditionalExpression {
     }
 
     static double usingAnds(Employee anEmployee) {
-        if (anEmployee.onVacation && anEmployee.seniority > 10) {
+        if (vacationSenior(anEmployee)) {
             return 1;
         }
         return 0.5;
+    }
+
+    private static boolean vacationSenior(Employee anEmployee) {
+        return anEmployee.onVacation && anEmployee.seniority > 10;
     }
 }
