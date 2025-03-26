@@ -143,13 +143,7 @@ class ReplaceConditionalWithPolymorphism {
     }
 
     String rating(Voyage voyage, List<Voyage> history) {
-        int vpf = voyageProfitFactor(voyage, history);
-        int vr = voyageRisk(voyage);
-        int chr = captainHistoryRisk(voyage, history);
-        if (vpf * 3 > vr + chr * 2)
-            return "A";
-        else
-            return "B";
+        return new Rating(voyage, history).value();
     }
 
     int voyageRisk(Voyage voyage) {
@@ -198,6 +192,70 @@ class ReplaceConditionalWithPolymorphism {
                 result -= 1;
         }
         return result;
+    }
+
+    @AllArgsConstructor
+    static class Rating {
+        Voyage voyage;
+        List<Voyage> history;
+
+        String value() {
+            int vpf = voyageProfitFactor();
+            int vr = voyageRisk();
+            int chr = captainHistoryRisk();
+            if (vpf * 3 > vr + chr * 2)
+                return "A";
+            else
+                return "B";
+        }
+
+        int voyageRisk() {
+            int result = 1;
+            if (voyage.length > 4)
+                result += 2;
+            if (voyage.length > 8)
+                result += voyage.length - 8;
+            if (Arrays.asList("china", "east-indies").contains(voyage.zone))
+                result += 4;
+            return Math.max(result, 0);
+        }
+
+        int captainHistoryRisk() {
+            int result = 1;
+            if (history.size() < 5)
+                result += 4;
+            result += history.stream().filter((v) -> v.profit < 0).collect(Collectors.toList()).size();
+            if (voyage.zone == "china" && hasChinaHistory())
+                result -= 2;
+            return Math.max(result, 0);
+        }
+
+        boolean hasChinaHistory() {
+            return history.stream().anyMatch((v) -> "china" == v.zone);
+        }
+
+        int voyageProfitFactor() {
+            int result = 2;
+            if (voyage.zone == "china")
+                result += 1;
+            if (voyage.zone == "east-indies")
+                result += 1;
+            if (voyage.zone == "china" && hasChinaHistory()) {
+                result += 3;
+                if (history.size() > 10)
+                    result += 1;
+                if (voyage.length > 12)
+                    result += 1;
+                if (voyage.length > 18)
+                    result -= 1;
+            } else {
+                if (history.size() > 8)
+                    result += 1;
+                if (voyage.length > 14)
+                    result -= 1;
+            }
+            return result;
+        }
     }
 
 }
