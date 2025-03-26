@@ -143,7 +143,7 @@ class ReplaceConditionalWithPolymorphism {
     }
 
     String rating(Voyage voyage, List<Voyage> history) {
-        return new Rating(voyage, history).value();
+        return createRating(voyage, history).value();
     }
 
     int voyageRisk(Voyage voyage) {
@@ -255,6 +255,21 @@ class ReplaceConditionalWithPolymorphism {
                     result -= 1;
             }
             return result;
+        }
+    }
+
+    Rating createRating(Voyage voyage, List<Voyage> history) {
+        if (voyage.zone == "china" && history.stream().anyMatch((v) -> "china" == v.zone))
+            return new ExperiencedChinaRating(voyage, history);
+        else
+            return new Rating(voyage, history);
+    }
+
+    class ExperiencedChinaRating extends Rating {
+        ExperiencedChinaRating(
+                Voyage voyage,
+                List<Voyage> history) {
+            super(voyage, history);
         }
     }
 
