@@ -43,6 +43,12 @@ class IntroduceSpecialCase {
         }
     }
 
+    static class UnknownCustomer {
+        boolean isUnknown() {
+            return true;
+        }
+    }
+
     @AllArgsConstructor
     static class PaymentHistory {
         int weeksDelinquentInLastYear;
