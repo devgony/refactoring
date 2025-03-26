@@ -54,7 +54,7 @@ class IntroduceSpecialCase {
     }
 
     static boolean isUnknown(Customer customer) {
-        return customer.name() == "unknown";
+        return customer.isUnknown();
     }
 
     @AllArgsConstructor
