@@ -35,7 +35,7 @@ class ReplaceConditionalWithPolymorphism {
                 case "AfricanSwallow":
                     throw new RuntimeException("Should not reach here");
                 case "NorwegianBlueParrot":
-                    return this.isNailed ? 0 : 10 + this.voltage / 10;
+                    throw new RuntimeException("Should not reach here");
                 default:
                     return null;
             }
@@ -97,6 +97,11 @@ class ReplaceConditionalWithPolymorphism {
         @Override
         String plumage() {
             return this.voltage > 100 ? "scorched" : "beautiful";
+        }
+
+        @Override
+        Integer airSpeedVelocity() {
+            return this.isNailed ? 0 : 10 + this.voltage / 10;
         }
     }
 
