@@ -240,12 +240,12 @@ class ReplaceConditionalWithPolymorphism {
             if (voyage.zone == "east-indies")
                 result += 1;
             result += historyLengthFactor();
-            result += voyageAndHistoryLengthFactor();
+            result += voyageLengthFactor();
 
             return result;
         }
 
-        int voyageAndHistoryLengthFactor() {
+        int voyageLengthFactor() {
             return (this.voyage.length > 14) ? -1 : 0;
         }
 
@@ -274,7 +274,7 @@ class ReplaceConditionalWithPolymorphism {
         }
 
         @Override
-        int voyageAndHistoryLengthFactor() {
+        int voyageLengthFactor() {
             int result = 0;
             result += 3;
             if (voyage.length > 12)
