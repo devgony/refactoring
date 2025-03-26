@@ -1,14 +1,18 @@
 package chapter10;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 class ReplaceConditionalWithPolymorphism {
     @AllArgsConstructor
+    @ToString
     static class Bird {
         String name;
         String type;
@@ -21,16 +25,7 @@ class ReplaceConditionalWithPolymorphism {
         }
 
         String plumage() {
-            switch (this.type) {
-                case "EuropeanSwallow":
-                    throw new RuntimeException("Should not reach here");
-                case "AfricanSwallow":
-                    throw new RuntimeException("Should not reach here");
-                case "NorwegianBlueParrot":
-                    throw new RuntimeException("Should not reach here");
-                default:
-                    return "unknown";
-            }
+            return "unknown";
         }
 
         Integer airSpeedVelocity() {
@@ -118,7 +113,10 @@ class ReplaceConditionalWithPolymorphism {
     }
 
     static Map<String, Integer> speeds(List<Bird> birds) {
-        return birds.stream().collect(Collectors.toMap(b -> b.name(), b -> airSpeedVelocity(b)));
+        return birds.stream()
+                .collect(HashMap::new,
+                        (map, bird) -> map.put(bird.name(), airSpeedVelocity(bird)),
+                        HashMap::putAll);
     }
 
     static String plumage(Bird bird) {
