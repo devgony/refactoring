@@ -31,7 +31,7 @@ class ReplaceConditionalWithPolymorphism {
         Integer airSpeedVelocity() {
             switch (this.type) {
                 case "EuropeanSwallow":
-                    return 35;
+                    throw new RuntimeException("Should not reach here");
                 case "AfricanSwallow":
                     return 40 - 2 * this.numberOfCoconuts;
                 case "NorwegianBlueParrot":
@@ -55,6 +55,11 @@ class ReplaceConditionalWithPolymorphism {
         @Override
         String plumage() {
             return "average";
+        }
+
+        @Override
+        Integer airSpeedVelocity() {
+            return 35;
         }
     }
 
