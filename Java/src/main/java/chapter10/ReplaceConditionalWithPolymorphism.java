@@ -225,8 +225,7 @@ class ReplaceConditionalWithPolymorphism {
             if (history.size() < 5)
                 result += 4;
             result += history.stream().filter((v) -> v.profit < 0).collect(Collectors.toList()).size();
-            if (voyage.zone == "china" && hasChinaHistory())
-                result -= 2;
+
             return Math.max(result, 0);
         }
 
@@ -270,6 +269,11 @@ class ReplaceConditionalWithPolymorphism {
                 Voyage voyage,
                 List<Voyage> history) {
             super(voyage, history);
+        }
+
+        int captainHistoryRisk() {
+            int result = super.captainHistoryRisk() - 2;
+            return Math.max(result, 0);
         }
     }
 

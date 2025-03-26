@@ -449,7 +449,7 @@ function rating(voyage, history) {
 }
 ```
 
-- `ExperiencedChinaRating` 을 override
+- `ExperiencedChinaRating.captainHistoryRisk` 을 override
 
 ```diff
 class ExperiencedChinaRating
