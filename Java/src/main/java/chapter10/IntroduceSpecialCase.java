@@ -49,6 +49,10 @@ class IntroduceSpecialCase {
         }
     }
 
+    static boolean isUnknown(Customer customer) {
+        return customer.name() == "unknown";
+    }
+
     @AllArgsConstructor
     static class PaymentHistory {
         int weeksDelinquentInLastYear;
@@ -74,7 +78,7 @@ class IntroduceSpecialCase {
 
     static String client1(Customer aCustomer) {
         String customerName;
-        if (aCustomer.name() == "unknown")
+        if (isUnknown(aCustomer))
             customerName = "occupant";
         else
             customerName = aCustomer.name();
@@ -84,21 +88,21 @@ class IntroduceSpecialCase {
 
     static String client2(Customer aCustomer) {
         Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = (aCustomer.name() == "unknown") ? registry.billingPlans().basic
+        String plan = isUnknown(aCustomer) ? registry.billingPlans().basic
                 : aCustomer.billingPlan();
 
         return plan;
     }
 
     static String client3(Customer aCustomer) {
-        if (aCustomer.name() != "unknown")
+        if (!isUnknown(aCustomer))
             aCustomer.billingPlan("newPlan");
 
         return aCustomer.billingPlan();
     }
 
     static int client4(Customer aCustomer) {
-        int weeksDelinquent = (aCustomer.name() == "unknown") ? 0
+        int weeksDelinquent = (isUnknown(aCustomer)) ? 0
                 : aCustomer.paymentHistory().weeksDelinquentInLastYear();
 
         return weeksDelinquent;
