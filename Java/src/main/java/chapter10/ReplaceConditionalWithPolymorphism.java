@@ -274,9 +274,13 @@ class ReplaceConditionalWithPolymorphism {
         }
 
         @Override
+        int voyageProfitFactor() {
+            return super.voyageProfitFactor() + 3;
+        }
+
+        @Override
         int voyageLengthFactor() {
             int result = 0;
-            result += 3;
             if (voyage.length > 12)
                 result += 1;
             if (voyage.length > 18)
