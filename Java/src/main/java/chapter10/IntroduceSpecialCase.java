@@ -38,6 +38,9 @@ class IntroduceSpecialCase {
             return _paymentHistory;
         }
 
+        boolean isUnknown() {
+            return false;
+        }
     }
 
     @AllArgsConstructor
