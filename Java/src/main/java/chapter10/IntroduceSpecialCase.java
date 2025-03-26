@@ -8,7 +8,7 @@ class IntroduceSpecialCase {
         Customer _customer;
 
         Customer customer() {
-            return this._customer;
+            return (_customer.name() == "unknown") ? new UnknownCustomer(_customer) : _customer;
         }
     }
 
@@ -43,7 +43,11 @@ class IntroduceSpecialCase {
         }
     }
 
-    static class UnknownCustomer {
+    static class UnknownCustomer extends Customer {
+        UnknownCustomer(Customer customer) {
+            super(customer.name(), customer.billingPlan(), customer.paymentHistory());
+        }
+
         boolean isUnknown() {
             return true;
         }
