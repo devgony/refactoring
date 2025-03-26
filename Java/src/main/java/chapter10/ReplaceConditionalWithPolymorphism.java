@@ -29,16 +29,7 @@ class ReplaceConditionalWithPolymorphism {
         }
 
         Integer airSpeedVelocity() {
-            switch (this.type) {
-                case "EuropeanSwallow":
-                    throw new RuntimeException("Should not reach here");
-                case "AfricanSwallow":
-                    throw new RuntimeException("Should not reach here");
-                case "NorwegianBlueParrot":
-                    throw new RuntimeException("Should not reach here");
-                default:
-                    return null;
-            }
+            return null;
         }
     }
 
