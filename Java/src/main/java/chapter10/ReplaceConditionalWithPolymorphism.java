@@ -246,20 +246,10 @@ class ReplaceConditionalWithPolymorphism {
 
         int voyageAndHistoryLengthFactor() {
             int result = 0;
-            if (voyage.zone == "china" && hasChinaHistory()) {
-                result += 3;
-                if (history.size() > 10)
-                    result += 1;
-                if (voyage.length > 12)
-                    result += 1;
-                if (voyage.length > 18)
-                    result -= 1;
-            } else {
-                if (history.size() > 8)
-                    result += 1;
-                if (voyage.length > 14)
-                    result -= 1;
-            }
+            if (history.size() > 8)
+                result += 1;
+            if (voyage.length > 14)
+                result -= 1;
             return result;
         }
     }
@@ -281,6 +271,19 @@ class ReplaceConditionalWithPolymorphism {
         int captainHistoryRisk() {
             int result = super.captainHistoryRisk() - 2;
             return Math.max(result, 0);
+        }
+
+        @Override
+        int voyageAndHistoryLengthFactor() {
+            int result = 0;
+            result += 3;
+            if (history.size() > 10)
+                result += 1;
+            if (voyage.length > 12)
+                result += 1;
+            if (voyage.length > 18)
+                result -= 1;
+            return result;
         }
     }
 
