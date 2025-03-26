@@ -246,11 +246,14 @@ class ReplaceConditionalWithPolymorphism {
 
         int voyageAndHistoryLengthFactor() {
             int result = 0;
-            if (history.size() > 8)
-                result += 1;
+            result += historyLengthFactor();
             if (voyage.length > 14)
                 result -= 1;
             return result;
+        }
+
+        private int historyLengthFactor() {
+            return (history.size() > 8) ? 1 : 0;
         }
     }
 
@@ -277,13 +280,16 @@ class ReplaceConditionalWithPolymorphism {
         int voyageAndHistoryLengthFactor() {
             int result = 0;
             result += 3;
-            if (history.size() > 10)
-                result += 1;
+            result += historyLengthFactor();
             if (voyage.length > 12)
                 result += 1;
             if (voyage.length > 18)
                 result -= 1;
             return result;
+        }
+
+        private int historyLengthFactor() {
+            return (history.size() > 10) ? 1 : 0;
         }
     }
 
