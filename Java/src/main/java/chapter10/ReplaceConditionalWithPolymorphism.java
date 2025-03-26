@@ -239,6 +239,13 @@ class ReplaceConditionalWithPolymorphism {
                 result += 1;
             if (voyage.zone == "east-indies")
                 result += 1;
+            result += voyageAndHistoryLengthFactor();
+
+            return result;
+        }
+
+        int voyageAndHistoryLengthFactor() {
+            int result = 0;
             if (voyage.zone == "china" && hasChinaHistory()) {
                 result += 3;
                 if (history.size() > 10)
