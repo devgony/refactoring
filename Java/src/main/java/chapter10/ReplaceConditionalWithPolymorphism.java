@@ -287,10 +287,5 @@ class ReplaceConditionalWithPolymorphism {
                 result -= 1;
             return result;
         }
-
-        private int historyLengthFactor() {
-            return (history.size() > 10) ? 1 : 0;
-        }
     }
-
 }
