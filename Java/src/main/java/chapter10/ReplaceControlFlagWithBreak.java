@@ -8,17 +8,14 @@ class ReplaceControlFlagWithBreak {
     }
 
     private void checkForMiscreants(List<String> people) {
-        boolean found = false;
         for (String p : people) {
-            if (!found) {
-                if ("Don".equals(p)) {
-                    sendAlert();
-                    return;
-                }
-                if ("John".equals(p)) {
-                    sendAlert();
-                    return;
-                }
+            if ("Don".equals(p)) {
+                sendAlert();
+                return;
+            }
+            if ("John".equals(p)) {
+                sendAlert();
+                return;
             }
         }
     }
