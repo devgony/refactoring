@@ -252,7 +252,7 @@ client 3…
         : aCustomer.paymentHistory.weeksDelinquentInLastYear;
 ```
 
-- 기존 예제와 동일하게 `isUnknown` 추가 하지만 이번에는 special- case 가 literal이다
+- 기존 예제와 동일하게 `isUnknown` 추가 하지만 이번에는 special-case 가 literal이다
 
 ```js
 class Customer…
@@ -272,18 +272,18 @@ top level…
 function isUnknown(arg) {
   return (arg === "unknown");
 }
-client 1…
 
+client 1…
   let customerName;
   if (isUnknown(aCustomer)) customerName = "occupant";
   else customerName = aCustomer.name;
-client 2…
 
+client 2…
   const plan = isUnknown(aCustomer) ?
         registry.billingPlans.basic
         : aCustomer.billingPlan;
-client 3…
 
+client 3…
   const weeksDelinquent = isUnknown(aCustomer) ?
         0
         : aCustomer.paymentHistory.weeksDelinquentInLastYear;

@@ -1,6 +1,9 @@
 package chapter10;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import lombok.AllArgsConstructor;
+import utils.ObjectBuilder;
 
 class IntroduceSpecialCaseUsingAnObjectLiteral {
     @AllArgsConstructor
@@ -63,9 +66,17 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
         String basic;
     }
 
+    ObjectNode createUnknownCustomer() {
+        return ObjectBuilder.readValue("{\"isUnknown\": true}");
+    }
+
+    static boolean isUnknown(String arg) {
+        return (arg == "unknown");
+    }
+
     static String client1(Customer aCustomer) {
         String customerName;
-        if (aCustomer.name() == "unknown")
+        if (isUnknown(aCustomer.name()))
             customerName = "occupant";
         else
             customerName = aCustomer.name();
@@ -75,14 +86,14 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
 
     static String client2(Customer aCustomer) {
         Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = (aCustomer.name() == "unknown") ? registry.billingPlans().basic
+        String plan = (isUnknown(aCustomer.name())) ? registry.billingPlans().basic
                 : aCustomer.billingPlan();
 
         return plan;
     }
 
     static int client3(Customer aCustomer) {
-        int weeksDelinquent = (aCustomer.name() == "unknown") ? 0
+        int weeksDelinquent = isUnknown(aCustomer.name()) ? 0
                 : aCustomer.paymentHistory().weeksDelinquentInLastYear();
 
         return weeksDelinquent;
