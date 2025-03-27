@@ -13,11 +13,11 @@ class ReplaceControlFlagWithBreak {
             if (!found) {
                 if ("Don".equals(p)) {
                     sendAlert();
-                    found = true;
+                    return;
                 }
                 if ("John".equals(p)) {
                     sendAlert();
-                    found = true;
+                    return;
                 }
             }
         }
