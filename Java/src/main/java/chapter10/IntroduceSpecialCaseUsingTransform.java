@@ -22,11 +22,15 @@ class IntroduceSpecialCaseUsingTransform {
         return site.deepCopy();
     }
 
+    static boolean isUnknown(JsonNode aCustomer) {
+        return "unknown".equals(aCustomer.asText());
+    }
+
     static String client1(JsonNode rawSite) {
         JsonNode site = enrichSite(rawSite);
         JsonNode aCustomer = site.get("customer");
         String customerName;
-        if ("unknown".equals(aCustomer.asText()))
+        if (isUnknown(aCustomer))
             customerName = "occupant";
         else
             customerName = aCustomer.get("name").asText();
@@ -37,7 +41,7 @@ class IntroduceSpecialCaseUsingTransform {
     static String client2(JsonNode site) {
         JsonNode aCustomer = site.get("customer");
         Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = ("unknown".equals(aCustomer.asText())) ? registry.billingPlans().basic
+        String plan = (isUnknown(aCustomer)) ? registry.billingPlans().basic
                 : aCustomer.get("billingPlan").asText();
 
         return plan;
@@ -45,7 +49,7 @@ class IntroduceSpecialCaseUsingTransform {
 
     static int client3(JsonNode site) {
         JsonNode aCustomer = site.get("customer");
-        int weeksDelinquent = ("unknown".equals(aCustomer.asText())) ? 0
+        int weeksDelinquent = (isUnknown(aCustomer)) ? 0
                 : aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
 
         return weeksDelinquent;
