@@ -69,6 +69,11 @@ class IntroduceSpecialCase {
 
         }
 
+        @Override
+        PaymentHistory paymentHistory() {
+            return new NullPaymentHistory();
+        }
+
     }
 
     static boolean isUnknown(Customer customer) {
@@ -81,6 +86,12 @@ class IntroduceSpecialCase {
 
         int weeksDelinquentInLastYear() {
             return weeksDelinquentInLastYear;
+        }
+    }
+
+    static class NullPaymentHistory extends PaymentHistory {
+        NullPaymentHistory() {
+            super(0);
         }
     }
 
@@ -118,9 +129,6 @@ class IntroduceSpecialCase {
     }
 
     static int client4(Customer aCustomer) {
-        int weeksDelinquent = (isUnknown(aCustomer)) ? 0
-                : aCustomer.paymentHistory().weeksDelinquentInLastYear();
-
-        return weeksDelinquent;
+        return aCustomer.paymentHistory().weeksDelinquentInLastYear();
     }
 }
