@@ -23,7 +23,7 @@ class IntroduceSpecialCaseUsingTransform {
 
     static JsonNode enrichSite(JsonNode site) {
         ObjectNode result = site.deepCopy();
-        ObjectNode unknownCustomer = ObjectBuilder.readValue("{\"isUnknown\": true}");
+        ObjectNode unknownCustomer = ObjectBuilder.readValue("{\"isUnknown\": true, \"name\": \"occupant\" }");
         if (isUnknown(result.get("customer")))
             result.set("customer", unknownCustomer);
         else
@@ -46,13 +46,8 @@ class IntroduceSpecialCaseUsingTransform {
     static String client1(JsonNode rawSite) {
         JsonNode site = enrichSite(rawSite);
         JsonNode aCustomer = site.get("customer");
-        String customerName;
-        if (isUnknown(aCustomer))
-            customerName = "occupant";
-        else
-            customerName = aCustomer.get("name").asText();
 
-        return customerName;
+        return aCustomer.get("name").asText();
     }
 
     static String client2(JsonNode rawSite) {
