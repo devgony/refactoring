@@ -18,7 +18,12 @@ class IntroduceSpecialCaseUsingTransform {
         String basic;
     }
 
-    static String client1(JsonNode site) {
+    static JsonNode enrichSite(JsonNode site) {
+        return site.deepCopy();
+    }
+
+    static String client1(JsonNode rawSite) {
+        JsonNode site = enrichSite(rawSite);
         JsonNode aCustomer = site.get("customer");
         String customerName;
         if ("unknown".equals(aCustomer.asText()))
