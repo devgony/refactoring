@@ -1,7 +1,10 @@
 package chapter10;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import lombok.AllArgsConstructor;
+import utils.ObjectBuilder;
 
 class IntroduceSpecialCaseUsingTransform {
     @AllArgsConstructor
@@ -19,11 +22,25 @@ class IntroduceSpecialCaseUsingTransform {
     }
 
     static JsonNode enrichSite(JsonNode site) {
-        return site.deepCopy();
+        ObjectNode result = site.deepCopy();
+        ObjectNode unknownCustomer = ObjectBuilder.readValue("{\"isUnknown\": true}");
+        if (isUnknown(result.get("customer")))
+            result.set("customer", unknownCustomer);
+        else
+            ((ObjectNode) result.get("customer")).put("isUnknown", false);
+
+        return result;
     }
 
     static boolean isUnknown(JsonNode aCustomer) {
-        return "unknown".equals(aCustomer.asText());
+        if ("unknown".equals(aCustomer.asText()))
+            return true;
+
+        JsonNode isUnknown = aCustomer.get("isUnknown");
+        if (isUnknown == null)
+            return false;
+
+        return isUnknown.asBoolean();
     }
 
     static String client1(JsonNode rawSite) {
@@ -38,7 +55,8 @@ class IntroduceSpecialCaseUsingTransform {
         return customerName;
     }
 
-    static String client2(JsonNode site) {
+    static String client2(JsonNode rawSite) {
+        JsonNode site = enrichSite(rawSite);
         JsonNode aCustomer = site.get("customer");
         Registery registry = new Registery(new BillingPlans("basic"));
         String plan = (isUnknown(aCustomer)) ? registry.billingPlans().basic
@@ -47,7 +65,8 @@ class IntroduceSpecialCaseUsingTransform {
         return plan;
     }
 
-    static int client3(JsonNode site) {
+    static int client3(JsonNode rawSite) {
+        JsonNode site = enrichSite(rawSite);
         JsonNode aCustomer = site.get("customer");
         int weeksDelinquent = (isUnknown(aCustomer)) ? 0
                 : aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
