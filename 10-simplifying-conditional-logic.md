@@ -26,7 +26,7 @@ charge = summer() ? summerCharge() : regularCharge();
 3. [Replace Nested Conditional with Guard Clauses](./10-simplifying-conditional-logic/3-replace-nested-conditional-with-guard-clauses.md)
 
 - 한 쪽 조건이 특별한 경우라면 guard clause 로 early return 하여 이것은 메인 로직이 아님을 강조하고 명확성을 높인다.
-  - 💡 단순히 코드 중복 제거라고 생각했는데 각 경우에 대한 강조의 기능도 있었구나
+  - 💡 단순히 효율적인 코드를 위한 리팩토링이라고 생각했는데 각 경우에 대한 강조의 기능도 있었구나
 
 4. [Replace Conditional with Polymorphism](./10-simplifying-conditional-logic/4-replace-conditional-with-polymorphism.md)
 
