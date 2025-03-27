@@ -48,9 +48,16 @@ class IntroduceSpecialCase {
             super(customer.name(), customer.billingPlan(), customer.paymentHistory());
         }
 
+        @Override
         boolean isUnknown() {
             return true;
         }
+
+        @Override
+        String name() {
+            return "occupant";
+        }
+
     }
 
     static boolean isUnknown(Customer customer) {
@@ -81,13 +88,7 @@ class IntroduceSpecialCase {
     }
 
     static String client1(Customer aCustomer) {
-        String customerName;
-        if (isUnknown(aCustomer))
-            customerName = "occupant";
-        else
-            customerName = aCustomer.name();
-
-        return customerName;
+        return aCustomer.name();
     }
 
     static String client2(Customer aCustomer) {
