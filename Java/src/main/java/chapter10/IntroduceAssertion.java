@@ -7,8 +7,10 @@ class IntroduceAssertion {
         double applyDiscount(double aNumber) {
             if (discountRate == null)
                 return aNumber;
-            else
+            else {
+                assert discountRate >= 0;
                 return aNumber - (this.discountRate * aNumber);
+            }
         }
     }
 
