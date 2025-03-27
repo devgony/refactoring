@@ -39,7 +39,7 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
     }
 
     static ObjectNode createUnknownCustomer() {
-        return ObjectBuilder.readValue("{\"isUnknown\": true, \"name\": \"occupant\"}");
+        return ObjectBuilder.readValue("{\"isUnknown\": true, \"name\": \"occupant\", \"billingPlan\": \"basic\"}");
     }
 
     static boolean isUnknown(ObjectNode arg) {
@@ -51,11 +51,7 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
     }
 
     static String client2(ObjectNode aCustomer) {
-        Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = (isUnknown(aCustomer)) ? registry.billingPlans().basic
-                : aCustomer.get("billingPlan").asText();
-
-        return plan;
+        return aCustomer.get("billingPlan").asText();
     }
 
     static int client3(ObjectNode aCustomer) {
