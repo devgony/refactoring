@@ -5,9 +5,10 @@ class IntroduceAssertion {
         Double discountRate;
 
         double applyDiscount(double aNumber) {
-            return (this.discountRate != null)
-                    ? aNumber - (this.discountRate * aNumber)
-                    : aNumber;
+            if (discountRate == null)
+                return aNumber;
+            else
+                return aNumber - (this.discountRate * aNumber);
         }
     }
 
