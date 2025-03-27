@@ -58,6 +58,17 @@ class IntroduceSpecialCase {
             return "occupant";
         }
 
+        @Override
+        String billingPlan() {
+            Registery registry = new Registery(new BillingPlans("basic"));
+            return registry.billingPlans().basic;
+        }
+
+        @Override
+        void billingPlan(String arg) {
+
+        }
+
     }
 
     static boolean isUnknown(Customer customer) {

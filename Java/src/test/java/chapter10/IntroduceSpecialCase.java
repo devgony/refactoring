@@ -35,7 +35,7 @@ class IntroduceSpecialCaseTest {
 
     @Test
     void client3Test() {
-        assertThat(client3(unknownCustomer)).isEqualTo("originalBillingPlan");
+        assertThat(client3(unknownCustomer)).isEqualTo("basic");
         assertThat(client3(customer)).isEqualTo("newPlan");
     }
 

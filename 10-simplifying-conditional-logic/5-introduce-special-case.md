@@ -158,7 +158,7 @@ class UnknownCustomer…
 + get name() {return "occupant";}
 ```
 
-- client1 의 조절문 제거 가능
+- client1 의 조건문 제거 가능
 
 ```js
 const customerName = aCustomer.name;
@@ -166,17 +166,8 @@ const customerName = aCustomer.name;
 
 - `Inline Variable` 도 사용 가능하다
 
-```js
-client 2…
-  const plan = (isUnknown(aCustomer)) ?
-        registry.billingPlans.basic
-        : aCustomer.billingPlan;
-
-client 3…
-  if (!isUnknown(aCustomer)) aCustomer.billingPlan = newPlan;
-```
-
-- getter 의 경우에는 값을 리턴하지만 setter의 경우 일단 body를 비워둔다
+- 다음은 override billingPlan
+  - getter 의 경우에는 값을 리턴하지만 setter의 경우 일단 body를 비워둔다
 
 ```js
 class UnknownCustomer…
