@@ -9,12 +9,12 @@ import static chapter10.IntroduceSpecialCaseUsingTransform.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 class IntroduceSpecialCaseUsingTransformTest {
-    ObjectNode record;
-    ObjectNode unknownRecord;
+    ObjectNode site;
+    ObjectNode unknownSite;
 
     @BeforeEach
     void setUp() {
-        record = ObjectBuilder.readValue("{" +
+        site = ObjectBuilder.readValue("{" +
                 "\"name\": \"Acme Boston\"," +
                 "\"location\": \"Malden MA\"," +
                 "\"customer\": {" +
@@ -25,7 +25,7 @@ class IntroduceSpecialCaseUsingTransformTest {
                 "  }" +
                 "}" +
                 "}");
-        unknownRecord = ObjectBuilder.readValue("{" +
+        unknownSite = ObjectBuilder.readValue("{" +
                 "\"name\": \"Warehouse Unit 15\"," +
                 "\"location\": \"Malden MA\"," +
                 "\"customer\": \"unknown\"" +
@@ -34,19 +34,19 @@ class IntroduceSpecialCaseUsingTransformTest {
 
     @Test
     void client1Test() {
-        assertThat(client1(unknownRecord.get("customer"))).isEqualTo("occupant");
-        assertThat(client1(record.get("customer"))).isEqualTo("Acme Industries");
+        assertThat(client1(unknownSite)).isEqualTo("occupant");
+        assertThat(client1(site)).isEqualTo("Acme Industries");
     }
 
     @Test
     void client2Test() {
-        assertThat(client2(unknownRecord.get("customer"))).isEqualTo("basic");
-        assertThat(client2(record.get("customer"))).isEqualTo("plan-451");
+        assertThat(client2(unknownSite)).isEqualTo("basic");
+        assertThat(client2(site)).isEqualTo("plan-451");
     }
 
     @Test
     void client3Test() {
-        assertThat(client3(unknownRecord.get("customer"))).isEqualTo(0);
-        assertThat(client3(record.get("customer"))).isEqualTo(7);
+        assertThat(client3(unknownSite)).isEqualTo(0);
+        assertThat(client3(site)).isEqualTo(7);
     }
 }
