@@ -1,43 +1,18 @@
 package chapter10;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import lombok.AllArgsConstructor;
+import utils.ObjectBuilder;
 
 class IntroduceSpecialCaseUsingAnObjectLiteral {
     @AllArgsConstructor
     static class Site {
-        Customer _customer;
+        ObjectNode _customer;
 
-        Customer customer() {
-            return this._customer;
+        ObjectNode customer() {
+            return this._customer.get("name").asText().equals("unknown") ? createUnknownCustomer() : _customer;
         }
-    }
-
-    @AllArgsConstructor
-    static class Customer {
-        String _name;
-        String _billingPlan;
-        PaymentHistory _paymentHistory;
-
-        String name() {
-            return _name;
-        }
-
-        void name(String arg) {
-            _name = arg;
-        }
-
-        String billingPlan() {
-            return _billingPlan;
-        }
-
-        void billingPlan(String arg) {
-            _billingPlan = arg;
-        }
-
-        PaymentHistory paymentHistory() {
-            return _paymentHistory;
-        }
-
     }
 
     @AllArgsConstructor
@@ -63,28 +38,24 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
         String basic;
     }
 
-    static String client1(Customer aCustomer) {
-        String customerName;
-        if (aCustomer.name() == "unknown")
-            customerName = "occupant";
-        else
-            customerName = aCustomer.name();
-
-        return customerName;
+    static ObjectNode createUnknownCustomer() {
+        return ObjectBuilder.readValue(
+                "{\"isUnknown\": true, \"name\": \"occupant\", \"billingPlan\": \"basic\", \"paymentHistory\": {\"weeksDelinquentInLastYear\": 0}}");
     }
 
-    static String client2(Customer aCustomer) {
-        Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = (aCustomer.name() == "unknown") ? registry.billingPlans().basic
-                : aCustomer.billingPlan();
-
-        return plan;
+    static boolean isUnknown(ObjectNode arg) {
+        return arg.get("isUnknown").asBoolean();
     }
 
-    static int client3(Customer aCustomer) {
-        int weeksDelinquent = (aCustomer.name() == "unknown") ? 0
-                : aCustomer.paymentHistory().weeksDelinquentInLastYear();
+    static String client1(ObjectNode aCustomer) {
+        return aCustomer.get("name").asText();
+    }
 
-        return weeksDelinquent;
+    static String client2(ObjectNode aCustomer) {
+        return aCustomer.get("billingPlan").asText();
+    }
+
+    static int client3(ObjectNode aCustomer) {
+        return aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
     }
 }

@@ -12,22 +12,25 @@ class ConsolidateConditionalExpression {
     }
 
     static int disabilityAmount(Employee anEmployee) {
-        if (anEmployee.seniority < 2)
-            return 0;
-        if (anEmployee.monthsDisabled > 12)
-            return 0;
-        if (anEmployee.isPartTime)
+        if (isNotEligableForDisability(anEmployee))
             return 0;
         // compute the disability amount
         //
         return 1;
     }
 
+    private static boolean isNotEligableForDisability(Employee anEmployee) {
+        return anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12 || anEmployee.isPartTime;
+    }
+
     static double usingAnds(Employee anEmployee) {
-        if (anEmployee.onVacation) {
-            if (anEmployee.seniority > 10)
-                return 1;
+        if (vacationSenior(anEmployee)) {
+            return 1;
         }
         return 0.5;
+    }
+
+    private static boolean vacationSenior(Employee anEmployee) {
+        return anEmployee.onVacation && anEmployee.seniority > 10;
     }
 }

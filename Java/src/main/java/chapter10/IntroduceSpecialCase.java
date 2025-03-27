@@ -8,7 +8,7 @@ class IntroduceSpecialCase {
         Customer _customer;
 
         Customer customer() {
-            return this._customer;
+            return (_customer.name() == "unknown") ? new UnknownCustomer(_customer) : _customer;
         }
     }
 
@@ -38,6 +38,46 @@ class IntroduceSpecialCase {
             return _paymentHistory;
         }
 
+        boolean isUnknown() {
+            return false;
+        }
+    }
+
+    static class UnknownCustomer extends Customer {
+        UnknownCustomer(Customer customer) {
+            super(customer.name(), customer.billingPlan(), customer.paymentHistory());
+        }
+
+        @Override
+        boolean isUnknown() {
+            return true;
+        }
+
+        @Override
+        String name() {
+            return "occupant";
+        }
+
+        @Override
+        String billingPlan() {
+            Registery registry = new Registery(new BillingPlans("basic"));
+            return registry.billingPlans().basic;
+        }
+
+        @Override
+        void billingPlan(String arg) {
+
+        }
+
+        @Override
+        PaymentHistory paymentHistory() {
+            return new NullPaymentHistory();
+        }
+
+    }
+
+    static boolean isUnknown(Customer customer) {
+        return customer.isUnknown();
     }
 
     @AllArgsConstructor
@@ -46,6 +86,12 @@ class IntroduceSpecialCase {
 
         int weeksDelinquentInLastYear() {
             return weeksDelinquentInLastYear;
+        }
+    }
+
+    static class NullPaymentHistory extends PaymentHistory {
+        NullPaymentHistory() {
+            super(0);
         }
     }
 
@@ -64,34 +110,25 @@ class IntroduceSpecialCase {
     }
 
     static String client1(Customer aCustomer) {
-        String customerName;
-        if (aCustomer.name() == "unknown")
-            customerName = "occupant";
-        else
-            customerName = aCustomer.name();
-
-        return customerName;
+        return aCustomer.name();
     }
 
     static String client2(Customer aCustomer) {
         Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = (aCustomer.name() == "unknown") ? registry.billingPlans().basic
+        String plan = isUnknown(aCustomer) ? registry.billingPlans().basic
                 : aCustomer.billingPlan();
 
         return plan;
     }
 
     static String client3(Customer aCustomer) {
-        if (aCustomer.name() != "unknown")
+        if (!isUnknown(aCustomer))
             aCustomer.billingPlan("newPlan");
 
         return aCustomer.billingPlan();
     }
 
     static int client4(Customer aCustomer) {
-        int weeksDelinquent = (aCustomer.name() == "unknown") ? 0
-                : aCustomer.paymentHistory().weeksDelinquentInLastYear();
-
-        return weeksDelinquent;
+        return aCustomer.paymentHistory().weeksDelinquentInLastYear();
     }
 }

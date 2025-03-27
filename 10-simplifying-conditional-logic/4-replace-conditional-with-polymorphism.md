@@ -44,7 +44,7 @@ class NorwegianBlueParrot {
 - factory method 를 통해 객체 생성
 - 조건문의 함수를 superclass 로 이동
 
-  - 함수의 형태가 아닌 경우 `Ex`tract Method`
+  - 함수의 형태가 아닌 경우 `Extract Method`
 
 - Subclass 하나를 골라 조건에 상응하는 메서드를 override 하여 기존 조건문의 내용을 붙여넣음
 - 각 Subclass 에 대해 반복 수행
@@ -151,7 +151,7 @@ function createBird(bird) {
       return new EuropeanSwallow(bird);
     case "AfricanSwallow":
       return new AfricanSwallow(bird);
-    case "NorweigianBlueParrot":
+    case "NorwegianBlueParrot":
       return new NorwegianBlueParrot(bird);
     default:
       return new Bird(bird);
@@ -449,7 +449,7 @@ function rating(voyage, history) {
 }
 ```
 
-- `ExperiencedChinaRating` 을 override
+- `ExperiencedChinaRating.captainHistoryRisk` 을 override
 
 ```diff
 class ExperiencedChinaRating

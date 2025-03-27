@@ -3,24 +3,24 @@ package chapter10;
 import java.util.List;
 
 class ReplaceControlFlagWithBreak {
-    int client1(List<String> people) {
-        boolean found = false;
-        int loop = 0;
-        for (String p : people) {
-            if (!found) {
-                loop++;
-                if ("Don".equals(p)) {
-                    sendAlert();
-                    found = true;
-                }
-                if ("John".equals(p)) {
-                    sendAlert();
-                    found = true;
-                }
-            }
-        }
+    void client1(List<String> people) {
+        checkForMiscreants(people);
+    }
 
-        return loop;
+    private void checkForMiscreants(List<String> people) {
+        // for (String p : people) {
+        // if ("Don".equals(p)) {
+        // sendAlert();
+        // return;
+        // }
+        // if ("John".equals(p)) {
+        // sendAlert();
+        // return;
+        // }
+        // }
+        if (people.stream().anyMatch(p -> "Don".equals(p) || "John".equals(p))) {
+            sendAlert();
+        }
     }
 
     void sendAlert() {

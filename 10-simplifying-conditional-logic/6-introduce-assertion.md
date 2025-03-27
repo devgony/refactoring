@@ -15,7 +15,7 @@ if (this.discountRate) base = base - this.discountRate * base;
 
 - 종종 코드의 일부분은 특정 조건에서만 동작한다
 - assertion 으로 조건을 명시적으로 표현하면, 코드의 의도를 명확히 할 수 있다
-- assertion 은 모두 제거핻도 프로그램이 동일하고 올바르게 작동하도록 작성해야 한다
+- assertion 은 모두 제거해도 프로그램이 동일하고 올바르게 작동하도록 작성해야 한다
 - assertion 은 의사소통의 한 형태이다. 디버깅도 돕긴 하지만 unit test 를 작성하는 것이 더 좋다.
 
 # Mechanics

@@ -10,40 +10,38 @@ import static chapter10.IntroduceSpecialCase.*;
 
 class IntroduceSpecialCaseTest {
     Site site;
-    Customer aCustomer;
+    Customer unknownCustomer;
+    Customer customer;
 
     @BeforeEach
     void setUp() {
         PaymentHistory paymentHistory = new PaymentHistory(10);
         site = new Site(new Customer("unknown", "originalBillingPlan", paymentHistory));
-        aCustomer = site.customer();
+        unknownCustomer = site.customer();
+        customer = new Customer("x", "realPlan", paymentHistory);
     }
 
     @Test
     void client1Test() {
-        assertThat(client1(aCustomer)).isEqualTo("occupant");
-        aCustomer.name("x");
-        assertThat(client1(aCustomer)).isEqualTo("x");
+        assertThat(client1(unknownCustomer)).isEqualTo("occupant");
+        assertThat(client1(customer)).isEqualTo("x");
     }
 
     @Test
     void client2Test() {
-        assertThat(client2(aCustomer)).isEqualTo("basic");
-        aCustomer.name("x");
-        assertThat(client2(aCustomer)).isEqualTo("originalBillingPlan");
+        assertThat(client2(unknownCustomer)).isEqualTo("basic");
+        assertThat(client2(customer)).isEqualTo("realPlan");
     }
 
     @Test
     void client3Test() {
-        assertThat(client3(aCustomer)).isEqualTo("originalBillingPlan");
-        aCustomer.name("x");
-        assertThat(client3(aCustomer)).isEqualTo("newPlan");
+        assertThat(client3(unknownCustomer)).isEqualTo("basic");
+        assertThat(client3(customer)).isEqualTo("newPlan");
     }
 
     @Test
     void client4Test() {
-        assertThat(client4(aCustomer)).isEqualTo(0);
-        aCustomer.name("x");
-        assertThat(client4(aCustomer)).isEqualTo(10);
+        assertThat(client4(unknownCustomer)).isEqualTo(0);
+        assertThat(client4(customer)).isEqualTo(10);
     }
 }

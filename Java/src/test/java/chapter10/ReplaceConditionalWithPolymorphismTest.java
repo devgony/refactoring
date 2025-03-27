@@ -14,9 +14,10 @@ class ReplaceConditionalWithPolymorphismTest {
     @Test
     void client1() {
         List<Bird> birds = Arrays.asList(
-                new Bird("bird1", "EuropeanSwallow", 0, 0, false),
-                new Bird("bird2", "AfricanSwallow", 3, 0, false),
-                new Bird("bird3", "NorwegianBlueParrot", 0, 101, false));
+                createBird("bird1", "EuropeanSwallow", 0, 0, false),
+                createBird("bird2", "AfricanSwallow", 3, 0, false),
+                createBird("bird3", "NorwegianBlueParrot", 0, 101, false),
+                createBird("bird4", "wrong", 0, 101, false));
 
         Map<String, String> plumages = plumages(birds);
         assertThat(plumages).containsExactlyInAnyOrderEntriesOf(new HashMap<String, String>() {
@@ -24,6 +25,7 @@ class ReplaceConditionalWithPolymorphismTest {
                 put("bird1", "average");
                 put("bird2", "tired");
                 put("bird3", "scorched");
+                put("bird4", "unknown");
             }
         });
 
@@ -33,6 +35,7 @@ class ReplaceConditionalWithPolymorphismTest {
                 put("bird1", 35);
                 put("bird2", 34);
                 put("bird3", 20);
+                put("bird4", null);
             }
         });
     }

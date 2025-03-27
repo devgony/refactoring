@@ -158,7 +158,7 @@ class UnknownCustomer…
 + get name() {return "occupant";}
 ```
 
-- client1 의 조절문 제거 가능
+- client1 의 조건문 제거 가능
 
 ```js
 const customerName = aCustomer.name;
@@ -166,17 +166,8 @@ const customerName = aCustomer.name;
 
 - `Inline Variable` 도 사용 가능하다
 
-```js
-client 2…
-  const plan = (isUnknown(aCustomer)) ?
-        registry.billingPlans.basic
-        : aCustomer.billingPlan;
-
-client 3…
-  if (!isUnknown(aCustomer)) aCustomer.billingPlan = newPlan;
-```
-
-- getter 의 경우에는 값을 리턴하지만 setter의 경우 일단 body를 비워둔다
+- 다음은 override billingPlan
+  - getter 의 경우에는 값을 리턴하지만 setter의 경우 일단 body를 비워둔다
 
 ```js
 class UnknownCustomer…
@@ -209,7 +200,7 @@ class UnknownCustomer…
 class NullPaymentHistory…
   get weeksDelinquentInLastYear() {return 0;}
 
-client…
+client4…
   const weeksDelinquent = aCustomer.paymentHistory.weeksDelinquentInLastYear;
 ```
 
@@ -220,7 +211,7 @@ client…
   const name =  ! isUnknown(aCustomer) ? aCustomer.name : "unknown occupant";
 ```
 
-- 이 경우에는 special-case check 을 유지한다. `Inline Function`: isUnkknown
+- 이 경우에는 special-case check 을 유지한다. `Inline Function`: isUnknown
 
 ```js
 client…
@@ -261,7 +252,7 @@ client 3…
         : aCustomer.paymentHistory.weeksDelinquentInLastYear;
 ```
 
-- 기존 예제와 동일하게 `isUnknown` 추가 하지만 이번에는 special- case 가 literal이다
+- 기존 예제와 동일하게 `isUnknown` 추가 하지만 이번에는 special-case 가 literal이다
 
 ```js
 class Customer…
@@ -281,18 +272,18 @@ top level…
 function isUnknown(arg) {
   return (arg === "unknown");
 }
-client 1…
 
+client 1…
   let customerName;
   if (isUnknown(aCustomer)) customerName = "occupant";
   else customerName = aCustomer.name;
-client 2…
 
+client 2…
   const plan = isUnknown(aCustomer) ?
         registry.billingPlans.basic
         : aCustomer.billingPlan;
-client 3…
 
+client 3…
   const weeksDelinquent = isUnknown(aCustomer) ?
         0
         : aCustomer.paymentHistory.weeksDelinquentInLastYear;
