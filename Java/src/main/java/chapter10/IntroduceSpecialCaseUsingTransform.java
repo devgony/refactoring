@@ -24,7 +24,8 @@ class IntroduceSpecialCaseUsingTransform {
     static JsonNode enrichSite(JsonNode site) {
         ObjectNode result = site.deepCopy();
         ObjectNode unknownCustomer = ObjectBuilder
-                .readValue("{\"isUnknown\": true, \"name\": \"occupant\", \"billingPlan\": \"basic\"}");
+                .readValue(
+                        "{\"isUnknown\": true, \"name\": \"occupant\", \"billingPlan\": \"basic\", \"paymentHistory\": {\"weeksDelinquentInLastYear\": 0}}");
         if (isUnknown(result.get("customer")))
             result.set("customer", unknownCustomer);
         else
@@ -62,10 +63,9 @@ class IntroduceSpecialCaseUsingTransform {
     static int client3(JsonNode rawSite) {
         JsonNode site = enrichSite(rawSite);
         JsonNode aCustomer = site.get("customer");
-        int weeksDelinquent = (isUnknown(aCustomer)) ? 0
-                : aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
 
-        return weeksDelinquent;
+        return aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
+
     }
 
 }
