@@ -11,7 +11,6 @@ import utils.ObjectBuilder;
 import static chapter10.IntroduceSpecialCaseUsingAnObjectLiteral.*;
 
 class IntroduceSpecialCaseUsingAnObjectLiterlTest {
-    Site site;
     ObjectNode record;
     ObjectNode aCustomer;
     ObjectNode unknownCustomer;
@@ -19,10 +18,11 @@ class IntroduceSpecialCaseUsingAnObjectLiterlTest {
     @BeforeEach
     void setUp() {
         record = ObjectBuilder.readValue(
-                "{\"name\": \"x\", \"billingPlan\": \"realPlan\", \"paymentHistory\": {\"weeksDelinquentInLastYear\": 10}}");
-        site = new Site(record);
+                "{\"isUnknown\": false, \"name\": \"x\", \"billingPlan\": \"realPlan\", \"paymentHistory\": {\"weeksDelinquentInLastYear\": 10}}");
+        Site site = new Site(record);
         aCustomer = site.customer();
-        unknownCustomer = ObjectBuilder.readValue("{\"name\": \"unknown\"}");
+        Site unknownSite = new Site(ObjectBuilder.readValue("{\"name\": \"unknown\"}"));
+        unknownCustomer = unknownSite.customer();
     }
 
     @Test

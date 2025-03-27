@@ -39,33 +39,27 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
     }
 
     static ObjectNode createUnknownCustomer() {
-        return ObjectBuilder.readValue("{\"isUnknown\": true}");
+        return ObjectBuilder.readValue("{\"isUnknown\": true, \"name\": \"occupant\"}");
     }
 
-    static boolean isUnknown(String arg) {
-        return ("unknown".equals(arg));
+    static boolean isUnknown(ObjectNode arg) {
+        return arg.get("isUnknown").asBoolean();
     }
 
     static String client1(ObjectNode aCustomer) {
-        String customerName;
-        if (isUnknown(aCustomer.get("name").asText()))
-            customerName = "occupant";
-        else
-            customerName = aCustomer.get("name").asText();
-
-        return customerName;
+        return aCustomer.get("name").asText();
     }
 
     static String client2(ObjectNode aCustomer) {
         Registery registry = new Registery(new BillingPlans("basic"));
-        String plan = (isUnknown(aCustomer.get("name").asText())) ? registry.billingPlans().basic
+        String plan = (isUnknown(aCustomer)) ? registry.billingPlans().basic
                 : aCustomer.get("billingPlan").asText();
 
         return plan;
     }
 
     static int client3(ObjectNode aCustomer) {
-        int weeksDelinquent = isUnknown(aCustomer.get("name").asText()) ? 0
+        int weeksDelinquent = isUnknown(aCustomer) ? 0
                 : aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
 
         return weeksDelinquent;
