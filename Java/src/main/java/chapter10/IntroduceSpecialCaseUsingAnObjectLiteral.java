@@ -39,7 +39,8 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
     }
 
     static ObjectNode createUnknownCustomer() {
-        return ObjectBuilder.readValue("{\"isUnknown\": true, \"name\": \"occupant\", \"billingPlan\": \"basic\"}");
+        return ObjectBuilder.readValue(
+                "{\"isUnknown\": true, \"name\": \"occupant\", \"billingPlan\": \"basic\", \"paymentHistory\": {\"weeksDelinquentInLastYear\": 0}}");
     }
 
     static boolean isUnknown(ObjectNode arg) {
@@ -55,9 +56,6 @@ class IntroduceSpecialCaseUsingAnObjectLiteral {
     }
 
     static int client3(ObjectNode aCustomer) {
-        int weeksDelinquent = isUnknown(aCustomer) ? 0
-                : aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
-
-        return weeksDelinquent;
+        return aCustomer.get("paymentHistory").get("weeksDelinquentInLastYear").asInt();
     }
 }
