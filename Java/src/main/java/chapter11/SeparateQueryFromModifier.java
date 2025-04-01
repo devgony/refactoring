@@ -17,7 +17,7 @@ class SeparateQueryFromModifier {
         return "";
     }
 
-    private static void setOffAlarms() {
+    static void setOffAlarms() {
     }
 
     static String findMiscreant(List<String> people) {
