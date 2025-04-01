@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import chapter11.ParameterizeFunction.Person;
 import chapter11.ParameterizeFunction.Salary;
 import static org.assertj.core.api.Assertions.assertThat;
-import static chapter11.ParameterizeFunction.raise;
+import static chapter11.ParameterizeFunction.*;
 import static org.assertj.core.api.Assertions.offset;
 
 class ParameterizeFunctionTest {
@@ -18,5 +18,11 @@ class ParameterizeFunctionTest {
 
         double five = raise(person, 0.05);
         assertThat(five).isCloseTo(115.5, offset(0.0001));
+    }
+
+    @Test
+    void client2() {
+        double actual = baseCharge(150);
+        assertThat(actual).isEqualTo(5500);
     }
 }
