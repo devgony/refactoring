@@ -18,7 +18,7 @@ class PreserveWholeObject {
     static class HeatingPlan {
         Range _temperatureRange;
 
-        boolean xxNEWwithinRange(Range tempRange) {
+        boolean withinRange2(Range tempRange) {
             int low = tempRange.low;
             int high = tempRange.high;
             boolean isWithinRange = (low >= this._temperatureRange.low) && (high <= this._temperatureRange.high);
