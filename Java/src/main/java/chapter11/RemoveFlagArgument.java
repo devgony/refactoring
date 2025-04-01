@@ -49,4 +49,29 @@ class RemoveFlagArgument {
             deliveryTime = 4;
         return anOrder.placedOn.plusDays(2 + deliveryTime);
     }
+
+    static int deliveryDate2(Order anOrder, boolean isRush) {
+        int result;
+        int deliveryTime;
+        if (anOrder.deliveryState == "MA" || anOrder.deliveryState == "CT")
+            deliveryTime = isRush ? 1 : 2;
+        else if (anOrder.deliveryState == "NY" || anOrder.deliveryState == "NH") {
+            deliveryTime = 2;
+            if (anOrder.deliveryState == "NH" && !isRush)
+                deliveryTime = 3;
+        } else if (isRush)
+            deliveryTime = 3;
+        else if (anOrder.deliveryState == "ME")
+            deliveryTime = 3;
+        else
+            deliveryTime = 4;
+        result = anOrder.placedOn.plusDays(2 + deliveryTime);
+        if (isRush)
+            result = minusDays(result, 1);
+        return result;
+    }
+
+    private static int minusDays(int result, int i) {
+        return result - i;
+    }
 }
