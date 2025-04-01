@@ -23,7 +23,7 @@ class SeparateQueryFromModifierTest {
             alertForMiscreant(people);
 
             assertThat(actual).isEqualTo("Don");
-            mockedStatic.verify(() -> SeparateQueryFromModifier.setOffAlarms());
+            mockedStatic.verify(() -> SeparateQueryFromModifier.setOffAlarms(), Mockito.times(2));
         }
     }
 }

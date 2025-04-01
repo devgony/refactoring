@@ -102,6 +102,7 @@ function findMiscreant(people) {
 ```
 
 - modifier 에서 return 제거
+  - TODO: return 제거 하면 setOffAlarms() 가 두 번 호출되는데?
 
 ```diff
   function alertForMiscreant (people) {
