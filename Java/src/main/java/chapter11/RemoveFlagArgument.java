@@ -74,4 +74,12 @@ class RemoveFlagArgument {
     private static int minusDays(int result, int i) {
         return result - i;
     }
+
+    static int rushDeliveryDate2(Order anOrder) {
+        return deliveryDate2(anOrder, true);
+    }
+
+    static int regularDeliveryDate2(Order anOrder) {
+        return deliveryDate2(anOrder, false);
+    }
 }
