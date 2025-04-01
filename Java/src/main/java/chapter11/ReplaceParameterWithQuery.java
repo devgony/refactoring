@@ -10,15 +10,15 @@ class ReplaceParameterWithQuery {
 
         double finalPrice() {
             double basePrice = this.quantity * this.itemPrice;
-            return this.discountedPrice(basePrice, discountLevel());
+            return this.discountedPrice(basePrice);
         }
 
         private int discountLevel() {
             return (this.quantity > 100) ? 2 : 1;
         }
 
-        double discountedPrice(double basePrice, int discountLevel) {
-            switch (discountLevel) {
+        double discountedPrice(double basePrice) {
+            switch (discountLevel()) {
                 case 1:
                     return basePrice * 0.95;
                 case 2:
