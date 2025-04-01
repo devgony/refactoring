@@ -26,10 +26,10 @@ class PreserveWholeObjectTest {
     @Test
     void client2() {
         Range range = new Range(10, 20);
-        Room aRoom = new Room(range);
-        int low = aRoom.daysTempRange.low;
-        int high = aRoom.daysTempRange.high;
         HeatingPlan aPlan = new HeatingPlan(range);
+        Range tempRange = (new Room(range)).daysTempRange;
+        int low = tempRange.low;
+        int high = tempRange.high;
         boolean isWithinRange = aPlan.withinRange2(low, high);
         assertTrue(isWithinRange);
 
