@@ -4,14 +4,8 @@ import java.util.List;
 
 class SeparateQueryFromModifier {
     static void alertForMiscreant(List<String> people) {
-        for (String p : people) {
-            if (p == "Don") {
-                setOffAlarms();
-            }
-            if (p == "John") {
-                setOffAlarms();
-            }
-        }
+        if (findMiscreant(people) != "")
+            setOffAlarms();
     }
 
     static void setOffAlarms() {
