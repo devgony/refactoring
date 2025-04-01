@@ -35,7 +35,7 @@ function availableVacation(anEmployee) {
 
 # Example
 
-- 더이상 사용되지 않는 인자에 대해 `Replace Parameter with Query` 를 적용
+- 더이상 사용되지 않는 인자에 대해 `Replace Parameter with Query` 를 적용 하는 예시
 
 ```js
 class Order…
