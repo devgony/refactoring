@@ -78,7 +78,7 @@ function calculateAscent() {
 }
 ```
 
-- calculateAscent 내에서 ttotalAscent 를 쉐도잉 한다
+- calculateAscent 내에서 totalAscent 를 쉐도잉 한다
 
 ```diff
 function calculateAscent() {
