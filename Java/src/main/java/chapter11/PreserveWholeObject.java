@@ -26,6 +26,10 @@ class PreserveWholeObject {
             return (bottom >= this._temperatureRange.low) && (top <= this._temperatureRange.high);
         }
 
+        boolean xxNEWwithinPlan(Range aNumberRange) {
+            return withinRange(aNumberRange.low, aNumberRange.high);
+
+        }
     }
 
 }
