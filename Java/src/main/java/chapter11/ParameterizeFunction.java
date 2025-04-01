@@ -31,4 +31,10 @@ class ParameterizeFunction {
 
         return aPerson.salary.amount;
     }
+
+    static double raise(Person aPerson, double factor) {
+        aPerson.salary = aPerson.salary.multiply(1 + factor);
+
+        return aPerson.salary.amount;
+    }
 }
