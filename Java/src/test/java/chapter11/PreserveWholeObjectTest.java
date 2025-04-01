@@ -15,7 +15,7 @@ class PreserveWholeObjectTest {
         int low = aRoom.daysTempRange.low;
         int high = aRoom.daysTempRange.high;
         HeatingPlan aPlan = new HeatingPlan(range);
-        boolean actual = aPlan.withinRange(low, high);
+        boolean actual = aPlan.xxNEWwithinRange(aRoom.daysTempRange);
         assertTrue(actual);
 
         actual = aPlan.withinRange(low, high + 1);
