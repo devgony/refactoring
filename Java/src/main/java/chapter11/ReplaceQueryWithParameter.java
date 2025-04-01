@@ -15,10 +15,6 @@ class ReplaceQueryWithParameter {
         int _min;
         int _max;
 
-        double targetTemperature() {
-            return xxNEWtargetTemperature(thermostat.selectedTemperature);
-        }
-
         private double xxNEWtargetTemperature(double selectedTemperature) {
             if (selectedTemperature > this._max)
                 return this._max;
@@ -29,9 +25,9 @@ class ReplaceQueryWithParameter {
         }
 
         String client1() {
-            if (this.targetTemperature() > thermostat.currentTemperature)
+            if (this.xxNEWtargetTemperature(this.thermostat.selectedTemperature) > thermostat.currentTemperature)
                 return "setToHeat";
-            else if (this.targetTemperature() < thermostat.currentTemperature)
+            else if (this.xxNEWtargetTemperature(this.thermostat.selectedTemperature) < thermostat.currentTemperature)
                 return "setToCool";
             else
                 return "setOff";
