@@ -27,7 +27,8 @@ class PreserveWholeObject {
         }
 
         boolean xxNEWwithinRange(Range aNumberRange) {
-            return withinRange(aNumberRange.low, aNumberRange.high);
+            return (aNumberRange.low >= this._temperatureRange.low)
+                    && (aNumberRange.high <= this._temperatureRange.high);
 
         }
     }
