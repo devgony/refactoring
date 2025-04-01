@@ -17,6 +17,10 @@ class ReplaceQueryWithParameter {
 
         double targetTemperature() {
             double selectedTemperature = thermostat.selectedTemperature;
+            return xxNEWtargetTemperature(selectedTemperature);
+        }
+
+        private double xxNEWtargetTemperature(double selectedTemperature) {
             if (selectedTemperature > this._max)
                 return this._max;
             else if (selectedTemperature < this._min)
