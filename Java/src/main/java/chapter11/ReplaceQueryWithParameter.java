@@ -16,8 +16,7 @@ class ReplaceQueryWithParameter {
         int _max;
 
         double targetTemperature() {
-            double selectedTemperature = thermostat.selectedTemperature;
-            return xxNEWtargetTemperature(selectedTemperature);
+            return xxNEWtargetTemperature(thermostat.selectedTemperature);
         }
 
         private double xxNEWtargetTemperature(double selectedTemperature) {
