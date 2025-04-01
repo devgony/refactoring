@@ -19,4 +19,18 @@ class SeparateQueryFromModifier {
 
     private static void setOffAlarms() {
     }
+
+    static String findMiscreant(List<String> people) {
+        for (String p : people) {
+            if (p == "Don") {
+                setOffAlarms();
+                return "Don";
+            }
+            if (p == "John") {
+                setOffAlarms();
+                return "John";
+            }
+        }
+        return "";
+    }
 }
