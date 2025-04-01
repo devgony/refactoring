@@ -18,14 +18,10 @@ class PreserveWholeObject {
     static class HeatingPlan {
         Range _temperatureRange;
 
-        boolean withinRange2(int bottom, int top) {
-            return (bottom >= this._temperatureRange.low) && (top <= this._temperatureRange.high);
-        }
-
         boolean xxNEWwithinRange(Range tempRange) {
             int low = tempRange.low;
             int high = tempRange.high;
-            boolean isWithinRange = this.withinRange2(low, high);
+            boolean isWithinRange = (low >= this._temperatureRange.low) && (high <= this._temperatureRange.high);
 
             return isWithinRange;
         }
