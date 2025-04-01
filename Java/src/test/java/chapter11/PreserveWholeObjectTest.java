@@ -28,12 +28,20 @@ class PreserveWholeObjectTest {
         Range range = new Range(10, 20);
         HeatingPlan aPlan = new HeatingPlan(range);
         Range tempRange = (new Room(range)).daysTempRange;
+        boolean isWithinRange = xxNEWwithinRange(aPlan, tempRange);
+        assertTrue(isWithinRange);
+
+        range = new Range(10, 20 + 1);
+        tempRange = (new Room(range)).daysTempRange;
+        isWithinRange = xxNEWwithinRange(aPlan, tempRange);
+        assertFalse(isWithinRange);
+    }
+
+    boolean xxNEWwithinRange(HeatingPlan aPlan, Range tempRange) {
         int low = tempRange.low;
         int high = tempRange.high;
         boolean isWithinRange = aPlan.withinRange2(low, high);
-        assertTrue(isWithinRange);
 
-        isWithinRange = aPlan.withinRange2(low, high + 1);
-        assertFalse(isWithinRange);
+        return isWithinRange;
     }
 }
