@@ -43,17 +43,13 @@ class ParameterizeFunction {
             return usd(0);
         double amount = withinBand(usage, 0, 100) * 0.03 +
                 withinBand(usage, 100, 200) * 0.05 +
-                +topBand(usage) * 0.07;
+                +withinBand(usage, 200, Integer.MAX_VALUE) * 0.07;
 
         return usd(amount);
     }
 
     static double withinBand(int usage, int bottom, int top) {
         return usage > bottom ? Math.min(usage, top) - bottom : 0;
-    }
-
-    static int topBand(int usage) {
-        return usage > 200 ? usage - 200 : 0;
     }
 
     private static double usd(double amount) {
