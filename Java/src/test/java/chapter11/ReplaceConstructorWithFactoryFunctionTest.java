@@ -5,6 +5,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import chapter11.ReplaceConstructorWithFactoryFunction.Employee;
 import static org.assertj.core.api.Assertions.assertThat;
+import static chapter11.ReplaceConstructorWithFactoryFunction.*;
 
 class ReplaceConstructorWithFactoryFunctionTest {
     @Test
@@ -17,9 +18,10 @@ class ReplaceConstructorWithFactoryFunctionTest {
                 put("leadEngineer", "Martin");
             }
         };
-        Employee candidate = new Employee(document.get("name"), document.get("empType"));
+        Employee candidate = createEmployee(document.get("name"), document.get("empType"));
         assertThat(candidate).isEqualTo(new Employee("John", "M"));
-        Employee leadEngineer = new Employee(document.get("leadEngineer"), "E");
+
+        Employee leadEngineer = createEmployee(document.get("leadEngineer"), "E");
         assertThat(leadEngineer).isEqualTo(new Employee("Martin", "E"));
     }
 }

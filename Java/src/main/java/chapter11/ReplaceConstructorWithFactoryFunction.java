@@ -36,4 +36,8 @@ class ReplaceConstructorWithFactoryFunction {
             };
         }
     }
+
+    static Employee createEmployee(String name, String typeCode) {
+        return new Employee(name, typeCode);
+    }
 }
