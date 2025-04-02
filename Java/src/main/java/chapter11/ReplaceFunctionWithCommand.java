@@ -29,6 +29,11 @@ class ReplaceFunctionWithCommand {
         MedicalExam medicalExam;
         ScoringGuide scoringGuide;
 
+        int result;
+        int healthLevel;
+        boolean highMedicalRiskFlag;
+        String certificationGrade;
+
         Scorer(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
             this.candidate = candidate;
             this.medicalExam = medicalExam;
@@ -36,15 +41,15 @@ class ReplaceFunctionWithCommand {
         }
 
         int execute() {
-            int result = 0;
-            int healthLevel = 0;
-            boolean highMedicalRiskFlag = false;
+            result = 0;
+            healthLevel = 0;
+            highMedicalRiskFlag = false;
 
             if (medicalExam.isSmoker) {
                 healthLevel += 10;
                 highMedicalRiskFlag = true;
             }
-            String certificationGrade = "regular";
+            certificationGrade = "regular";
             if (scoringGuide.stateWithLowCertification(candidate.originState)) {
                 certificationGrade = "low";
                 result -= 5;
