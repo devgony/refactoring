@@ -7,8 +7,7 @@ import chapter11.RemoveSettingMethod.Person;
 class RemoveSettingMethodTest {
     @Test
     void client1() {
-        Person martin = new Person("1234");
-        martin.name("martin");
+        Person martin = new Person("1234", "martin");
 
         assertThat(martin.name()).isEqualTo("martin");
         assertThat(martin.id()).isEqualTo("1234");
