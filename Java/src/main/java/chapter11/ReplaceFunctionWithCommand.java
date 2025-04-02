@@ -21,11 +21,21 @@ class ReplaceFunctionWithCommand {
     }
 
     static int score(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
-        return new Scorer().execute(candidate, medicalExam, scoringGuide);
+        return new Scorer(candidate, medicalExam, scoringGuide).execute();
     }
 
     static class Scorer {
-        int execute(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
+        Candidate candidate;
+        MedicalExam medicalExam;
+        ScoringGuide scoringGuide;
+
+        Scorer(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
+            this.candidate = candidate;
+            this.medicalExam = medicalExam;
+            this.scoringGuide = scoringGuide;
+        }
+
+        int execute() {
             int result = 0;
             int healthLevel = 0;
             boolean highMedicalRiskFlag = false;
