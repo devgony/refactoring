@@ -18,10 +18,10 @@ class ReplaceConstructorWithFactoryFunctionTest {
                 put("leadEngineer", "Martin");
             }
         };
-        Employee candidate = createEmployee(document.get("name"), document.get("empType"));
+        Employee candidate = createManager(document.get("name"));
         assertThat(candidate).isEqualTo(new Employee("John", "M"));
 
-        Employee leadEngineer = createEmployee(document.get("leadEngineer"), "E");
+        Employee leadEngineer = createEngineer(document.get("leadEngineer"));
         assertThat(leadEngineer).isEqualTo(new Employee("Martin", "E"));
     }
 }

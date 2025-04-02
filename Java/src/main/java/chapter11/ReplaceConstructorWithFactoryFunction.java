@@ -37,7 +37,12 @@ class ReplaceConstructorWithFactoryFunction {
         }
     }
 
-    static Employee createEmployee(String name, String typeCode) {
-        return new Employee(name, typeCode);
+    static Employee createManager(String name) {
+        return new Employee(name, "M");
     }
+
+    static Employee createEngineer(String name) {
+        return new Employee(name, "E");
+    }
+
 }
