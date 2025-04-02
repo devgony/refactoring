@@ -45,10 +45,7 @@ class ReplaceFunctionWithCommand {
             healthLevel = 0;
             highMedicalRiskFlag = false;
 
-            if (medicalExam.isSmoker) {
-                healthLevel += 10;
-                highMedicalRiskFlag = true;
-            }
+            scoreSmoking();
             certificationGrade = "regular";
             if (scoringGuide.stateWithLowCertification(candidate.originState)) {
                 certificationGrade = "low";
@@ -58,6 +55,13 @@ class ReplaceFunctionWithCommand {
             result -= Math.max(healthLevel - 5, 0);
 
             return result;
+        }
+
+        private void scoreSmoking() {
+            if (medicalExam.isSmoker) {
+                healthLevel += 10;
+                highMedicalRiskFlag = true;
+            }
         }
     }
 }
