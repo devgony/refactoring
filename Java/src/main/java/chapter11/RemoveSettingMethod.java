@@ -5,6 +5,10 @@ class RemoveSettingMethod {
         String _id;
         String _name;
 
+        Person(String id) {
+            this._id = id;
+        }
+
         String name() {
             return this._name;
         }
