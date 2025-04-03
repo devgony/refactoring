@@ -41,7 +41,8 @@ class ReplaceCommandWithFunction {
         }
 
         double charge() {
-            return this.baseCharge() + this._provider.connectionCharge;
+            double baseCharge = this.baseCharge();
+            return baseCharge + this._provider.connectionCharge;
         }
     }
 
