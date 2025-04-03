@@ -31,12 +31,8 @@ class ReplaceExceptionWithPrecheck {
                 result = Resource.create();
                 allocated.add(result);
             } else {
-                try {
-                    result = available.pop();
-                    allocated.add(result);
-                } catch (NoSuchElementException e) {
-                    throw new AssertionError("unreachable");
-                }
+                result = available.pop();
+                allocated.add(result);
             }
             return result;
         }
