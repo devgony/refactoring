@@ -29,11 +29,10 @@ class ReplaceExceptionWithPrecheck {
             Resource result;
             if (available.isEmpty()) {
                 result = Resource.create();
-                allocated.add(result);
             } else {
                 result = available.pop();
-                allocated.add(result);
             }
+            allocated.add(result);
             return result;
         }
 
