@@ -36,12 +36,9 @@ class ReplaceCommandWithFunction {
             this._provider = provider;
         }
 
-        double baseCharge() {
-            return this._customer.baseRate * this._usage;
-        }
-
         double charge() {
-            double baseCharge = this.baseCharge();
+            double baseCharge = this._customer.baseRate * this._usage;
+
             return baseCharge + this._provider.connectionCharge;
         }
     }
