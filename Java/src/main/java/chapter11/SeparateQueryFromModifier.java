@@ -3,20 +3,23 @@ package chapter11;
 import java.util.List;
 
 class SeparateQueryFromModifier {
-    static String alertForMiscreant(List<String> people) {
+    static void alertForMiscreant(List<String> people) {
+        if (findMiscreant(people) != "")
+            setOffAlarms();
+    }
+
+    static void setOffAlarms() {
+    }
+
+    static String findMiscreant(List<String> people) {
         for (String p : people) {
             if (p == "Don") {
-                setOffAlarms();
                 return "Don";
             }
             if (p == "John") {
-                setOffAlarms();
                 return "John";
             }
         }
         return "";
-    }
-
-    private static void setOffAlarms() {
     }
 }

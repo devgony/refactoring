@@ -12,13 +12,12 @@ class PreserveWholeObjectTest {
     void client1() {
         Range range = new Range(10, 20);
         Room aRoom = new Room(range);
-        int low = aRoom.daysTempRange.low;
-        int high = aRoom.daysTempRange.high;
         HeatingPlan aPlan = new HeatingPlan(range);
-        boolean actual = aPlan.withinRange(low, high);
+        boolean actual = aPlan.withinRange(aRoom.daysTempRange);
         assertTrue(actual);
 
-        actual = aPlan.withinRange(low, high + 1);
+        range = new Range(10, 21);
+        actual = aPlan.withinRange(range);
         assertFalse(actual);
         // if (!aPlan.withinRange(low, high))
         // System.out.println("room temperature went outside range");
@@ -27,14 +26,15 @@ class PreserveWholeObjectTest {
     @Test
     void client2() {
         Range range = new Range(10, 20);
-        Room aRoom = new Room(range);
-        int low = aRoom.daysTempRange.low;
-        int high = aRoom.daysTempRange.high;
         HeatingPlan aPlan = new HeatingPlan(range);
-        boolean actual = aPlan.withinRange2(low, high);
-        assertTrue(actual);
+        Range tempRange = (new Room(range)).daysTempRange;
+        boolean isWithinRange = aPlan.withinRange2(tempRange);
+        assertTrue(isWithinRange);
 
-        actual = aPlan.withinRange2(low, high + 1);
-        assertFalse(actual);
+        range = new Range(10, 20 + 1);
+        tempRange = (new Room(range)).daysTempRange;
+        isWithinRange = aPlan.withinRange2(tempRange);
+        assertFalse(isWithinRange);
     }
+
 }

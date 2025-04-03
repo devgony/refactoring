@@ -21,22 +21,47 @@ class ReplaceFunctionWithCommand {
     }
 
     static int score(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
-        int result = 0;
-        int healthLevel = 0;
-        boolean highMedicalRiskFlag = false;
+        return new Scorer(candidate, medicalExam, scoringGuide).execute();
+    }
 
-        if (medicalExam.isSmoker) {
-            healthLevel += 10;
-            highMedicalRiskFlag = true;
-        }
-        String certificationGrade = "regular";
-        if (scoringGuide.stateWithLowCertification(candidate.originState)) {
-            certificationGrade = "low";
-            result -= 5;
-        }
-        // lots more code like this
-        result -= Math.max(healthLevel - 5, 0);
+    static class Scorer {
+        Candidate candidate;
+        MedicalExam medicalExam;
+        ScoringGuide scoringGuide;
 
-        return result;
+        int result;
+        int healthLevel;
+        boolean highMedicalRiskFlag;
+        String certificationGrade;
+
+        Scorer(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
+            this.candidate = candidate;
+            this.medicalExam = medicalExam;
+            this.scoringGuide = scoringGuide;
+        }
+
+        int execute() {
+            result = 0;
+            healthLevel = 0;
+            highMedicalRiskFlag = false;
+
+            scoreSmoking();
+            certificationGrade = "regular";
+            if (scoringGuide.stateWithLowCertification(candidate.originState)) {
+                certificationGrade = "low";
+                result -= 5;
+            }
+            // lots more code like this
+            result -= Math.max(healthLevel - 5, 0);
+
+            return result;
+        }
+
+        private void scoreSmoking() {
+            if (medicalExam.isSmoker) {
+                healthLevel += 10;
+                highMedicalRiskFlag = true;
+            }
+        }
     }
 }

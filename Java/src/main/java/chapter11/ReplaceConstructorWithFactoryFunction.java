@@ -36,4 +36,13 @@ class ReplaceConstructorWithFactoryFunction {
             };
         }
     }
+
+    static Employee createManager(String name) {
+        return new Employee(name, "M");
+    }
+
+    static Employee createEngineer(String name) {
+        return new Employee(name, "E");
+    }
+
 }

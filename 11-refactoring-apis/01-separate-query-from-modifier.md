@@ -27,7 +27,7 @@ function sendBill() {
 - CQS(Command Query Separation): value 를 return 하는 함수는 side effect 가 없어야 한다
   - 이 룰을 100% 지키는 사람도 있다.
   - TODO: 100% 지키는게 많이 어렵나?
-- 값을 반환하지만 sie effect 가 있는 함수를 발견하면 query 와 modifier 를 분리한다
+- 값을 반환하지만 side effect 가 있는 함수를 발견하면 query 와 modifier 를 분리한다
 - 최적화를 위해 query 의 결과를 캐싱했다면 변화를 관측할 수 없다 -> TODO: 무얼 말하고싶나?
 
 # Mechanics
@@ -102,6 +102,7 @@ function findMiscreant(people) {
 ```
 
 - modifier 에서 return 제거
+  - TODO: return 제거 하면 setOffAlarms() 가 두 번 호출되는데?
 
 ```diff
   function alertForMiscreant (people) {
