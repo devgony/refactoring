@@ -36,15 +36,15 @@ class ReplaceCommandWithFunction {
             this._provider = provider;
         }
 
-        double charge() {
-            double baseCharge = this._customer.baseRate * this._usage;
+        double charge(Customer customer, int usage, Provider provider) {
+            double baseCharge = customer.baseRate * usage;
 
-            return baseCharge + this._provider.connectionCharge;
+            return baseCharge + provider.connectionCharge;
         }
     }
 
     static double charge(Customer customer, int usage, Provider provider) {
-        return new ChargeCalculator(customer, usage, provider).charge();
+        return new ChargeCalculator(customer, usage, provider).charge(customer, usage, provider);
     }
 
 }
