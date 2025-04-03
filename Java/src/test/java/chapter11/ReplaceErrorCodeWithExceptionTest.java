@@ -21,7 +21,8 @@ class ReplaceErrorCodeWithExceptionTest {
         };
         CountryData countryData = new CountryData(shippingRules);
         ReplaceErrorCodeWithException r = new ReplaceErrorCodeWithException(countryData);
-        int status = r.calculateShippingCosts(new Order("XX"));
+        int status;
+        status = r.calculateShippingCosts(new Order("XX"));
         assertThat(status).isEqualTo(-23); // error
     }
 }
