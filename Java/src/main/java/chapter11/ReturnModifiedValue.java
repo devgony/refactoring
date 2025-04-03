@@ -6,10 +6,10 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 
 class ReturnModifiedValue {
-    int totalAscent = 0;
     int totalTime = 20000;
     int totalDistance = 10;
     List<Point> points = Arrays.asList(new Point(10), new Point(30));
+    final int totalAscent = calculateAscent();
 
     @AllArgsConstructor
     static class Point {
@@ -17,7 +17,6 @@ class ReturnModifiedValue {
     }
 
     double client1() {
-        totalAscent = calculateAscent();
         calculateTime();
         calculateDistance();
         double pace = totalTime / 60 / totalDistance;
