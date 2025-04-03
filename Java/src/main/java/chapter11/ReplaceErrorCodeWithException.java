@@ -39,4 +39,17 @@ class ReplaceErrorCodeWithException {
         // more irrelevent code..
         return 0;
     }
+
+    static class OrderProcessingError extends Exception {
+        String code;
+
+        OrderProcessingError(String errorCode) {
+            super("Order processing error " + errorCode);
+            this.code = errorCode;
+        }
+
+        String name() {
+            return "OrderProcessingError";
+        }
+    }
 }
