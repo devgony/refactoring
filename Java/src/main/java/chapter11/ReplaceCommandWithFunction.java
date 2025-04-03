@@ -45,4 +45,8 @@ class ReplaceCommandWithFunction {
         }
     }
 
+    static double charge(Customer customer, int usage, Provider provider) {
+        return new ChargeCalculator(customer, usage, provider).charge();
+    }
+
 }
