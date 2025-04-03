@@ -22,7 +22,11 @@ class ReplaceErrorCodeWithExceptionTest {
         CountryData countryData = new CountryData(shippingRules);
         ReplaceErrorCodeWithException r = new ReplaceErrorCodeWithException(countryData);
         int status;
-        status = r.calculateShippingCosts(new Order("XX"));
+        try {
+            status = r.calculateShippingCosts(new Order("XX"));
+        } catch (Exception e) {
+            throw new RuntimeException("Error in test", e);
+        }
         assertThat(status).isEqualTo(-23); // error
     }
 }
