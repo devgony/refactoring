@@ -17,7 +17,7 @@ class ReturnModifiedValue {
     }
 
     double client1() {
-        calculateAscent();
+        totalAscent = calculateAscent();
         calculateTime();
         calculateDistance();
         double pace = totalTime / 60 / totalDistance;
@@ -33,10 +33,12 @@ class ReturnModifiedValue {
         totalTime += totalAscent;
     }
 
-    private void calculateAscent() {
+    private int calculateAscent() {
         for (int i = 1; i < points.size(); i++) {
             int verticalChange = points.get(i).elevation - points.get(i - 1).elevation;
             totalAscent += (verticalChange > 0) ? verticalChange : 0;
         }
+
+        return totalAscent;
     }
 }
