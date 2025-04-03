@@ -23,12 +23,13 @@ class ReplaceErrorCodeWithExceptionTest {
         };
         CountryData countryData = new CountryData(shippingRules);
         ReplaceErrorCodeWithException r = new ReplaceErrorCodeWithException(countryData);
-        int status = 0;
+        int status;
         try {
             status = r.calculateShippingCosts(new Order("XX"));
         } catch (Exception e) {
             if (e instanceof OrderProcessingError) {
-                assertThat(status).isEqualTo(-23); // error
+                assertThat(e).isInstanceOf(OrderProcessingError.class);
+                assertThat(e.getMessage()).isEqualTo("Order processing error 23");
             } else {
                 throw new RuntimeException("Error in test", e);
             }
