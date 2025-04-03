@@ -37,8 +37,6 @@ class ReplaceErrorCodeWithException {
         if (shippingRules < 0)
             return shippingRules;
         // more irrelevent code..
-        if (shippingRules < 0)
-            throw new Error("error code not dead yet");
         return 0;
     }
 

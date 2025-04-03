@@ -23,9 +23,8 @@ class ReplaceErrorCodeWithExceptionTest {
         };
         CountryData countryData = new CountryData(shippingRules);
         ReplaceErrorCodeWithException r = new ReplaceErrorCodeWithException(countryData);
-        int status;
         try {
-            status = r.calculateShippingCosts(new Order("XX"));
+            r.calculateShippingCosts(new Order("XX"));
         } catch (Exception e) {
             if (e instanceof OrderProcessingError) {
                 assertThat(e).isInstanceOf(OrderProcessingError.class);
