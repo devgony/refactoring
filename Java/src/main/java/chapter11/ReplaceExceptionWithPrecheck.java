@@ -26,7 +26,7 @@ class ReplaceExceptionWithPrecheck {
         }
 
         public Resource get() {
-            Resource result = null;
+            Resource result;
             if (available.isEmpty()) {
                 result = Resource.create();
                 allocated.add(result);
@@ -35,6 +35,7 @@ class ReplaceExceptionWithPrecheck {
                     result = available.pop();
                     allocated.add(result);
                 } catch (NoSuchElementException e) {
+                    throw new AssertionError("unreachable");
                 }
             }
             return result;
