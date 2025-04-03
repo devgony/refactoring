@@ -44,7 +44,8 @@ class ReplaceCommandWithFunction {
     }
 
     static double charge(Customer customer, int usage, Provider provider) {
-        return new ChargeCalculator(customer, usage, provider).charge(customer, usage, provider);
-    }
+        double baseCharge = customer.baseRate * usage;
 
+        return baseCharge + provider.connectionCharge;
+    }
 }
