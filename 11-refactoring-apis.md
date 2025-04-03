@@ -9,7 +9,7 @@
 - 어느 부분을 파라미터로 받고 어느 부분을 함수 호출로 해결 할 지는 `Replace Parameter with Query` 와 `Replace Query with Parameter` 를 반복해보며 개선
 - class 는 모듈의 가장 흔한 형태이고, 가능하면 `Remove Setting Method` 를 통해 최대한 immutable 하게 유지
 - 단순 생성자보다 더 많은 유연성이 필요한 경우 `Replace Constructor with Factory Function`
-- 많은 데이털르 전달하는 복잡한 함수 리팩토링 경우 `Replace Function with Command` 으로 `Extract Function` 을 좀더 쉽게 도움
+- 많은 데이터를 전달하는 복잡한 함수 리팩토링 경우 `Replace Function with Command` 으로 `Extract Function` 을 좀더 쉽게 도움
 - 함수가 충분히 단순화 되었다면: `Replace Command with Function`
 
 1. [Separate Query from Modifier](11-refactoring-apis/01-separate-query-from-modifier.md)
