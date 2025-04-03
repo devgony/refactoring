@@ -34,12 +34,12 @@ class ReturnModifiedValue {
     }
 
     private int calculateAscent() {
-        int totalAscent = 0;
+        int result = 0;
         for (int i = 1; i < points.size(); i++) {
             int verticalChange = points.get(i).elevation - points.get(i - 1).elevation;
-            totalAscent += (verticalChange > 0) ? verticalChange : 0;
+            result += (verticalChange > 0) ? verticalChange : 0;
         }
 
-        return totalAscent;
+        return result;
     }
 }
