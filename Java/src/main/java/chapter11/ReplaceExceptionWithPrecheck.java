@@ -2,10 +2,8 @@ package chapter11;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 class ReplaceExceptionWithPrecheck {
     static class Resource {
@@ -26,14 +24,8 @@ class ReplaceExceptionWithPrecheck {
         }
 
         public Resource get() {
-            Resource result;
-            try {
-                result = available.pop();
-                allocated.add(result);
-            } catch (NoSuchElementException e) {
-                result = Resource.create();
-                allocated.add(result);
-            }
+            Resource result = available.isEmpty() ? Resource.create() : available.pop();
+            allocated.add(result);
             return result;
         }
 

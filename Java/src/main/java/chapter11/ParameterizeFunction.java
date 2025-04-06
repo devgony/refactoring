@@ -31,4 +31,29 @@ class ParameterizeFunction {
 
         return aPerson.salary.amount;
     }
+
+    static double raise(Person aPerson, double factor) {
+        aPerson.salary = aPerson.salary.multiply(1 + factor);
+
+        return aPerson.salary.amount;
+    }
+
+    static double baseCharge(int usage) {
+        if (usage < 0)
+            return usd(0);
+        double amount = withinBand(usage, 0, 100) * 0.03 +
+                withinBand(usage, 100, 200) * 0.05 +
+                +withinBand(usage, 200, Integer.MAX_VALUE) * 0.07;
+
+        return usd(amount);
+    }
+
+    static double withinBand(int usage, int bottom, int top) {
+        return usage > bottom ? Math.min(usage, top) - bottom : 0;
+    }
+
+    private static double usd(double amount) {
+        return amount * 1000;
+    }
+
 }

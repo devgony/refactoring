@@ -31,7 +31,6 @@ function availableVacation(anEmployee) {
 - 현재 함수가 참조 투명성(동일 인자로 항상 동일한 결과를 내는지)을 가지는지 확인 필요
   - 추론하고 테스트하기가 쉬움
   - 이를 위해 매개 변수를 mutable global var 에 대한 접근으로 대체하지 않아야 함
-    - TODO: 명심해야함
 
 # Example
 

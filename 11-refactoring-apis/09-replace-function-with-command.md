@@ -28,7 +28,7 @@ class Scorer {
 
 # Motivation
 
-- 함수는 때로는 객체에 캐슐화 되어있을 때 유용하다
+- 함수는 때로는 객체에 캡슐화 되어있을 때 유용하다
 - Command object (or just Command): 하나의 메서드만을 가지며, 그 메서드의 실행이 유일한 목적인 객체
 - 일반 함수보다 유연성을 제공
 

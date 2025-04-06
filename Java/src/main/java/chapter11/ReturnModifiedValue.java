@@ -6,10 +6,10 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 
 class ReturnModifiedValue {
-    int totalAscent = 0;
     int totalTime = 20000;
     int totalDistance = 10;
     List<Point> points = Arrays.asList(new Point(10), new Point(30));
+    final int totalAscent = calculateAscent();
 
     @AllArgsConstructor
     static class Point {
@@ -17,7 +17,6 @@ class ReturnModifiedValue {
     }
 
     double client1() {
-        calculateAscent();
         calculateTime();
         calculateDistance();
         double pace = totalTime / 60 / totalDistance;
@@ -33,13 +32,13 @@ class ReturnModifiedValue {
         totalTime += totalAscent;
     }
 
-    private void calculateAscent() {
+    private int calculateAscent() {
+        int result = 0;
         for (int i = 1; i < points.size(); i++) {
             int verticalChange = points.get(i).elevation - points.get(i - 1).elevation;
-            System.out.println("get i: " + points.get(i).elevation);
-            System.out.println("get i-1: " + points.get(i - 1).elevation);
-            System.out.println(verticalChange);
-            totalAscent += (verticalChange > 0) ? verticalChange : 0;
+            result += (verticalChange > 0) ? verticalChange : 0;
         }
+
+        return result;
     }
 }
