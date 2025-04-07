@@ -12,6 +12,8 @@ class Engineer extends Employee {
 }
 ```
 
+👇
+
 ```js
 class Employee {
   get name() {...}
