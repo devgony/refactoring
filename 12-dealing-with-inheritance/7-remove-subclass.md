@@ -18,6 +18,8 @@ class Female extends Person {
 }
 ```
 
+👇
+
 ```js
 class Person {
   get genderCode() {
