@@ -61,7 +61,7 @@ class Department extends Party…
 ```
 
 - 정적인 언어의 경우 monthlyCost 를 위해 abstract method 를 Party 에 정의 해주어야 한다
-- 이름이 다르므로 `Ch`ange Function Declaration` 을 통해 이름을 바꿔준다
+- 이름이 다르므로 `Change Function Declaration` 을 통해 이름을 바꿔준다
 
 ```diff
 class Department…
