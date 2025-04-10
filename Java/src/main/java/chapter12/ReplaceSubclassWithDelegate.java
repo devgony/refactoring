@@ -93,9 +93,6 @@ class ReplaceSubclassWithDelegate {
             this._extras = extras;
         }
 
-        boolean hasDinner() {
-            return this._extras.dinner() != null && !this.isPeakDay();
-        }
     }
 
     static class PremiumBookingDelegate {
@@ -113,6 +110,10 @@ class ReplaceSubclassWithDelegate {
 
         double extendBasePrice(double base) {
             return Math.round(base + this._extras.premiumFee());
+        }
+
+        boolean hasDinner() {
+            return this._extras.dinner() != null && !this._host.isPeakDay();
         }
     }
 
