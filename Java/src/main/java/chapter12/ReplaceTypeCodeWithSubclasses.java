@@ -73,7 +73,7 @@ class ReplaceTypeCodeWithSubclasses {
         Employee2(String name, String type) {
             this.validateType(type);
             this._name = name;
-            this._type = new EmployeeType(type);
+            this._type = createEmployeeType(type);
         }
 
         void validateType(String arg) {
@@ -91,7 +91,7 @@ class ReplaceTypeCodeWithSubclasses {
         }
 
         void type(String arg) {
-            this._type = new EmployeeType(arg);
+            this._type = createEmployeeType(arg);
         }
 
         String capitalizedType() {
@@ -101,17 +101,42 @@ class ReplaceTypeCodeWithSubclasses {
         public String toString() {
             return this._name + " (" + this.capitalizedType() + ")";
         }
+
+        static EmployeeType createEmployeeType(String type) {
+            switch (type) {
+                case "engineer":
+                    return new Engineer2();
+                case "salesman":
+                    return new Salesman2();
+                case "manager":
+                    return new Manager2();
+                default:
+                    throw new IllegalArgumentException("Employee cannot be of type " + type);
+            }
+        }
     }
 
     static class EmployeeType {
-        String _value;
+    }
 
-        EmployeeType(String aString) {
-            this._value = aString;
-        }
-
+    static class Engineer2 extends EmployeeType {
+        @Override
         public String toString() {
-            return this._value;
+            return "engineer";
+        }
+    }
+
+    static class Salesman2 extends EmployeeType {
+        @Override
+        public String toString() {
+            return "salesman";
+        }
+    }
+
+    static class Manager2 extends EmployeeType {
+        @Override
+        public String toString() {
+            return "manager";
         }
     }
 }
