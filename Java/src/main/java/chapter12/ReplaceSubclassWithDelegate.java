@@ -96,6 +96,17 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
+    static class PremiumBookingDelegate {
+        Booking _host;
+        Extras _extras;
+
+        PremiumBookingDelegate(Booking hostBooking, Extras extras) {
+            this._host = hostBooking;
+            this._extras = extras;
+        }
+
+    }
+
     // Ex2.
     static Bird createBird(Map<String, Object> data) {
         switch ((String) data.get("type")) {
