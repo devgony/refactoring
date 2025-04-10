@@ -41,6 +41,10 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
+    static Booking createBooking(Show show, String date) {
+        return new Booking(show, date);
+    }
+
     static class Booking {
         Show _show;
         String _date;
@@ -65,6 +69,10 @@ class ReplaceSubclassWithDelegate {
         boolean isPeakDay() {
             return this._date.equals("Saturday") || this._date.equals("Sunday");
         }
+    }
+
+    static PremiumBooking createPremiumBooking(Show show, String date, Extras extras) {
+        return new PremiumBooking(show, date, extras);
     }
 
     static class PremiumBooking extends Booking {

@@ -13,14 +13,14 @@ import chapter12.ReplaceSubclassWithDelegate.Show;
 class ReplaceSubclassWithDelegateTest {
     @Test
     void client1() {
-        Booking booking = new Booking(new Show("The Lion King", 100), "Saturday");
+        Booking booking = createBooking(new Show("The Lion King", 100), "Saturday");
         assertThat(booking.basePrice()).isEqualTo(115);
     }
 
     @Test
     void client2() {
         Extras extras = new Extras(20, "Dinner");
-        PremiumBooking booking = new PremiumBooking(
+        PremiumBooking booking = createPremiumBooking(
                 new Show("The Lion King", 100), "Saturday", extras);
         assertThat(booking.basePrice()).isEqualTo(135);
     }
