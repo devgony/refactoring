@@ -20,7 +20,11 @@ class RemoveSubclass {
         String genderCode() {
             return "X";
         }
+
         // snip
+        boolean isMale() {
+            return this instanceof Male;
+        }
     }
 
     static class Male extends Person {
