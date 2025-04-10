@@ -38,7 +38,6 @@ class ReplaceSubclassWithDelegateTest {
         Bird bird = createBird(data);
         assertThat(bird.name()).isEqualTo("euro-swallow");
         assertThat(bird.plumage()).isEqualTo("blue");
-        assertThat(bird instanceof EuropeanSwallow).isTrue();
         assertThat(bird.airSpeedVelocity()).isEqualTo(35.0);
 
         data = new HashMap<String, Object>() {
