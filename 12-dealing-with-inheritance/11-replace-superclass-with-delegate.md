@@ -31,11 +31,11 @@ class List {...}
 - `type-instance-homonym`
   - Car class 가 이름과 엔진크기 를 가지면 VIN 번호와 공정일자를 추가하여 물리적인 Car 를 만들수 있을 거라 생각하는 일반적인 실수
 - 상속을 위임으로 변경하여 객체를 분리하면 쉽게 해결된다
-- subclass 가 합리적을 모델링 되었어도 `Re`place Superclass with Delegate` 는 유용하다
+- subclass 가 합리적을 모델링 되었어도 `Replace Superclass with Delegate` 는 유용하다
   - sub 와 super 의 관계가 너무 의존적이기 때문에
   - 단점은 host 와 delegate 모두에 같은 forwarding 함수를 작성해야 하는 것
 - 하지만 상속을 아예 피하라는건 아니다
-  - 상속을 먼저 하고 문제가 생기면 `Re`place Superclass with Delegate` 를 고려하라
+  - 상속을 먼저 하고 문제가 생기면 `Replace Superclass with Delegate` 를 고려하라
 
 # Mechanics
 
@@ -98,7 +98,7 @@ class Scroll extends CatalogItem…
   }
 ```
 
-- superclass 의 모든 필드에 대한 forwarding 메ㅔ서드 생성
+- superclass 의 모든 필드에 대한 forwarding 메서드 생성
 
 ```diff
 class Scroll…
@@ -111,6 +111,7 @@ class Scroll…
 
 ```diff
 -class Scroll extends CatalogItem{
++class Scroll {
   constructor(id,  title, tags, dateLastCleaned) {
 -   super(id, title, tags);
     this._catalogItem = new CatalogItem(id, title, tags);
@@ -121,7 +122,7 @@ class Scroll…
 - 기본적인 refactoring 은 끝
 - refactoring 결과로 CatalogItem 의 역할이 Scroll의 컴포넌트로 바뀌었다
 - 각 Scroll은 unique 한 catalogItem 을 가지게 된다
-- 하지만 6장의 Scroll이 같은 catalogItem 을 참조하게 하면 더 좋다: `Change Value to Reference`
+- 하지만 복수(여섯 장)의 Scroll이 같은 catalogItem 을 참조하게 하면 더 좋다: `Change Value to Reference`
 
   - 하지만 기존 상속 구조에서 Scroll은 catalogItem의 ID 를 본인의 ID 로서 필드에 저장했다
   - 참조로 변경하기 위해서는 Scroll ID 가 아니라 catalogItem ID 를 저장해야 한다
@@ -197,7 +198,8 @@ load routine…
                                   catalog));
 
 class Scroll…
-+ constructor(id, title, tags, dateLastCleaned, catalogID, catalog) {
+- constructor(id, title, tags, dateLastCleaned, catalogID, catalog) {
++ constructor(id, dateLastCleaned, catalogID, catalog) {
     this._id = id;
     this._catalogItem = catalog.get(catalogID);
     this._lastCleaned = dateLastCleaned;

@@ -248,7 +248,7 @@ class PremiumBookingDelegate…
   }
 ```
 
-2. 혹은 delegate 메서드를 base 메서드의 extension 으로 recast 하는 방법
+2. 혹은 delegate 메서드를 base 메서드의 extension 으로 re-cast 하는 방법
 
 ```diff
 class Booking…
@@ -606,6 +606,7 @@ class AfricanSwallowDelegate…
 ```
 
 - 하지만 중복이 있으므로 상속으로 해결: `Extract Superclass`
+  - TODO: data 쓰지도 않을거면서 왜 받나?
 
 ```diff
 +class SpeciesDelegate {

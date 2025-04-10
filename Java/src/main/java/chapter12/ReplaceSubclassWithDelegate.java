@@ -9,9 +9,10 @@ class ReplaceSubclassWithDelegate {
         double _price;
         String _talkback;
 
-        Show(String name, double price) {
+        Show(String name, double price, String talkBack) {
             this._name = name;
             this._price = price;
+            this._talkback = talkBack;
         }
 
         String name() {
@@ -41,9 +42,14 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
+    static Booking createBooking(Show show, String date) {
+        return new Booking(show, date);
+    }
+
     static class Booking {
         Show _show;
         String _date;
+        PremiumBookingDelegate _premiumDelegate;
 
         Booking(Show show, String date) {
             this._show = show;
@@ -51,64 +57,83 @@ class ReplaceSubclassWithDelegate {
         }
 
         boolean hasTalkback() {
-            return this._show._talkback != null && !this.isPeakDay();
+            return (this._premiumDelegate != null && this._premiumDelegate.hasTalkback())
+                    || (this._show._talkback != null && !this.isPeakDay());
         }
 
         double basePrice() {
             double result = this._show.price();
             if (this.isPeakDay())
                 result += Math.round(result * 0.15);
-            return result;
+            return (this._premiumDelegate != null) ? this._premiumDelegate.extendBasePrice(result) : result;
         }
 
         // My custom
         boolean isPeakDay() {
             return this._date.equals("Saturday") || this._date.equals("Sunday");
         }
+
+        void _bePremium(Extras extras) {
+            this._premiumDelegate = new PremiumBookingDelegate(this, extras);
+        }
     }
 
-    static class PremiumBooking extends Booking {
+    static Booking createPremiumBooking(Show show, String date, Extras extras) {
+        Booking result = new Booking(show, date);
+        result._bePremium(extras);
+
+        return result;
+    }
+
+    static class PremiumBookingDelegate {
+        Booking _host;
         Extras _extras;
 
-        PremiumBooking(Show show, String date, Extras extras) {
-            super(show, date);
+        PremiumBookingDelegate(Booking hostBooking, Extras extras) {
+            this._host = hostBooking;
             this._extras = extras;
         }
 
         boolean hasTalkback() {
-            return this._show._talkback != null;
+            return this._host._show._talkback != null;
         }
 
-        double basePrice() {
-            return Math.round(super.basePrice() + this._extras.premiumFee());
+        double extendBasePrice(double base) {
+            return Math.round(base + this._extras.premiumFee());
         }
 
         boolean hasDinner() {
-            return this._extras.dinner() != null && !this.isPeakDay();
+            return this._extras.dinner() != null && !this._host.isPeakDay();
         }
     }
 
     // Ex2.
     static Bird createBird(Map<String, Object> data) {
-        switch ((String) data.get("type")) {
-            case "EuropeanSwallow":
-                return new EuropeanSwallow(data);
-            case "AfricanSwallow":
-                return new AfricanSwallow(data);
-            case "NorweigianBlueParrot":
-                return new NorwegianBlueParrot(data);
-            default:
-                return new Bird(data);
-        }
+        return new Bird(data);
     }
 
     static class Bird {
         String _name;
         String _plumage;
+        SpeciesDelegate _speciesDelegate;
+
+        SpeciesDelegate selectSpeciesDelegate(Map<String, Object> data) {
+            switch (data.get("type").toString()) {
+                case "EuropeanSwallow":
+                    return new EuropeanSwallowDelegate(this);
+                case "AfricanSwallow":
+                    return new AfricanSwallowDelegate(data, this);
+                case "NorweigianBlueParrot":
+                    return new NorweigianBlueParrotDelegate(data, this);
+                default:
+                    return new SpeciesDelegate(this);
+            }
+        }
 
         Bird(Map<String, Object> data) {
             this._name = (String) data.get("name");
             this._plumage = (String) data.get("plumage");
+            this._speciesDelegate = selectSpeciesDelegate(data);
         }
 
         String name() {
@@ -116,17 +141,33 @@ class ReplaceSubclassWithDelegate {
         }
 
         String plumage() {
-            return this._plumage != null ? this._plumage : "average";
+            return this._speciesDelegate.plumage();
+        }
+
+        Double airSpeedVelocity() {
+            return this._speciesDelegate.airSpeedVelocity();
+        }
+    }
+
+    static class SpeciesDelegate {
+        Bird _bird;
+
+        SpeciesDelegate(Bird bird) {
+            this._bird = bird;
         }
 
         Double airSpeedVelocity() {
             return null;
         }
+
+        String plumage() {
+            return this._bird._plumage != null ? this._bird._plumage : "average";
+        }
     }
 
-    static class EuropeanSwallow extends Bird {
-        EuropeanSwallow(Map<String, Object> data) {
-            super(data);
+    static class EuropeanSwallowDelegate extends SpeciesDelegate {
+        EuropeanSwallowDelegate(Bird bird) {
+            super(bird);
         }
 
         Double airSpeedVelocity() {
@@ -134,11 +175,11 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
-    static class AfricanSwallow extends Bird {
+    static class AfricanSwallowDelegate extends SpeciesDelegate {
         int _numberOfCoconuts;
 
-        AfricanSwallow(Map<String, Object> data) {
-            super(data);
+        AfricanSwallowDelegate(Map<String, Object> data, Bird bird) {
+            super(bird);
             this._numberOfCoconuts = (int) data.get("numberOfCoconuts");
         }
 
@@ -148,25 +189,25 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
-    static class NorwegianBlueParrot extends Bird {
+    static class NorweigianBlueParrotDelegate extends SpeciesDelegate {
         double _voltage;
         boolean _isNailed;
 
-        NorwegianBlueParrot(Map<String, Object> data) {
-            super(data);
+        NorweigianBlueParrotDelegate(Map<String, Object> data, Bird bird) {
+            super(bird);
             this._voltage = (double) data.get("voltage");
             this._isNailed = (boolean) data.get("isNailed");
+        }
+
+        Double airSpeedVelocity() {
+            return this._isNailed ? 0 : 10 + this._voltage / 10;
         }
 
         String plumage() {
             if (this._voltage > 100)
                 return "scorched";
             else
-                return this._plumage != null ? this._plumage : "beautiful";
-        }
-
-        Double airSpeedVelocity() {
-            return this._isNailed ? 0 : 10 + this._voltage / 10;
+                return this._bird._plumage != null ? this._bird._plumage : "beautiful";
         }
     }
 }

@@ -7,22 +7,23 @@ import static chapter12.ReplaceSubclassWithDelegate.*;
 import org.junit.jupiter.api.Test;
 import chapter12.ReplaceSubclassWithDelegate.Booking;
 import chapter12.ReplaceSubclassWithDelegate.Extras;
-import chapter12.ReplaceSubclassWithDelegate.PremiumBooking;
 import chapter12.ReplaceSubclassWithDelegate.Show;
 
 class ReplaceSubclassWithDelegateTest {
     @Test
     void client1() {
-        Booking booking = new Booking(new Show("The Lion King", 100), "Saturday");
+        Booking booking = createBooking(new Show("The Lion King", 100, null), "Saturday");
         assertThat(booking.basePrice()).isEqualTo(115);
+        assertThat(booking.hasTalkback()).isFalse();
     }
 
     @Test
     void client2() {
         Extras extras = new Extras(20, "Dinner");
-        PremiumBooking booking = new PremiumBooking(
-                new Show("The Lion King", 100), "Saturday", extras);
+        Booking booking = createPremiumBooking(
+                new Show("The Lion King", 100, "SomeTalkBack"), "Saturday", extras);
         assertThat(booking.basePrice()).isEqualTo(135);
+        assertThat(booking.hasTalkback()).isTrue();
     }
 
     @Test
@@ -37,7 +38,6 @@ class ReplaceSubclassWithDelegateTest {
         Bird bird = createBird(data);
         assertThat(bird.name()).isEqualTo("euro-swallow");
         assertThat(bird.plumage()).isEqualTo("blue");
-        assertThat(bird instanceof EuropeanSwallow).isTrue();
         assertThat(bird.airSpeedVelocity()).isEqualTo(35.0);
 
         data = new HashMap<String, Object>() {
@@ -51,7 +51,6 @@ class ReplaceSubclassWithDelegateTest {
         bird = createBird(data);
         assertThat(bird.name()).isEqualTo("african-swallow");
         assertThat(bird.plumage()).isEqualTo("red");
-        assertThat(bird instanceof AfricanSwallow).isTrue();
         assertThat(bird.airSpeedVelocity()).isEqualTo(36.0);
 
         data = new HashMap<String, Object>() {
@@ -66,7 +65,6 @@ class ReplaceSubclassWithDelegateTest {
         bird = createBird(data);
         assertThat(bird.name()).isEqualTo("norwegian-blue-parrot");
         assertThat(bird.plumage()).isEqualTo("green");
-        assertThat(bird instanceof NorwegianBlueParrot).isTrue();
         assertThat(bird.airSpeedVelocity()).isEqualTo(0.0);
 
         data = new HashMap<String, Object>() {

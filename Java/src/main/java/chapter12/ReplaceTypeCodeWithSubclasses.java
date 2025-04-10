@@ -1,35 +1,79 @@
 package chapter12;
 
 class ReplaceTypeCodeWithSubclasses {
+    // Ex1
+    static Employee createEmployee(String name, String type) {
+        switch (type) {
+            case "engineer":
+                return new Engineer(name);
+            case "salesman":
+                return new Salesman(name);
+            case "manager":
+                return new Manager(name);
+            default:
+                throw new IllegalArgumentException("Employee cannot be of type " + type);
+        }
+    }
+
     static class Employee {
         String _name;
         String _type;
 
-        Employee(String name, String type) {
-            this.validateType(type);
+        Employee(String name) {
             this._name = name;
-            this._type = type;
         }
 
-        void validateType(String arg) {
-            if (!arg.equals("engineer") && !arg.equals("manager") && !arg.equals("salesman")) {
-                throw new IllegalArgumentException("Employee cannot be of type " + arg);
-            }
+        String type() {
+            throw new UnsupportedOperationException("Not implemented");
         }
 
         public String toString() {
-            return this._name + " (" + this._type + ")";
+            return this._name + " (" + this.type() + ")";
         }
     }
 
+    static class Engineer extends Employee {
+        Engineer(String name) {
+            super(name);
+        }
+
+        @Override
+        String type() {
+            return "engineer";
+        }
+    }
+
+    static class Salesman extends Employee {
+        Salesman(String name) {
+            super(name);
+        }
+
+        @Override
+        String type() {
+            return "salesman";
+        }
+    }
+
+    static class Manager extends Employee {
+        Manager(String name) {
+            super(name);
+        }
+
+        @Override
+        String type() {
+            return "manager";
+        }
+    }
+
+    // Ex2
     static class Employee2 {
         String _name;
-        String _type;
+        EmployeeType _type;
 
         Employee2(String name, String type) {
             this.validateType(type);
             this._name = name;
-            this._type = type;
+            this._type = createEmployeeType(type);
         }
 
         void validateType(String arg) {
@@ -38,20 +82,65 @@ class ReplaceTypeCodeWithSubclasses {
             }
         }
 
-        String type() {
+        String typeString() {
+            return this._type.toString();
+        }
+
+        EmployeeType type() {
             return this._type;
         }
 
         void type(String arg) {
-            this._type = arg;
+            this._type = createEmployeeType(arg);
         }
 
-        String capitalizedType() {
-            return this._type.substring(0, 1).toUpperCase() + this._type.substring(1).toLowerCase();
-        }
+        // String capitalizedType() {
+        // return this.typeString().substring(0, 1).toUpperCase() +
+        // this.typeString().substring(1).toLowerCase();
+        // }
 
         public String toString() {
-            return this._name + " (" + this.capitalizedType() + ")";
+            return this._name + " (" + this.type().capitalizedName() + ")";
+        }
+
+        static EmployeeType createEmployeeType(String type) {
+            switch (type) {
+                case "engineer":
+                    return new Engineer2();
+                case "salesman":
+                    return new Salesman2();
+                case "manager":
+                    return new Manager2();
+                default:
+                    throw new IllegalArgumentException("Employee cannot be of type " + type);
+            }
+        }
+    }
+
+    static class EmployeeType {
+        String capitalizedName() {
+            return this.toString().substring(0, 1).toUpperCase() + this.toString().substring(1).toLowerCase();
+        }
+    }
+
+    static class Engineer2 extends EmployeeType {
+        @Override
+        public String toString() {
+            return "engineer";
+        }
+    }
+
+    static class Salesman2 extends EmployeeType {
+        @Override
+        public String toString() {
+            return "salesman";
+        }
+    }
+
+    static class Manager2 extends EmployeeType {
+        @Override
+        public String toString() {
+            return "manager";
         }
     }
 }

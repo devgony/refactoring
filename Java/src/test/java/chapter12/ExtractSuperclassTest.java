@@ -15,10 +15,11 @@ class ExtractSuperclassTest {
 
         assertThat(department.name()).isEqualTo("HR");
         assertThat(department.headCount()).isEqualTo(2);
-        assertThat(department.totalMonthlyCost()).isEqualTo(3000);
+        assertThat(department.monthlyCost()).isEqualTo(3000);
         assertThat(department.staff()).containsExactly(employee1, employee2);
         assertThat(department.staff().get(0).name()).isEqualTo("John");
         assertThat(department.staff().get(0).id()).isEqualTo("123");
         assertThat(department.staff().get(0).monthlyCost()).isEqualTo(1000);
+        assertThat(department.staff().get(0).annualCost()).isEqualTo(12000);
     }
 }

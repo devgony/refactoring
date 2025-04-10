@@ -3,6 +3,7 @@ package chapter12;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 
 class ReplaceSuperclassWithDelegate {
     static class CatalogItem {
@@ -33,11 +34,15 @@ class ReplaceSuperclassWithDelegate {
         }
     }
 
-    static class Scroll extends CatalogItem {
+    static class Scroll {
+        String _id;
+        CatalogItem _catalogItem;
         LocalDate _lastCleaned;
 
-        Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned) {
-            super(id, title, tags);
+        Scroll(String id, LocalDate dateLastCleaned, String catalogID,
+                Map<String, CatalogItem> catalog) {
+            this._id = id;
+            this._catalogItem = catalog.get(catalogID);
             this._lastCleaned = dateLastCleaned;
         }
 
@@ -48,6 +53,22 @@ class ReplaceSuperclassWithDelegate {
 
         long daysSinceLastCleaning(LocalDate targetDate) {
             return this._lastCleaned.until(targetDate, ChronoUnit.DAYS);
+        }
+
+        String id() {
+            return this._id;
+        }
+
+        String title() {
+            return this._catalogItem.title();
+        }
+
+        boolean hasTag(String arg) {
+            return this._catalogItem.hasTag(arg);
+        }
+
+        List<String> tags() {
+            return this._catalogItem.tags();
         }
     }
 }

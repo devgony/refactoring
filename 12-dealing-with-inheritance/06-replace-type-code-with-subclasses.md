@@ -132,6 +132,7 @@ function createEmployee(name, type) {
 ```
 
 - superclass 에서 type code 와 type getter 를 제거
+  - TODO: java 의 경우 super 에서 type getter 를 제거하면 super의 생성자에서 sub의 type() 을 호출 못한다?
 
 ```diff
 class Employee…
@@ -241,7 +242,7 @@ class Employee…
   }
 + get typeString()    {return this._type.toString();}
   get type()    {return this._type;}
-  set type(arg) {this._type = new EmployeeType(arg);}
++ set type(arg) {this._type = new EmployeeType(arg);}
 
   get capitalizedType() {
 +   return this.typeString.charAt(0).toUpperCase()

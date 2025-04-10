@@ -4,39 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ExtractSuperclass {
-    static class Employee {
-        String _id;
+    static class Party {
         String _name;
-        double _monthlyCost;
 
-        Employee(String name, String id, double monthlyCost) {
-            this._id = id;
+        Party(String name) {
             this._name = name;
-            this._monthlyCost = monthlyCost;
-        }
-
-        double monthlyCost() {
-            return this._monthlyCost;
         }
 
         String name() {
             return this._name;
         }
 
-        String id() {
-            return this._id;
-        }
-
         double annualCost() {
             return this.monthlyCost() * 12;
         }
+
+        double monthlyCost() {
+            throw new UnsupportedOperationException("Unimplemented method 'monthlyCost'");
+        }
     }
 
-    static class Department {
-        String _name;
+    static class Employee extends Party {
+        String _id;
+        double _monthlyCost;
+
+        Employee(String name, String id, double monthlyCost) {
+            super(name);
+
+            this._id = id;
+            this._name = name;
+            this._monthlyCost = monthlyCost;
+        }
+
+        @Override
+        double monthlyCost() {
+            return this._monthlyCost;
+        }
+
+        String id() {
+            return this._id;
+        }
+    }
+
+    static class Department extends Party {
         List<Employee> _staff;
 
         Department(String name, List<Employee> staff) {
+            super(name);
             this._name = name;
             this._staff = staff;
         }
@@ -45,11 +59,7 @@ class ExtractSuperclass {
             return new ArrayList<>(this._staff);
         }
 
-        String name() {
-            return this._name;
-        }
-
-        double totalMonthlyCost() {
+        double monthlyCost() {
             return this.staff().stream()
                     .map((e) -> e.monthlyCost())
                     .reduce(0.0, (sum, cost) -> sum + cost);
@@ -59,8 +69,6 @@ class ExtractSuperclass {
             return this.staff().size();
         }
 
-        double totalAnnualCost() {
-            return this.totalMonthlyCost() * 12;
-        }
     }
+
 }
