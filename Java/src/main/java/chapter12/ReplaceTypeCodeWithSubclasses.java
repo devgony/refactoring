@@ -1,6 +1,7 @@
 package chapter12;
 
 class ReplaceTypeCodeWithSubclasses {
+    // Ex1
     static class Employee {
         String _name;
         String _type;
@@ -26,6 +27,18 @@ class ReplaceTypeCodeWithSubclasses {
         }
     }
 
+    static class Engineer extends Employee {
+        Engineer(String name) {
+            super(name, "engineer");
+        }
+
+        @Override
+        String type() {
+            return "engineer";
+        }
+    }
+
+    // Ex2
     static class Employee2 {
         String _name;
         String _type;
