@@ -160,8 +160,9 @@ class ReplaceSubclassWithDelegate {
         }
 
         Double airSpeedVelocity() {
-            return 35.0;
+            return this._speciesDelegate.airSpeedVelocity();
         }
+
     }
 
     static class AfricanSwallow extends Bird {
@@ -201,5 +202,8 @@ class ReplaceSubclassWithDelegate {
     }
 
     static class EuropeanSwallowDelegate {
+        Double airSpeedVelocity() {
+            return 35.0;
+        }
     }
 }
