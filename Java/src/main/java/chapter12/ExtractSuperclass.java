@@ -14,6 +14,14 @@ class ExtractSuperclass {
         String name() {
             return this._name;
         }
+
+        double annualCost() {
+            return this.monthlyCost() * 12;
+        }
+
+        double monthlyCost() {
+            throw new UnsupportedOperationException("Unimplemented method 'monthlyCost'");
+        }
     }
 
     static class Employee extends Party {
@@ -28,16 +36,13 @@ class ExtractSuperclass {
             this._monthlyCost = monthlyCost;
         }
 
+        @Override
         double monthlyCost() {
             return this._monthlyCost;
         }
 
         String id() {
             return this._id;
-        }
-
-        double annualCost() {
-            return this.monthlyCost() * 12;
         }
     }
 
@@ -64,9 +69,6 @@ class ExtractSuperclass {
             return this.staff().size();
         }
 
-        double annualCost() {
-            return this.monthlyCost() * 12;
-        }
     }
 
 }
