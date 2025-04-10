@@ -14,6 +14,9 @@ class ReplaceTypeCodeWithSubclassesTest {
 
         employee = createEmployee("Sam Smith", "salesman");
         assertThat(employee.toString()).isEqualTo("Sam Smith (salesman)");
+
+        employee = createEmployee("Kate Brown", "manager");
+        assertThat(employee.toString()).isEqualTo("Kate Brown (manager)");
     }
 
     @Test

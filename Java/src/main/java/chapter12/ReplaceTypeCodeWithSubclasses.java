@@ -8,6 +8,8 @@ class ReplaceTypeCodeWithSubclasses {
                 return new Engineer(name, type);
             case "salesman":
                 return new Salesman(name, type);
+            case "manager":
+                return new Manager(name, type);
         }
         return new Employee(name, type);
     }
@@ -56,6 +58,17 @@ class ReplaceTypeCodeWithSubclasses {
         @Override
         String type() {
             return "salesman";
+        }
+    }
+
+    static class Manager extends Employee {
+        Manager(String name, String type) {
+            super(name, type);
+        }
+
+        @Override
+        String type() {
+            return "manager";
         }
     }
 
