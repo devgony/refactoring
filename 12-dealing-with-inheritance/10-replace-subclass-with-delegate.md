@@ -248,7 +248,7 @@ class PremiumBookingDelegate…
   }
 ```
 
-2. 혹은 delegate 메서드를 base 메서드의 extension 으로 recast 하는 방법
+2. 혹은 delegate 메서드를 base 메서드의 extension 으로 re-cast 하는 방법
 
 ```diff
 class Booking…

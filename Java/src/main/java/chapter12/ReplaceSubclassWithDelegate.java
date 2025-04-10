@@ -9,9 +9,10 @@ class ReplaceSubclassWithDelegate {
         double _price;
         String _talkback;
 
-        Show(String name, double price) {
+        Show(String name, double price, String talkBack) {
             this._name = name;
             this._price = price;
+            this._talkback = talkBack;
         }
 
         String name() {
@@ -56,7 +57,8 @@ class ReplaceSubclassWithDelegate {
         }
 
         boolean hasTalkback() {
-            return this._show._talkback != null && !this.isPeakDay();
+            return (this._premiumDelegate != null && this._premiumDelegate.hasTalkback())
+                    || (this._show._talkback != null && !this.isPeakDay());
         }
 
         double basePrice() {
@@ -91,10 +93,7 @@ class ReplaceSubclassWithDelegate {
             this._extras = extras;
         }
 
-        boolean hasTalkback() {
-            return this._premiumDelegate.hasTalkback();
-        }
-
+        @Override
         double basePrice() {
             return Math.round(super.basePrice() + this._extras.premiumFee());
         }
