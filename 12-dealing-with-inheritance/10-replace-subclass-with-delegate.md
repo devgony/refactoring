@@ -606,6 +606,7 @@ class AfricanSwallowDelegate…
 ```
 
 - 하지만 중복이 있으므로 상속으로 해결: `Extract Superclass`
+  - TODO: data 쓰지도 않을거면서 왜 받나?
 
 ```diff
 +class SpeciesDelegate {

@@ -174,16 +174,26 @@ class ReplaceSubclassWithDelegate {
     }
 
     static class SpeciesDelegate {
+        Bird _bird;
+
+        SpeciesDelegate(Bird bird) {
+            this._bird = bird;
+        }
+
         Double airSpeedVelocity() {
             throw new UnsupportedOperationException("Unimplemented method 'airSpeedVelocity'");
         }
 
         String plumage() {
-            throw new UnsupportedOperationException("Unimplemented method 'plumage'");
+            return this._bird._plumage != null ? this._bird._plumage : "average";
         }
     }
 
     static class EuropeanSwallowDelegate extends SpeciesDelegate {
+        EuropeanSwallowDelegate() {
+            super(null);
+        }
+
         Double airSpeedVelocity() {
             return 35.0;
         }
@@ -193,6 +203,7 @@ class ReplaceSubclassWithDelegate {
         int _numberOfCoconuts;
 
         AfricanSwallowDelegate(Map<String, Object> data) {
+            super(null);
             this._numberOfCoconuts = (int) data.get("numberOfCoconuts");
         }
 
@@ -203,12 +214,11 @@ class ReplaceSubclassWithDelegate {
     }
 
     static class NorweigianBlueParrotDelegate extends SpeciesDelegate {
-        Bird _bird;
         double _voltage;
         boolean _isNailed;
 
         NorweigianBlueParrotDelegate(Map<String, Object> data, Bird bird) {
-            this._bird = bird;
+            super(bird);
             this._voltage = (double) data.get("voltage");
             this._isNailed = (boolean) data.get("isNailed");
         }
