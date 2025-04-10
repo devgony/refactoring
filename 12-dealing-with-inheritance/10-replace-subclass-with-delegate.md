@@ -123,10 +123,9 @@ class PremiumBooking extends Booking…
 
 ```js
 booking client
-
   aBooking = new Booking(show,date);
-premium client
 
+premium client
   aBooking = new PremiumBooking(show, date, extras);
 ```
 
