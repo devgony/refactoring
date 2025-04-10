@@ -23,5 +23,11 @@ class ReplaceTypeCodeWithSubclassesTest {
     void client2() {
         Employee2 employee = new Employee2("Jane Doe", "engineer");
         assertThat(employee.toString()).isEqualTo("Jane Doe (Engineer)");
+
+        employee = new Employee2("Tom Brown", "salesman");
+        assertThat(employee.toString()).isEqualTo("Tom Brown (Salesman)");
+
+        employee = new Employee2("Alice Green", "manager");
+        assertThat(employee.toString()).isEqualTo("Alice Green (Manager)");
     }
 }
