@@ -1,5 +1,9 @@
 package chapter12;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 class RemoveSubclass {
     static class Person {
         String _name;
@@ -36,5 +40,38 @@ class RemoveSubclass {
         String genderCode() {
             return "F";
         }
+    }
+
+    static Person createPerson(String name) {
+        return new Person(name);
+    }
+
+    static Male createMale(String name) {
+        return new Male(name);
+    }
+
+    static Female createFemale(String name) {
+        return new Female(name);
+    }
+
+    // client
+    static List<Person> loadFromInput(List<Map<String, String>> data) {
+        List<Person> result = new ArrayList<>();
+        data.stream().forEach((aRecord) -> {
+            Person p;
+            switch (aRecord.get("gender")) {
+                case "M":
+                    p = new Male(aRecord.get("name"));
+                    break;
+                case "F":
+                    p = new Female(aRecord.get("name"));
+                    break;
+                default:
+                    p = new Person(aRecord.get("name"));
+            }
+            result.add(p);
+        });
+
+        return result;
     }
 }
