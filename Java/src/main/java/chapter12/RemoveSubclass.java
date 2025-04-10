@@ -28,16 +28,6 @@ class RemoveSubclass {
         }
     }
 
-    static class Male extends Person {
-        Male(String name) {
-            super(name, "M");
-        }
-
-        String genderCode() {
-            return "M";
-        }
-    }
-
     static class Female extends Person {
         Female(String name) {
             super(name, "F");
@@ -52,9 +42,6 @@ class RemoveSubclass {
     // return new Person(name);
     // }
     //
-    static Male createMale(String name) {
-        return new Male(name);
-    }
 
     static Female createFemale(String name) {
         return new Female(name);
