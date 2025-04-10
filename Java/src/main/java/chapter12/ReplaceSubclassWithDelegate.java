@@ -65,7 +65,7 @@ class ReplaceSubclassWithDelegate {
             double result = this._show.price();
             if (this.isPeakDay())
                 result += Math.round(result * 0.15);
-            return result;
+            return (this._premiumDelegate != null) ? this._premiumDelegate.extendBasePrice(result) : result;
         }
 
         // My custom
@@ -93,11 +93,6 @@ class ReplaceSubclassWithDelegate {
             this._extras = extras;
         }
 
-        @Override
-        double basePrice() {
-            return Math.round(super.basePrice() + this._extras.premiumFee());
-        }
-
         boolean hasDinner() {
             return this._extras.dinner() != null && !this.isPeakDay();
         }
@@ -114,6 +109,10 @@ class ReplaceSubclassWithDelegate {
 
         boolean hasTalkback() {
             return this._host._show._talkback != null;
+        }
+
+        double extendBasePrice(double base) {
+            return Math.round(base + this._extras.premiumFee());
         }
     }
 
