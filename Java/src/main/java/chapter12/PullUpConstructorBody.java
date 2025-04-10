@@ -54,6 +54,11 @@ class PullUpConstructorBody {
         String car() {
             return this._car;
         }
+
+        private void finishConstruction() {
+            if (this.isPrivileged())
+                this.assignCar(); // every subclass does this
+        }
     }
 
     static class Manager extends Employee2 {
@@ -62,12 +67,7 @@ class PullUpConstructorBody {
         Manager(String name, int grade) {
             super(name);
             this._grade = grade;
-            finishConstruction();
-        }
-
-        private void finishConstruction() {
-            if (this.isPrivileged())
-                this.assignCar(); // every subclass does this
+            super.finishConstruction();
         }
 
         boolean isPrivileged() {
