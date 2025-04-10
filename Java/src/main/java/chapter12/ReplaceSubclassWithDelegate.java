@@ -122,12 +122,14 @@ class ReplaceSubclassWithDelegate {
     static class Bird {
         String _name;
         String _plumage;
-        EuropeanSwallowDelegate _speciesDelegate;
+        SpeciesDelegate _speciesDelegate;
 
-        EuropeanSwallowDelegate selectSpeciesDelegate(Map<String, Object> data) {
+        SpeciesDelegate selectSpeciesDelegate(Map<String, Object> data) {
             switch (data.get("type").toString()) {
                 case "EuropeanSwallow":
                     return new EuropeanSwallowDelegate();
+                case "AfricanSwallow":
+                    return new AfricanSwallowDelegate(data);
                 default:
                     return null;
             }
@@ -161,9 +163,9 @@ class ReplaceSubclassWithDelegate {
         }
 
         Double airSpeedVelocity() {
-            return (double) 40 - 2 * this._numberOfCoconuts;
-
+            return this._speciesDelegate.airSpeedVelocity();
         }
+
     }
 
     static class NorwegianBlueParrot extends Bird {
@@ -188,9 +190,28 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
-    static class EuropeanSwallowDelegate {
+    static class SpeciesDelegate {
+        Double airSpeedVelocity() {
+            throw new UnsupportedOperationException("Unimplemented method 'airSpeedVelocity'");
+        }
+    }
+
+    static class EuropeanSwallowDelegate extends SpeciesDelegate {
         Double airSpeedVelocity() {
             return 35.0;
+        }
+    }
+
+    static class AfricanSwallowDelegate extends SpeciesDelegate {
+        int _numberOfCoconuts;
+
+        AfricanSwallowDelegate(Map<String, Object> data) {
+            this._numberOfCoconuts = (int) data.get("numberOfCoconuts");
+        }
+
+        Double airSpeedVelocity() {
+            return (double) 40 - 2 * this._numberOfCoconuts;
+
         }
     }
 }
