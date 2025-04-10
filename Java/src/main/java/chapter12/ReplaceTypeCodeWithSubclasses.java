@@ -3,6 +3,10 @@ package chapter12;
 class ReplaceTypeCodeWithSubclasses {
     // Ex1
     static Employee createEmployee(String name, String type) {
+        switch (type) {
+            case "engineer":
+                return new Engineer(name, type);
+        }
         return new Employee(name, type);
     }
 
@@ -32,8 +36,8 @@ class ReplaceTypeCodeWithSubclasses {
     }
 
     static class Engineer extends Employee {
-        Engineer(String name) {
-            super(name, "engineer");
+        Engineer(String name, String type) {
+            super(name, type);
         }
 
         @Override

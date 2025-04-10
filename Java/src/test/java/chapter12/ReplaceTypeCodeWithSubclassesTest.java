@@ -1,6 +1,7 @@
 package chapter12;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static chapter12.ReplaceTypeCodeWithSubclasses.createEmployee;
 import org.junit.jupiter.api.Test;
 import chapter12.ReplaceTypeCodeWithSubclasses.Employee;
 import chapter12.ReplaceTypeCodeWithSubclasses.Employee2;
@@ -8,7 +9,7 @@ import chapter12.ReplaceTypeCodeWithSubclasses.Employee2;
 class ReplaceTypeCodeWithSubclassesTest {
     @Test
     void client1() {
-        Employee employee = new Employee("John Doe", "engineer");
+        Employee employee = createEmployee("John Doe", "engineer");
         assertThat(employee.toString()).isEqualTo("John Doe (engineer)");
     }
 
