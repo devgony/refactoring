@@ -109,12 +109,7 @@ class ReplaceSubclassWithDelegate {
 
     // Ex2.
     static Bird createBird(Map<String, Object> data) {
-        switch ((String) data.get("type")) {
-            case "NorweigianBlueParrot":
-                return new NorwegianBlueParrot(data);
-            default:
-                return new Bird(data);
-        }
+        return new Bird(data);
     }
 
     static class Bird {
@@ -151,25 +146,6 @@ class ReplaceSubclassWithDelegate {
 
         Double airSpeedVelocity() {
             return this._speciesDelegate.airSpeedVelocity();
-        }
-    }
-
-    static class NorwegianBlueParrot extends Bird {
-        double _voltage;
-        boolean _isNailed;
-
-        NorwegianBlueParrot(Map<String, Object> data) {
-            super(data);
-            this._voltage = (double) data.get("voltage");
-            this._isNailed = (boolean) data.get("isNailed");
-        }
-
-        String plumage() {
-            return this._speciesDelegate.plumage();
-        }
-
-        Double airSpeedVelocity() {
-            return this._isNailed ? 0 : 10 + this._voltage / 10;
         }
     }
 
