@@ -7,25 +7,21 @@ class PullUpMethod {
         public Party(double monthlyCost) {
             this.monthlyCost = monthlyCost;
         }
+
+        double annualCost() {
+            return this.monthlyCost * 12;
+        }
     }
 
     static class Employee extends Party {
         public Employee(double monthlyCost) {
             super(monthlyCost);
         }
-
-        double annualCost() {
-            return this.monthlyCost * 12;
-        }
     }
 
     static class Department extends Party {
         public Department(double monthlyCost) {
             super(monthlyCost);
-        }
-
-        double annualCost() {
-            return this.monthlyCost * 12;
         }
     }
 }
