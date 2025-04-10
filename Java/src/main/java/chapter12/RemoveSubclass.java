@@ -3,6 +3,7 @@ package chapter12;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 class RemoveSubclass {
     static class Person {
@@ -56,12 +57,7 @@ class RemoveSubclass {
 
     // client
     static List<Person> loadFromInput(List<Map<String, String>> data) {
-        List<Person> result = new ArrayList<>();
-        data.stream().forEach((aRecord) -> {
-            result.add(createPerson(aRecord));
-        });
-
-        return result;
+        return data.stream().map(r -> createPerson(r)).collect(Collectors.toList());
     }
 
     private static Person createPerson(Map<String, String> aRecord) {
