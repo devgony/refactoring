@@ -17,8 +17,12 @@ class ReplaceTypeCodeWithSubclasses {
             }
         }
 
+        String type() {
+            return this._type;
+        }
+
         public String toString() {
-            return this._name + " (" + this._type + ")";
+            return this._name + " (" + this.type() + ")";
         }
     }
 
