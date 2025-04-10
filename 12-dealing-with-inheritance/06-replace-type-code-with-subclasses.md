@@ -242,7 +242,7 @@ class Employee…
   }
 + get typeString()    {return this._type.toString();}
   get type()    {return this._type;}
-  set type(arg) {this._type = new EmployeeType(arg);}
++ set type(arg) {this._type = new EmployeeType(arg);}
 
   get capitalizedType() {
 +   return this.typeString.charAt(0).toUpperCase()
