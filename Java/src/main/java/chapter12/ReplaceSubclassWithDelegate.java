@@ -125,13 +125,13 @@ class ReplaceSubclassWithDelegate {
         SpeciesDelegate selectSpeciesDelegate(Map<String, Object> data) {
             switch (data.get("type").toString()) {
                 case "EuropeanSwallow":
-                    return new EuropeanSwallowDelegate();
+                    return new EuropeanSwallowDelegate(this);
                 case "AfricanSwallow":
-                    return new AfricanSwallowDelegate(data);
+                    return new AfricanSwallowDelegate(data, this);
                 case "NorweigianBlueParrot":
                     return new NorweigianBlueParrotDelegate(data, this);
                 default:
-                    return null;
+                    return new SpeciesDelegate(this);
             }
         }
 
@@ -146,11 +146,11 @@ class ReplaceSubclassWithDelegate {
         }
 
         String plumage() {
-            return this._plumage != null ? this._plumage : "average";
+            return this._speciesDelegate.plumage();
         }
 
         Double airSpeedVelocity() {
-            return this._speciesDelegate != null ? this._speciesDelegate.airSpeedVelocity() : null;
+            return this._speciesDelegate.airSpeedVelocity();
         }
     }
 
@@ -181,7 +181,7 @@ class ReplaceSubclassWithDelegate {
         }
 
         Double airSpeedVelocity() {
-            throw new UnsupportedOperationException("Unimplemented method 'airSpeedVelocity'");
+            return null;
         }
 
         String plumage() {
@@ -190,8 +190,8 @@ class ReplaceSubclassWithDelegate {
     }
 
     static class EuropeanSwallowDelegate extends SpeciesDelegate {
-        EuropeanSwallowDelegate() {
-            super(null);
+        EuropeanSwallowDelegate(Bird bird) {
+            super(bird);
         }
 
         Double airSpeedVelocity() {
@@ -202,8 +202,8 @@ class ReplaceSubclassWithDelegate {
     static class AfricanSwallowDelegate extends SpeciesDelegate {
         int _numberOfCoconuts;
 
-        AfricanSwallowDelegate(Map<String, Object> data) {
-            super(null);
+        AfricanSwallowDelegate(Map<String, Object> data, Bird bird) {
+            super(bird);
             this._numberOfCoconuts = (int) data.get("numberOfCoconuts");
         }
 
