@@ -150,7 +150,7 @@ class ReplaceSubclassWithDelegate {
         }
 
         Double airSpeedVelocity() {
-            return null;
+            return this._speciesDelegate != null ? this._speciesDelegate.airSpeedVelocity() : null;
         }
     }
 
