@@ -5,11 +5,11 @@ class ReplaceTypeCodeWithSubclasses {
     static Employee createEmployee(String name, String type) {
         switch (type) {
             case "engineer":
-                return new Engineer(name, type);
+                return new Engineer(name);
             case "salesman":
-                return new Salesman(name, type);
+                return new Salesman(name);
             case "manager":
-                return new Manager(name, type);
+                return new Manager(name);
             default:
                 throw new IllegalArgumentException("Employee cannot be of type " + type);
         }
@@ -19,7 +19,7 @@ class ReplaceTypeCodeWithSubclasses {
         String _name;
         String _type;
 
-        Employee(String name, String type) {
+        Employee(String name) {
             this._name = name;
         }
 
@@ -33,8 +33,8 @@ class ReplaceTypeCodeWithSubclasses {
     }
 
     static class Engineer extends Employee {
-        Engineer(String name, String type) {
-            super(name, type);
+        Engineer(String name) {
+            super(name);
         }
 
         @Override
@@ -44,8 +44,8 @@ class ReplaceTypeCodeWithSubclasses {
     }
 
     static class Salesman extends Employee {
-        Salesman(String name, String type) {
-            super(name, type);
+        Salesman(String name) {
+            super(name);
         }
 
         @Override
@@ -55,8 +55,8 @@ class ReplaceTypeCodeWithSubclasses {
     }
 
     static class Manager extends Employee {
-        Manager(String name, String type) {
-            super(name, type);
+        Manager(String name) {
+            super(name);
         }
 
         @Override
