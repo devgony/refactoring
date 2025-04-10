@@ -10,8 +10,9 @@ class ReplaceTypeCodeWithSubclasses {
                 return new Salesman(name, type);
             case "manager":
                 return new Manager(name, type);
+            default:
+                throw new IllegalArgumentException("Employee cannot be of type " + type);
         }
-        return new Employee(name, type);
     }
 
     static class Employee {
@@ -19,19 +20,11 @@ class ReplaceTypeCodeWithSubclasses {
         String _type;
 
         Employee(String name, String type) {
-            this.validateType(type);
             this._name = name;
-            this._type = type;
-        }
-
-        void validateType(String arg) {
-            if (!arg.equals("engineer") && !arg.equals("manager") && !arg.equals("salesman")) {
-                throw new IllegalArgumentException("Employee cannot be of type " + arg);
-            }
         }
 
         String type() {
-            return this._type;
+            throw new UnsupportedOperationException("Not implemented");
         }
 
         public String toString() {
