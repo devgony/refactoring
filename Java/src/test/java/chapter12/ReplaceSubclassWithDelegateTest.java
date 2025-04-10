@@ -7,7 +7,6 @@ import static chapter12.ReplaceSubclassWithDelegate.*;
 import org.junit.jupiter.api.Test;
 import chapter12.ReplaceSubclassWithDelegate.Booking;
 import chapter12.ReplaceSubclassWithDelegate.Extras;
-import chapter12.ReplaceSubclassWithDelegate.PremiumBooking;
 import chapter12.ReplaceSubclassWithDelegate.Show;
 
 class ReplaceSubclassWithDelegateTest {
@@ -21,7 +20,7 @@ class ReplaceSubclassWithDelegateTest {
     @Test
     void client2() {
         Extras extras = new Extras(20, "Dinner");
-        PremiumBooking booking = createPremiumBooking(
+        Booking booking = createPremiumBooking(
                 new Show("The Lion King", 100, "SomeTalkBack"), "Saturday", extras);
         assertThat(booking.basePrice()).isEqualTo(135);
         assertThat(booking.hasTalkback()).isTrue();

@@ -78,21 +78,11 @@ class ReplaceSubclassWithDelegate {
         }
     }
 
-    static PremiumBooking createPremiumBooking(Show show, String date, Extras extras) {
-        PremiumBooking result = new PremiumBooking(show, date, extras);
+    static Booking createPremiumBooking(Show show, String date, Extras extras) {
+        Booking result = new Booking(show, date);
         result._bePremium(extras);
 
         return result;
-    }
-
-    static class PremiumBooking extends Booking {
-        Extras _extras;
-
-        PremiumBooking(Show show, String date, Extras extras) {
-            super(show, date);
-            this._extras = extras;
-        }
-
     }
 
     static class PremiumBookingDelegate {
