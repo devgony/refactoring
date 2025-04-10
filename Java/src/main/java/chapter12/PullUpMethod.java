@@ -2,26 +2,29 @@ package chapter12;
 
 class PullUpMethod {
     static abstract class Party {
-        protected double monthlyCost;
-
-        public Party(double monthlyCost) {
-            this.monthlyCost = monthlyCost;
+        int annualCost() {
+            return this.monthlyCost() * 12;
         }
 
-        double annualCost() {
-            return this.monthlyCost * 12;
+        int monthlyCost() {
+            throw new UnsupportedOperationException("Not implemented");
         }
     }
 
     static class Employee extends Party {
-        public Employee(double monthlyCost) {
-            super(monthlyCost);
+        @Override
+        int monthlyCost() {
+            return 1000;
         }
     }
 
     static class Department extends Party {
-        public Department(double monthlyCost) {
-            super(monthlyCost);
+        @Override
+        int monthlyCost() {
+            return 2000;
         }
+    }
+
+    static class NotImpl extends Party {
     }
 }
