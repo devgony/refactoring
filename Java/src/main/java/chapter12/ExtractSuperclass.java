@@ -5,15 +5,20 @@ import java.util.List;
 
 class ExtractSuperclass {
     static class Party {
+        String _name;
+
+        Party(String name) {
+            this._name = name;
+        }
     }
 
     static class Employee extends Party {
         String _id;
-        String _name;
         double _monthlyCost;
 
         Employee(String name, String id, double monthlyCost) {
-            super();
+            super(name);
+
             this._id = id;
             this._name = name;
             this._monthlyCost = monthlyCost;
@@ -37,11 +42,10 @@ class ExtractSuperclass {
     }
 
     static class Department extends Party {
-        String _name;
         List<Employee> _staff;
 
         Department(String name, List<Employee> staff) {
-            super();
+            super(name);
             this._name = name;
             this._staff = staff;
         }
