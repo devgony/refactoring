@@ -2,6 +2,10 @@ package chapter12;
 
 class ReplaceTypeCodeWithSubclasses {
     // Ex1
+    static Employee createEmployee(String name, String type) {
+        return new Employee(name, type);
+    }
+
     static class Employee {
         String _name;
         String _type;
