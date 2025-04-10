@@ -24,7 +24,7 @@ class PullUpMethod {
             super(monthlyCost);
         }
 
-        double totalAnnualCost() {
+        double annualCost() {
             return this.monthlyCost * 12;
         }
     }

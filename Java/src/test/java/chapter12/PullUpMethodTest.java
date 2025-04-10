@@ -14,6 +14,6 @@ class PullUpMethodTest {
         Department department = new Department(2000);
 
         assertThat(employee.annualCost()).isEqualTo(12000);
-        assertThat(department.totalAnnualCost()).isEqualTo(24000);
+        assertThat(department.annualCost()).isEqualTo(24000);
     }
 }
