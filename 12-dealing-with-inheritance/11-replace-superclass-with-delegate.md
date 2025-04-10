@@ -98,7 +98,7 @@ class Scroll extends CatalogItem…
   }
 ```
 
-- superclass 의 모든 필드에 대한 forwarding 메ㅔ서드 생성
+- superclass 의 모든 필드에 대한 forwarding 메서드 생성
 
 ```diff
 class Scroll…

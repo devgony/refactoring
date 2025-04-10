@@ -34,10 +34,12 @@ class ReplaceSuperclassWithDelegate {
     }
 
     static class Scroll extends CatalogItem {
+        CatalogItem _catalogItem;
         LocalDate _lastCleaned;
 
         Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned) {
             super(id, title, tags);
+            this._catalogItem = new CatalogItem(id, title, tags);
             this._lastCleaned = dateLastCleaned;
         }
 
@@ -48,6 +50,22 @@ class ReplaceSuperclassWithDelegate {
 
         long daysSinceLastCleaning(LocalDate targetDate) {
             return this._lastCleaned.until(targetDate, ChronoUnit.DAYS);
+        }
+
+        String id() {
+            return this._catalogItem.id();
+        }
+
+        String title() {
+            return this._catalogItem.title();
+        }
+
+        boolean hasTag(String arg) {
+            return this._catalogItem.hasTag(arg);
+        }
+
+        List<String> tags() {
+            return this._catalogItem.tags();
         }
     }
 }
