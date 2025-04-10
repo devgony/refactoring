@@ -1,6 +1,7 @@
 package chapter12;
 
 class PullUpConstructorBody {
+    // Ex1
     static class Party {
         String _name;
 
@@ -33,4 +34,40 @@ class PullUpConstructorBody {
         // rest of class...
     }
 
+    // Ex2
+    static class Employee2 {
+        String _name;
+        String _car;
+
+        Employee2(String name) {
+            this._name = name;
+        }
+
+        boolean isPrivileged() {
+            throw new UnsupportedOperationException("Not implemented");
+        }
+
+        void assignCar() {
+            this._car = "Luxury Car";
+        }
+
+        String car() {
+            return this._car;
+        }
+    }
+
+    static class Manager extends Employee2 {
+        int _grade;
+
+        Manager(String name, int grade) {
+            super(name);
+            this._grade = grade;
+            if (this.isPrivileged())
+                this.assignCar(); // every subclass does this
+        }
+
+        boolean isPrivileged() {
+            return this._grade > 4;
+        }
+    }
 }
