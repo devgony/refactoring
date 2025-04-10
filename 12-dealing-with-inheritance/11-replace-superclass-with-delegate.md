@@ -31,11 +31,11 @@ class List {...}
 - `type-instance-homonym`
   - Car class 가 이름과 엔진크기 를 가지면 VIN 번호와 공정일자를 추가하여 물리적인 Car 를 만들수 있을 거라 생각하는 일반적인 실수
 - 상속을 위임으로 변경하여 객체를 분리하면 쉽게 해결된다
-- subclass 가 합리적을 모델링 되었어도 `Re`place Superclass with Delegate` 는 유용하다
+- subclass 가 합리적을 모델링 되었어도 `Replace Superclass with Delegate` 는 유용하다
   - sub 와 super 의 관계가 너무 의존적이기 때문에
   - 단점은 host 와 delegate 모두에 같은 forwarding 함수를 작성해야 하는 것
 - 하지만 상속을 아예 피하라는건 아니다
-  - 상속을 먼저 하고 문제가 생기면 `Re`place Superclass with Delegate` 를 고려하라
+  - 상속을 먼저 하고 문제가 생기면 `Replace Superclass with Delegate` 를 고려하라
 
 # Mechanics
 
