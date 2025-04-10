@@ -33,12 +33,11 @@ class ReplaceSuperclassWithDelegate {
         }
     }
 
-    static class Scroll extends CatalogItem {
+    static class Scroll {
         CatalogItem _catalogItem;
         LocalDate _lastCleaned;
 
         Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned) {
-            super(id, title, tags);
             this._catalogItem = new CatalogItem(id, title, tags);
             this._lastCleaned = dateLastCleaned;
         }
