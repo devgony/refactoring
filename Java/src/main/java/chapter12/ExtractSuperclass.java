@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ExtractSuperclass {
-    static class Employee {
+    static class Party {
+    }
+
+    static class Employee extends Party {
         String _id;
         String _name;
         double _monthlyCost;
 
         Employee(String name, String id, double monthlyCost) {
+            super();
             this._id = id;
             this._name = name;
             this._monthlyCost = monthlyCost;
@@ -32,11 +36,12 @@ class ExtractSuperclass {
         }
     }
 
-    static class Department {
+    static class Department extends Party {
         String _name;
         List<Employee> _staff;
 
         Department(String name, List<Employee> staff) {
+            super();
             this._name = name;
             this._staff = staff;
         }
@@ -63,4 +68,5 @@ class ExtractSuperclass {
             return this.totalMonthlyCost() * 12;
         }
     }
+
 }
