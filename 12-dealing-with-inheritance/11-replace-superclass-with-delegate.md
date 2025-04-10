@@ -122,7 +122,7 @@ class Scroll…
 - 기본적인 refactoring 은 끝
 - refactoring 결과로 CatalogItem 의 역할이 Scroll의 컴포넌트로 바뀌었다
 - 각 Scroll은 unique 한 catalogItem 을 가지게 된다
-- 하지만 6장의 Scroll이 같은 catalogItem 을 참조하게 하면 더 좋다: `Change Value to Reference`
+- 하지만 복수(여섯 장)의 Scroll이 같은 catalogItem 을 참조하게 하면 더 좋다: `Change Value to Reference`
 
   - 하지만 기존 상속 구조에서 Scroll은 catalogItem의 ID 를 본인의 ID 로서 필드에 저장했다
   - 참조로 변경하기 위해서는 Scroll ID 가 아니라 catalogItem ID 를 저장해야 한다

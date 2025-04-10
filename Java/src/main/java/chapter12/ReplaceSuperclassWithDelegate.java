@@ -34,10 +34,12 @@ class ReplaceSuperclassWithDelegate {
     }
 
     static class Scroll {
+        String _id;
         CatalogItem _catalogItem;
         LocalDate _lastCleaned;
 
         Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned) {
+            this._id = id;
             this._catalogItem = new CatalogItem(id, title, tags);
             this._lastCleaned = dateLastCleaned;
         }
@@ -52,7 +54,7 @@ class ReplaceSuperclassWithDelegate {
         }
 
         String id() {
-            return this._catalogItem.id();
+            return this._id;
         }
 
         String title() {
