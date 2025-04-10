@@ -128,6 +128,8 @@ class ReplaceSubclassWithDelegate {
                     return new EuropeanSwallowDelegate();
                 case "AfricanSwallow":
                     return new AfricanSwallowDelegate(data);
+                case "NorweigianBlueParrot":
+                    return new NorweigianBlueParrotDelegate(data);
                 default:
                     return null;
             }
@@ -196,6 +198,20 @@ class ReplaceSubclassWithDelegate {
         Double airSpeedVelocity() {
             return (double) 40 - 2 * this._numberOfCoconuts;
 
+        }
+    }
+
+    static class NorweigianBlueParrotDelegate extends SpeciesDelegate {
+        double _voltage;
+        boolean _isNailed;
+
+        NorweigianBlueParrotDelegate(Map<String, Object> data) {
+            this._voltage = (double) data.get("voltage");
+            this._isNailed = (boolean) data.get("isNailed");
+        }
+
+        Double airSpeedVelocity() {
+            return this._isNailed ? 0 : 10 + this._voltage / 10;
         }
     }
 }
