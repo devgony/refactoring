@@ -62,6 +62,10 @@ class PullUpConstructorBody {
         Manager(String name, int grade) {
             super(name);
             this._grade = grade;
+            finishConstruction();
+        }
+
+        private void finishConstruction() {
             if (this.isPrivileged())
                 this.assignCar(); // every subclass does this
         }
