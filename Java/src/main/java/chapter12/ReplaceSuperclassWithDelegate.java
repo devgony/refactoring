@@ -39,10 +39,10 @@ class ReplaceSuperclassWithDelegate {
         CatalogItem _catalogItem;
         LocalDate _lastCleaned;
 
-        Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned, String catalogID,
+        Scroll(String id, LocalDate dateLastCleaned, String catalogID,
                 Map<String, CatalogItem> catalog) {
             this._id = id;
-            this._catalogItem = new CatalogItem(null, title, tags);
+            this._catalogItem = catalog.get(catalogID);
             this._lastCleaned = dateLastCleaned;
         }
 

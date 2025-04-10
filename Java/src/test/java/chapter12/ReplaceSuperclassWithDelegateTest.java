@@ -55,8 +55,6 @@ class ReplaceSuperclassWithDelegateTest {
                     Map<String, Object> catalogData = (Map<String, Object>) record.get("catalogData");
 
                     return new Scroll(record.get("id").toString(),
-                            catalogData.get("title").toString(),
-                            (List<String>) catalogData.get("tags"),
                             LocalDate.parse(record.get("lastCleaned").toString()),
                             catalogData.get("id").toString(),
                             catalog
