@@ -28,25 +28,6 @@ class RemoveSubclass {
         }
     }
 
-    static class Female extends Person {
-        Female(String name) {
-            super(name, "F");
-        }
-
-        String genderCode() {
-            return "F";
-        }
-    }
-
-    // static Person createPerson(String name) {
-    // return new Person(name);
-    // }
-    //
-
-    static Female createFemale(String name) {
-        return new Female(name);
-    }
-
     // client
     static List<Person> loadFromInput(List<Map<String, String>> data) {
         return data.stream().map(r -> createPerson(r)).collect(Collectors.toList());
@@ -57,7 +38,7 @@ class RemoveSubclass {
             case "M":
                 return new Person(aRecord.get("name"), "M");
             case "F":
-                return new Female(aRecord.get("name"));
+                return new Person(aRecord.get("name"), "F");
             default:
                 return new Person(aRecord.get("name"), null);
         }
