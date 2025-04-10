@@ -94,12 +94,13 @@ class ReplaceTypeCodeWithSubclasses {
             this._type = createEmployeeType(arg);
         }
 
-        String capitalizedType() {
-            return this.typeString().substring(0, 1).toUpperCase() + this.typeString().substring(1).toLowerCase();
-        }
+        // String capitalizedType() {
+        // return this.typeString().substring(0, 1).toUpperCase() +
+        // this.typeString().substring(1).toLowerCase();
+        // }
 
         public String toString() {
-            return this._name + " (" + this.capitalizedType() + ")";
+            return this._name + " (" + this.type().capitalizedName() + ")";
         }
 
         static EmployeeType createEmployeeType(String type) {
@@ -117,6 +118,9 @@ class ReplaceTypeCodeWithSubclasses {
     }
 
     static class EmployeeType {
+        String capitalizedName() {
+            return this.toString().substring(0, 1).toUpperCase() + this.toString().substring(1).toLowerCase();
+        }
     }
 
     static class Engineer2 extends EmployeeType {
