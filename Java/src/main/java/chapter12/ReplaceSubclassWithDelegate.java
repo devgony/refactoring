@@ -124,10 +124,21 @@ class ReplaceSubclassWithDelegate {
     static class Bird {
         String _name;
         String _plumage;
+        EuropeanSwallowDelegate _speciesDelegate;
+
+        EuropeanSwallowDelegate selectSpeciesDelegate(Map<String, Object> data) {
+            switch (data.get("type").toString()) {
+                case "EuropeanSwallow":
+                    return new EuropeanSwallowDelegate();
+                default:
+                    return null;
+            }
+        }
 
         Bird(Map<String, Object> data) {
             this._name = (String) data.get("name");
             this._plumage = (String) data.get("plumage");
+            this._speciesDelegate = selectSpeciesDelegate(data);
         }
 
         String name() {
