@@ -58,20 +58,24 @@ class RemoveSubclass {
     static List<Person> loadFromInput(List<Map<String, String>> data) {
         List<Person> result = new ArrayList<>();
         data.stream().forEach((aRecord) -> {
-            Person p;
-            switch (aRecord.get("gender")) {
-                case "M":
-                    p = new Male(aRecord.get("name"));
-                    break;
-                case "F":
-                    p = new Female(aRecord.get("name"));
-                    break;
-                default:
-                    p = new Person(aRecord.get("name"));
-            }
-            result.add(p);
+            result.add(createPerson(aRecord));
         });
 
         return result;
+    }
+
+    private static Person createPerson(Map<String, String> aRecord) {
+        Person p;
+        switch (aRecord.get("gender")) {
+            case "M":
+                p = new Male(aRecord.get("name"));
+                break;
+            case "F":
+                p = new Female(aRecord.get("name"));
+                break;
+            default:
+                p = new Person(aRecord.get("name"));
+        }
+        return p;
     }
 }
