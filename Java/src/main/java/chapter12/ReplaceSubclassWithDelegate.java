@@ -92,7 +92,7 @@ class ReplaceSubclassWithDelegate {
         }
 
         boolean hasTalkback() {
-            return this._show._talkback != null;
+            return this._premiumDelegate.hasTalkback();
         }
 
         double basePrice() {
@@ -113,6 +113,9 @@ class ReplaceSubclassWithDelegate {
             this._extras = extras;
         }
 
+        boolean hasTalkback() {
+            return this._host._show._talkback != null;
+        }
     }
 
     // Ex2.
