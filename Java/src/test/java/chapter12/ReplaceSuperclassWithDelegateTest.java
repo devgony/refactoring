@@ -42,12 +42,14 @@ class ReplaceSuperclassWithDelegateTest {
                         put("lastCleaned", "2023-02-01");
                     }
                 });
-        Map<String, CatalogItem> catalog = new HashMap<String, CatalogItem>() {
-            {
-                put("1", new CatalogItem("1", "Scroll 1", Arrays.asList("tag1", "tag2")));
-                put("2", new CatalogItem("2", "Scroll 2", Arrays.asList("tag3", "revered")));
-            }
-        };
+
+        Map<String, CatalogItem> catalog = aDocument.stream()
+                .map(record -> (Map<String, Object>) record.get("catalogData"))
+                .collect(Collectors.toMap(
+                        catalogData -> catalogData.get("id").toString(),
+                        catalogData -> new CatalogItem(catalogData.get("id").toString(),
+                                catalogData.get("title").toString(),
+                                (List<String>) catalogData.get("tags"))));
 
         List<Scroll> scrolls = aDocument
                 .stream()
