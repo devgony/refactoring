@@ -54,7 +54,7 @@ class ExtractSuperclass {
             return new ArrayList<>(this._staff);
         }
 
-        double totalMonthlyCost() {
+        double monthlyCost() {
             return this.staff().stream()
                     .map((e) -> e.monthlyCost())
                     .reduce(0.0, (sum, cost) -> sum + cost);
@@ -64,8 +64,8 @@ class ExtractSuperclass {
             return this.staff().size();
         }
 
-        double totalAnnualCost() {
-            return this.totalMonthlyCost() * 12;
+        double annualCost() {
+            return this.monthlyCost() * 12;
         }
     }
 
