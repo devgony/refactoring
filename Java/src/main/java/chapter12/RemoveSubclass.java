@@ -8,9 +8,11 @@ import java.util.stream.Collectors;
 class RemoveSubclass {
     static class Person {
         String _name;
+        String _genderCode;
 
-        Person(String name) {
+        Person(String name, String genderCode) {
             this._name = name;
+            this._genderCode = genderCode == null ? "X" : genderCode;
         }
 
         String name() {
@@ -18,7 +20,7 @@ class RemoveSubclass {
         }
 
         String genderCode() {
-            return "X";
+            return this._genderCode;
         }
 
         // snip
@@ -29,7 +31,7 @@ class RemoveSubclass {
 
     static class Male extends Person {
         Male(String name) {
-            super(name);
+            super(name, "M");
         }
 
         String genderCode() {
@@ -39,7 +41,7 @@ class RemoveSubclass {
 
     static class Female extends Person {
         Female(String name) {
-            super(name);
+            super(name, "F");
         }
 
         String genderCode() {
@@ -47,10 +49,10 @@ class RemoveSubclass {
         }
     }
 
-    static Person createPerson(String name) {
-        return new Person(name);
-    }
-
+    // static Person createPerson(String name) {
+    // return new Person(name);
+    // }
+    //
     static Male createMale(String name) {
         return new Male(name);
     }
@@ -71,7 +73,7 @@ class RemoveSubclass {
             case "F":
                 return new Female(aRecord.get("name"));
             default:
-                return new Person(aRecord.get("name"));
+                return new Person(aRecord.get("name"), null);
         }
     }
 }
