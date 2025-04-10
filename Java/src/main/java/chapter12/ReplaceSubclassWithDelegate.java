@@ -188,4 +188,7 @@ class ReplaceSubclassWithDelegate {
             return this._isNailed ? 0 : 10 + this._voltage / 10;
         }
     }
+
+    static class EuropeanSwallowDelegate {
+    }
 }
