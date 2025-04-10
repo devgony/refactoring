@@ -6,6 +6,8 @@ class ReplaceTypeCodeWithSubclasses {
         switch (type) {
             case "engineer":
                 return new Engineer(name, type);
+            case "salesman":
+                return new Salesman(name, type);
         }
         return new Employee(name, type);
     }
@@ -43,6 +45,17 @@ class ReplaceTypeCodeWithSubclasses {
         @Override
         String type() {
             return "engineer";
+        }
+    }
+
+    static class Salesman extends Employee {
+        Salesman(String name, String type) {
+            super(name, type);
+        }
+
+        @Override
+        String type() {
+            return "salesman";
         }
     }
 
