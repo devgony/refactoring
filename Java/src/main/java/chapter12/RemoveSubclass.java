@@ -1,6 +1,5 @@
 package chapter12;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ class RemoveSubclass {
 
         // snip
         boolean isMale() {
-            return this instanceof Male;
+            return "M".equals(this._genderCode);
         }
     }
 
@@ -69,7 +68,7 @@ class RemoveSubclass {
     private static Person createPerson(Map<String, String> aRecord) {
         switch (aRecord.get("gender")) {
             case "M":
-                return new Male(aRecord.get("name"));
+                return new Person(aRecord.get("name"), "M");
             case "F":
                 return new Female(aRecord.get("name"));
             default:
