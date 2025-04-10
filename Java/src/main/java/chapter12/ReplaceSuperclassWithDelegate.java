@@ -3,6 +3,7 @@ package chapter12;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 
 class ReplaceSuperclassWithDelegate {
     static class CatalogItem {
@@ -38,9 +39,10 @@ class ReplaceSuperclassWithDelegate {
         CatalogItem _catalogItem;
         LocalDate _lastCleaned;
 
-        Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned) {
+        Scroll(String id, String title, List<String> tags, LocalDate dateLastCleaned, String catalogID,
+                Map<String, CatalogItem> catalog) {
             this._id = id;
-            this._catalogItem = new CatalogItem(id, title, tags);
+            this._catalogItem = new CatalogItem(null, title, tags);
             this._lastCleaned = dateLastCleaned;
         }
 

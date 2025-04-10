@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
+
+import chapter12.ReplaceSuperclassWithDelegate.CatalogItem;
 import chapter12.ReplaceSuperclassWithDelegate.Scroll;
 
 class ReplaceSuperclassWithDelegateTest {
@@ -19,6 +21,7 @@ class ReplaceSuperclassWithDelegateTest {
                         put("id", "1");
                         put("catalogData", new HashMap<String, Object>() {
                             {
+                                put("id", "1");
                                 put("title", "Scroll 1");
                                 put("tags", Arrays.asList("tag1", "tag2"));
                             }
@@ -31,6 +34,7 @@ class ReplaceSuperclassWithDelegateTest {
                         put("id", "2");
                         put("catalogData", new HashMap<String, Object>() {
                             {
+                                put("id", "2");
                                 put("title", "Scroll 2");
                                 put("tags", Arrays.asList("tag3", "revered"));
                             }
@@ -38,13 +42,27 @@ class ReplaceSuperclassWithDelegateTest {
                         put("lastCleaned", "2023-02-01");
                     }
                 });
+        Map<String, CatalogItem> catalog = new HashMap<String, CatalogItem>() {
+            {
+                put("1", new CatalogItem("1", "Scroll 1", Arrays.asList("tag1", "tag2")));
+                put("2", new CatalogItem("2", "Scroll 2", Arrays.asList("tag3", "revered")));
+            }
+        };
 
         List<Scroll> scrolls = aDocument
                 .stream()
-                .map(record -> new Scroll(record.get("id").toString(),
-                        ((Map<String, String>) record.get("catalogData")).get("title").toString(),
-                        (List<String>) ((Map<String, Object>) record.get("catalogData")).get("tags"),
-                        LocalDate.parse(record.get("lastCleaned").toString())))
+                .map(record -> {
+                    Map<String, Object> catalogData = (Map<String, Object>) record.get("catalogData");
+
+                    return new Scroll(record.get("id").toString(),
+                            catalogData.get("title").toString(),
+                            (List<String>) catalogData.get("tags"),
+                            LocalDate.parse(record.get("lastCleaned").toString()),
+                            catalogData.get("id").toString(),
+                            catalog
+
+                );
+                })
                 .collect(Collectors.toList());
 
         assertThat(scrolls).hasSize(2);
