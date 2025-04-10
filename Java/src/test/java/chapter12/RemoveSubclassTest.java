@@ -56,5 +56,8 @@ class RemoveSubclassTest {
         assertThat(people.get(0).genderCode()).isEqualTo("M");
         assertThat(people.get(1).genderCode()).isEqualTo("F");
         assertThat(people.get(2).genderCode()).isEqualTo("X");
+
+        int numberOfMales = people.stream().filter(p -> p instanceof Male).mapToInt(p -> 1).sum();
+        assertThat(numberOfMales).isEqualTo(1);
     }
 }
