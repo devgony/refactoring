@@ -65,17 +65,13 @@ class RemoveSubclass {
     }
 
     private static Person createPerson(Map<String, String> aRecord) {
-        Person p;
         switch (aRecord.get("gender")) {
             case "M":
-                p = new Male(aRecord.get("name"));
-                break;
+                return new Male(aRecord.get("name"));
             case "F":
-                p = new Female(aRecord.get("name"));
-                break;
+                return new Female(aRecord.get("name"));
             default:
-                p = new Person(aRecord.get("name"));
+                return new Person(aRecord.get("name"));
         }
-        return p;
     }
 }
