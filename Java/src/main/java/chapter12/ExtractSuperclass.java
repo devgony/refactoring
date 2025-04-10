@@ -10,6 +10,10 @@ class ExtractSuperclass {
         Party(String name) {
             this._name = name;
         }
+
+        String name() {
+            return this._name;
+        }
     }
 
     static class Employee extends Party {
@@ -26,10 +30,6 @@ class ExtractSuperclass {
 
         double monthlyCost() {
             return this._monthlyCost;
-        }
-
-        String name() {
-            return this._name;
         }
 
         String id() {
@@ -52,10 +52,6 @@ class ExtractSuperclass {
 
         List<Employee> staff() {
             return new ArrayList<>(this._staff);
-        }
-
-        String name() {
-            return this._name;
         }
 
         double totalMonthlyCost() {
