@@ -129,7 +129,7 @@ class ReplaceSubclassWithDelegate {
                 case "AfricanSwallow":
                     return new AfricanSwallowDelegate(data);
                 case "NorweigianBlueParrot":
-                    return new NorweigianBlueParrotDelegate(data);
+                    return new NorweigianBlueParrotDelegate(data, this);
                 default:
                     return null;
             }
@@ -165,10 +165,7 @@ class ReplaceSubclassWithDelegate {
         }
 
         String plumage() {
-            if (this._voltage > 100)
-                return "scorched";
-            else
-                return this._plumage != null ? this._plumage : "beautiful";
+            return this._speciesDelegate.plumage();
         }
 
         Double airSpeedVelocity() {
@@ -179,6 +176,10 @@ class ReplaceSubclassWithDelegate {
     static class SpeciesDelegate {
         Double airSpeedVelocity() {
             throw new UnsupportedOperationException("Unimplemented method 'airSpeedVelocity'");
+        }
+
+        String plumage() {
+            throw new UnsupportedOperationException("Unimplemented method 'plumage'");
         }
     }
 
@@ -202,16 +203,25 @@ class ReplaceSubclassWithDelegate {
     }
 
     static class NorweigianBlueParrotDelegate extends SpeciesDelegate {
+        Bird _bird;
         double _voltage;
         boolean _isNailed;
 
-        NorweigianBlueParrotDelegate(Map<String, Object> data) {
+        NorweigianBlueParrotDelegate(Map<String, Object> data, Bird bird) {
+            this._bird = bird;
             this._voltage = (double) data.get("voltage");
             this._isNailed = (boolean) data.get("isNailed");
         }
 
         Double airSpeedVelocity() {
             return this._isNailed ? 0 : 10 + this._voltage / 10;
+        }
+
+        String plumage() {
+            if (this._voltage > 100)
+                return "scorched";
+            else
+                return this._bird._plumage != null ? this._bird._plumage : "beautiful";
         }
     }
 }
