@@ -204,6 +204,7 @@ function createPerson(aRecord) {
 ```
 
 - default 의 경우 factory 에서 처리
+  - 이미 한거임..
 
 ```diff
 function createPerson(aRecord) {

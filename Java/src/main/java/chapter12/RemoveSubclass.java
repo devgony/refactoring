@@ -40,7 +40,7 @@ class RemoveSubclass {
             case "F":
                 return new Person(aRecord.get("name"), "F");
             default:
-                return new Person(aRecord.get("name"), null);
+                return new Person(aRecord.get("name"), "X");
         }
     }
 }
